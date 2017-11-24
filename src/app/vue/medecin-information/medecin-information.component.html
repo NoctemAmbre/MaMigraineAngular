@@ -1,0 +1,12 @@
+    <p>Nom : {{medecin.Nom}}</p>     
+    <p>Prenom : {{medecin.Prenom}}</p> 
+    <div *ngIf="medecin.Adresse">
+      <p>Adresse : {{medecin.Adresse.Numero}}  {{medecin.Adresse.NomRue}}</p>
+      <p>{{medecin.Adresse.CodePostal}}  {{medecin.Adresse.Ville}}</p>
+    </div>
+    <p>Adresse Mail : {{medecin.AdresseMail}}</p>
+    <p>Horaires d'ouverture</p>
+    <div *ngFor="let Horaire of medecin.HoraireOuverture">
+        <p>{{Horaire.Jour}} : de {{Horaire.Matin}} à {{Horaire.Soir}}</p>
+    </div>
+

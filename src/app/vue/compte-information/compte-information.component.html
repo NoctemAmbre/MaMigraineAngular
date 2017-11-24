@@ -1,0 +1,46 @@
+<div id="Information" *ngIf="compte">
+  <div *ngIf="compte.Type">
+    <p>Medecin</p>
+    <p>Nom : {{compte.Nom}}</p>     
+    <p>Prenom : {{compte.Prenom}}</p> 
+    <p>Identifiant : {{compte.Identifiant}}</p> 
+    <p>Adresse : {{compte.Adresse.Numero}}  {{compte.Adresse.NomRue}}</p>
+    <p>{{compte.Adresse.CodePostal}}  {{compte.Adresse.Ville}}</p>
+    <p>Adresse Mail : {{compte.AdresseMail}}</p>
+    <p>Horaires d'ouverture</p>
+    <div *ngFor="let Horaire of compte.HoraireOuverture">
+        <p>{{Horaire.Jour}} : de {{Horaire.Matin}} à {{Horaire.Soir}}
+    </div>
+    
+  </div>
+  <div *ngIf="!compte.Type">
+    <p>Patient</p>
+    <div *ngIf="compte.Nom"><p>Nom : {{compte.Nom}}</p></div>
+    <p>Prenom : {{compte.Prenom}}</p> 
+    <p>Identifiant : {{compte.Identifiant}}</p> 
+    <div *ngIf="compte.MedecinAttitre"><p>Medecin Attitré : Docteur {{compte.MedecinAttitre.Nom}} {{compte.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
+    <div *ngIf="ListMedecin">
+      <ul>
+        <li *ngFor="let Compte of ListMedecin" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
+            Docteur {{Compte.Nom}} {{Compte.Prenom}}
+        </li>
+      </ul>
+    </div>
+    <p>Date de naissance : {{compte.DateNaissance}}</p>
+    <div *ngIf="compte.Adresse">
+      <p>Adresse : {{compte.Adresse.Numero}}  {{compte.Adresse.NomRue}}</p>
+      <p>{{compte.Adresse.CodePostal}}  {{compte.Adresse.Ville}}</p>
+    </div>
+    <p>Téléphonne : {{compte.Telephone}}</p>
+    <p>Téléphonne portable : {{compte.TelephonePortable}}</p>
+    <p>Adresse Mail : {{compte.AdresseMail}}</p>
+  </div>
+  <button (click)=ModificationCompte()>Modification du compte</button>
+  <!-- <popup> {{compte.Erreur}}</popup> -->
+  <div *ngIf="!NouveaMotDePass">
+    <button (click)=ChMotDePass()>changement mot de passe</button>
+  </div>
+  <div *ngIf="NouveaMotDePass">
+    <app-compte-changemotdepass></app-compte-changemotdepass>
+  </div>
+</div>

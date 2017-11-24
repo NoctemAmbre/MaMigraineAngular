@@ -1,0 +1,79 @@
+<label>Nom</label>
+<input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom"><br />
+
+<label>Prenom</label>
+<input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom"><br />
+
+<div *ngIf="compte.Type == false">
+    <label>Date De naissance</label>
+    <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder=""><br />
+
+    <label>Téléphone Fixe</label>
+    <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe"><br />
+
+    <label>Téléphone portable</label>
+    <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable"><br />
+
+    <label>Sexe</label>
+    <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
+    <label for="SexeChoix1">Homme</label>
+    <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
+    <label for="SexeChoix2">Femme</label><br />
+
+    <label>Adresse Mail de contacte</label>
+    <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail"><br />
+
+    <label>Adresse personnel</label><br />
+    <label>numéro de rue</label>
+    <input type="number" name ="Num" [(ngModel)]="compte.Adresse.Numero" placeholder="Numéro">
+    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse.NomRue" placeholder="Nom De rue"><br />
+
+    <label>Ville</label>
+    <input type="number" name ="CP" [(ngModel)]="compte.Adresse.CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse.Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+    
+    <ul class = "AdresseCP">
+            <li *ngFor="let cities of ListCities"
+            [class.selected]="cities == CitiesSelect"
+            (click)="onselect(cities)">
+                {{cities.code}} {{cities.city}}
+            </li>
+        </ul>
+
+</div>
+<div *ngIf="compte.Type == true">
+    <br />
+    <label>Adresse cabinet</label><br />
+    <label>numéro de rue</label>
+    <input type="number" name ="Num" [(ngModel)]="compte.Adresse.Numero" placeholder="Numéro">
+    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse.NomRue" placeholder="Nom De rue"><br />
+
+    <label>Ville</label>
+    <input type="number" name ="CP" [(ngModel)]="compte.Adresse.CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse.Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+
+    <ul class = "AdresseCP">
+            <li *ngFor="let cities of ListCities"
+            [class.selected]="cities == CitiesSelect"
+            (click)="onselect(cities)">
+                {{cities.code}} {{cities.city}}
+            </li>
+        </ul>
+
+    <br />
+
+    <label>Téléphone cabinet</label>
+    <input type="text" name ="TelCabinet" [(ngModel)]="compte.Telephone" placeholder="Téléphone Cabinet"><br />
+
+    <label>Adresse Mail de contacte</label>
+    <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail"><br />
+
+    <label>Info Complémentaire</label>
+    <input type="text" name ="InfoC" [(ngModel)]="compte.InfoComplementaire" placeholder="Infos Complémentaires"><br />
+
+    <label>Horaires d'ouverture</label><br />
+    <div *ngFor="let Horaire of compte.HoraireOuverture">
+        <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
+    </div> 
+</div>
+<button type="submit" (click)=Modification()>Modification Compte</button>

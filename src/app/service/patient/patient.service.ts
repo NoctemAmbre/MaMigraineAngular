@@ -49,7 +49,7 @@ export class PatientService {
     var body = JSON.stringify(this.compte);
     console.log('ce qui est envoyé',body);
     console.log('le patient  dans le service', this.patients.value);
-    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/VoirPatient?Value=" + btoa(body), {headers : headers, observe : 'response'});
+    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body), {headers : headers, observe : 'response'});
   }
 
 /*

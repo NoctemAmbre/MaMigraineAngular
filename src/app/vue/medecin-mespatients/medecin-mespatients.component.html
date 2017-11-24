@@ -1,0 +1,43 @@
+<div id="contenaire">
+  <header>
+    <div class="AffichageListPatient">
+      <span>
+        <p>Mes Patients</p>
+        <div *ngIf="compte.Erreur" class="popup-globalwrap">
+          <div class="popup-wrap Warning">
+            <div class="popup-title">
+                <span (click)=cacher()></span>
+            </div>
+            <div class="popup-content">{{compte.Erreur}}</div>
+          </div>
+        </div>
+      </span>
+      
+      <div>
+        <ul>
+          <li *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
+            {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
+          </li>
+        </ul>
+        <input type="text" name ="Nom" [(ngModel)]="Nomrecherche" (keyup)="RechercherNouveauPatient()" placeholder="Nom patient" autocomplete="off">
+        <br />
+        <div *ngIf="ListPatient">
+            <ul>
+              <li *ngFor="let Compte of ListPatient" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
+                  {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
+              </li>
+            </ul>
+          </div>
+      </div>
+      
+    </div>
+    <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
+        <app-patient-information></app-patient-information>
+    </div>
+  </header>
+  <body>
+    <div *ngIf="patient.IDWeb != 0" class="AffichageCourbe">
+        <app-patient-courbes></app-patient-courbes>
+    </div>
+  </body>
+</div>

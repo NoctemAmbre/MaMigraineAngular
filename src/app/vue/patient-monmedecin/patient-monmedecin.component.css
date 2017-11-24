@@ -1,0 +1,74 @@
+div.popup-globalwrap
+{
+    display: flex;
+    position: fixed; z-index: 90;
+    background-color: rgba(0, 0, 0, 0.25);
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+}
+
+div.popup-wrap
+{
+    position: relative; z-index: 95;
+    margin: auto;
+}
+
+div.popup-wrap > div.popup-title
+{
+    position: relative;
+    background-color: #e03232;
+    width: 100%; min-height: 1rem;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+    color: #FCFCFC;
+    text-align: center;
+}
+
+div.popup-wrap > div.popup-title > span::before
+{
+    content: '⛌';
+    display: block;
+    position: absolute;
+    top: 0; right: 0;
+    width: 1rem; height: 1rem;
+    color: #FCFCFC;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+div.popup-wrap > div.popup-content
+{
+    background-color: #FCFCFC;
+    color: #e03232;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: 1px solid #e03232;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+#contenaire
+{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+}
+header
+{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+}
+div.AffichageListMedecin
+{
+    position: relative;
+    width: 50%; height: 50%;
+    border: 1px solid #555454;
+}
+
+div.AffichageMedecin
+{
+    position: relative;
+    width: 50%; height: 50%;
+    border: 1px solid #555454;
+}

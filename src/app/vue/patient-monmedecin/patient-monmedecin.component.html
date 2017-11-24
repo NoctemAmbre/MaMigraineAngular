@@ -1,0 +1,43 @@
+<header>
+  <div class="AffichageListMedecin">
+    <span>
+      <p>Mes Medecins</p>
+      <div *ngIf="compte.Erreur" class="popup-globalwrap">
+        <div class="popup-wrap Warning">
+          <div class="popup-title">
+              <span (click)=cacher()></span>
+          </div>
+          <div class="popup-content">{{compte.Erreur}}</div>
+        </div>
+      </div>
+    </span>
+    
+    <div>
+      <ul>
+        <li *ngFor="let Compte of compte.MesMedecin" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
+          {{Compte.Nom}} {{Compte.Prenom}}
+        </li>
+      </ul>
+      <input type="text" name ="Nom" [(ngModel)]="Nomrecherche" (keyup)="RechercherNouveauMedecin()" placeholder="Nom Medecin" autocomplete="off">
+      <br />
+      <div *ngIf="ListMedecin">
+          <ul>
+            <li *ngFor="let Compte of ListMedecin" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
+                {{Compte.Nom}} {{Compte.Prenom}}
+            </li>
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+
+  <div *ngIf="medecin.IDWeb != 0" class="AffichageMedecin">
+      <app-medecin-information></app-medecin-information>
+  </div>
+</header>
+
+
+
+
+
+

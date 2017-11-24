@@ -1,0 +1,159 @@
+/* #container{
+    margin:0 auto;
+}
+.container div{
+    text-align: center;
+} */
+
+
+
+div#Autentification > a.link_forgotpassw
+{
+    color: #6E7A88;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+div#Autentification > a.link_forgotpassw:hover
+{
+    opacity: 0.5;
+    text-decoration: underline;
+}
+
+div#Autentification > a.link_newaccount
+{
+    color: #6E7A88;
+    font-size: 0.9rem;
+    cursor: pointer; 
+}
+div#Autentification > a.link_newaccount:hover
+{
+    opacity: 0.5;
+    text-decoration: underline;
+}
+
+div#Congratulation > a.link_viewaccount
+{
+    color: #6E7A88;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+div#Congratulation > a.link_viewaccount:hover
+{
+    opacity: 0.5;
+    text-decoration: underline;
+}
+
+div#Autentification > div.login-error
+{
+    display: flex;
+    position: absolute;
+
+    background-color: #e03232;
+
+    top: calc(70%);
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    
+    color: #FCFCFC;
+
+    align-self: center;
+}
+div#Autentification > div.login-error:before
+{
+    content: '';
+    position: absolute;
+
+    width: 0; height: 0; 
+    top: -5px; left: 0;
+    margin-left: calc( 50% - 5px );
+
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #e03232;
+}
+
+/* # GLOBAL ELEMENTS # */
+
+    /* - Link - */
+a
+{
+    color: #3E8EC6;
+    text-decoration: none;
+}
+a:hover
+{
+    color: #ABB4C0;
+}
+
+
+
+#Congratulation{
+    text-align: center;
+    color: white;
+    font-size: 0.5rem;
+}
+
+input[type=text],
+input[type=password]
+{
+    background-color: #455466;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid #4E5E73;
+
+    color: #ABB4C0;
+    font-size: 0.9rem;
+
+    box-shadow: inset 0 0 0.25rem rgba(0, 0, 0, 0.15);
+
+    transition: all 0.15s ease-in;
+}
+input[type=text]:focus,
+input[type=password]:focus
+{
+    border: 1px solid #3E8EC6;
+}
+
+input[type=submit], button
+{
+    background-color: #3E8EC6;
+    height: 2rem;
+    padding: 0 1rem;
+    border: none;
+
+    color: #FCFCFC;
+    font-weight: 300;
+
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    transition: all 0.15s ease-in;
+}
+
+#deconnexion
+{
+    background-color: #3E8EC6;
+    height: 1rem;
+    padding: 0 1rem;
+    border: none;
+
+    color: #FCFCFC;
+    font-weight: 300;
+
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    transition: all 0.15s ease-in;
+}
+
+input[type=submit]:hover, button:hover
+{
+    background-color: #3E82B1;
+    color: #FCFCFC;
+    box-shadow: none;
+}
+p:hover{
+    cursor: pointer;
+}

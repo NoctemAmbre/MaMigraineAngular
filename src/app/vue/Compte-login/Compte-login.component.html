@@ -1,0 +1,19 @@
+
+<div id="Autentification" *ngIf="!Congratulation">
+  <input type="text" [(ngModel)]="compte.Identifiant" placeholder="Identifiant">
+  <input type="password" name ="password" [(ngModel)]="compte.MotDePass" placeholder="Mot de passe">
+  <button type="submit" (click)=connexion()>Connexion</button><br />
+
+  <a class="link_forgotpassw">Mot de passe oublié ? </a>
+  <a *ngIf="!Nouveau" class="link_newaccount" (click)="NouveauCompte()">Nouveau compte</a>
+  <div *ngIf="compte.Erreur" class="login-error">{{compte.Erreur}}</div>
+
+</div>
+
+<div id="Congratulation" *ngIf="Congratulation">
+  <h1>Bienvenu {{compte.Prenom}} {{compte.Nom}}</h1>
+  <a class="link_viewaccount" (click)="VoirCompte()">Mon compte</a>
+  <button type="button" id="deconnexion" (click)="Deconnexion()">Déconnexion</button>
+</div>
+
+

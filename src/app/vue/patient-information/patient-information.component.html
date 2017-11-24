@@ -1,0 +1,19 @@
+<div *ngIf="patient.Nom"><p>Nom : {{patient.Nom}}</p></div>
+<p>Prenom : {{patient.Prenom}}</p> 
+<p>Identifiant : {{patient.Identifiant}}</p> 
+<div *ngIf="patient.MedecinAttitre"><p>Medecin Attitré : Docteur {{patient.MedecinAttitre.Nom}} {{patient.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
+<div *ngIf="ListMedecin">
+  <ul>
+    <li *ngFor="let Compte of ListMedecin">
+        Docteur {{Compte.Nom}} {{Compte.Prenom}}
+    </li>
+  </ul>
+</div>
+<p>Date de naissance : {{patient.DateNaissance}}</p>
+<div *ngIf="patient.Adresse">
+  <p>Adresse : {{patient.Adresse.Numero}}  {{patient.Adresse.NomRue}}</p>
+  <p>{{patient.Adresse.CodePostal}}  {{patient.Adresse.Ville}}</p>
+</div>
+<p>Téléphonne : {{patient.Telephone}}</p>
+<p>Téléphonne portable : {{patient.TelephonePortable}}</p>
+<p>Adresse Mail : {{patient.AdresseMail}}</p>

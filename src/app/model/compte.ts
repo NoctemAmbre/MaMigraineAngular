@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Adresse } from './adresse';
 import { Horaire } from './Horaires';
+import { Migraine } from './migraine';
 @Injectable()
 export class Compte {
     constructor(){
@@ -21,6 +22,7 @@ export class Compte {
     DateNaissance:string;
     MesMedecin:Compte[];
     MesPatients:Compte[];
+    MesMigraines:Migraine[];
     Adresse:Adresse;
     Telephone:string;
     TelephonePortable:string;
