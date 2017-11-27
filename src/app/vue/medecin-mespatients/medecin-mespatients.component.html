@@ -32,7 +32,23 @@
       
     </div>
     <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
-        <app-patient-information></app-patient-information>
+   
+          <nav id="mainmenu">
+            <!-- <a class="nav-AffichagePatient" [routerLink]="[{outlets:{outlerpatient:['patientinfo']}}]">Information Patient</a>
+            <a class="nav-Ordonnance" [routerLink]="[{outlets:{outlerordonnance:['ordonnance']}}]">Ordonnance</a> -->
+            <a class="nav-AffichagePatient" [routerLink]="['patientinfo']">Information Patient</a>
+            <a class="nav-Ordonnance" [routerLink]="['ordonnance']">Ordonnance</a>
+             
+          </nav>
+          
+          <app-patient-information></app-patient-information>
+          <app-patient-ordonnance></app-patient-ordonnance>
+
+
+          <!-- <router-outlet></router-outlet> -->
+          <!-- <router-outlet name="outlerpatient"></router-outlet>
+          <router-outlet name="outlerordonnance"></router-outlet> -->
+        <!-- <app-patient-information></app-patient-information> -->
     </div>
   </header>
   <body>

@@ -15,6 +15,40 @@
     align-self: center;
 }*/
 
+/* header
+{
+    display: flex;
+    background-color: #3e4b5b;
+    height: 4rem;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid #4E5E73;
+    align-items: center;
+    flex: 0 0 auto;
+} */
+
+nav#mainmenu
+{
+    display: flex;
+    height: 100%;
+    margin-left: 1.5rem;
+}
+
+nav#mainmenu > a
+{
+    display: flex;
+    height: 100%;
+    padding: 0 1rem;
+    color: #ABB4C0;
+    text-decoration: none;
+    align-items: center;
+}
+
+nav#mainmenu > a:hover
+{
+    background-color: #455466;
+}
+
+
 div.popup-globalwrap
 {
     display: flex;

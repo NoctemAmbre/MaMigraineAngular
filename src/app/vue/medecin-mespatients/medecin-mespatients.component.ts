@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
+
 
 //import { PopupComponent } from './../../vue/popup/popup.component';
 
@@ -27,16 +30,12 @@ export class MedecinMespatientsComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    console.log('- 6 - ', this.patient);
+    
     this.patientService.patient.subscribe(resp => {this.patient = resp; console.log('le patient visible',resp);});
-    console.log('- 7 - ', this.patient);
     this.compteService.compte.subscribe(resc => this.compte = resc);
     if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
-
     //this.patientService.changePatient(this.patient);
     this.compteService.changeCompte(this.compte);
-    //console.log('mespatients', this.compte);
-    console.log('patient au bout', this.patient);
   }
 
   cacher(){
@@ -61,15 +60,12 @@ export class MedecinMespatientsComponent implements OnInit {
   selectAffichage(compteAAfficher : Compte) : void
   {
     this.patient = compteAAfficher;
-    console.log('- 1 - ', this.patient);
     this.patientService.changePatient(this.patient);
-    console.log('- 2 - ', this.patient);
     let CompteAEnvoyer : Compte = new Compte();
     CompteAEnvoyer.IDWeb = this.compte.IDWeb;
     CompteAEnvoyer.Token = this.compte.Token;
     CompteAEnvoyer.MesPatients = [];
     CompteAEnvoyer.MesPatients.push(this.patient);
-    console.log('- 3 - ', this.patient);
     
      this.patient = compteAAfficher;
      this.patientService.compte = CompteAEnvoyer;
