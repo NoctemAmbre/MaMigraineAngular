@@ -1,0 +1,9 @@
+<input type="text" name ="rechercheMedicament" [(ngModel)]="MedicamentRecherche"  (keyup)="rechercheMedicament()" placeholder=""><br />    
+
+<div *ngIf="ListMedicaments">
+  <ul>
+    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (click)="onselect(Medicament)">
+      {{Medicament.DenominationMedicament}} {{Medicament.FormePharmaceutique}} {{Medicament.VoiesAdministration}}
+    </li>  
+  </ul>
+</div>

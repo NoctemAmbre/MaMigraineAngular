@@ -22,6 +22,7 @@ export class MedecinMespatientsComponent implements OnInit {
   patient : Compte;
   Nomrecherche : string;
   ListPatient : Compte[];
+  Selection : boolean = false;
 
 
   constructor(private compteService : CompteService,
@@ -40,6 +41,11 @@ export class MedecinMespatientsComponent implements OnInit {
 
   cacher(){
     this.compte.Erreur = "";
+  }
+
+  InfoOuordonnance(Select : boolean)
+  {
+    this.Selection = Select;
   }
 
   onselect(compteAjouter : Compte) : void

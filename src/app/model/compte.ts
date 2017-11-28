@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Adresse } from './adresse';
 import { Horaire } from './Horaires';
 import { Migraine } from './migraine';
+import { Medicament } from './medicament';
+import { Facteur } from './facteur';
+
 @Injectable()
 export class Compte {
     constructor(){
@@ -23,6 +26,8 @@ export class Compte {
     MesMedecin:Compte[];
     MesPatients:Compte[];
     MesMigraines:Migraine[];
+    MesMedicaments:Medicament[];
+    MesFacteurs:Facteur[];
     Adresse:Adresse;
     Telephone:string;
     TelephonePortable:string;

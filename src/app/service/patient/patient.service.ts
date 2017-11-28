@@ -40,7 +40,7 @@ export class PatientService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Compte[]>('http://localhost/Service1.svc/Patient/Liste?Value='+ btoa(body), {headers : headers, observe : 'response'});
+    return this.http.get<Compte[]>('http://localhost:57928/Service1.svc/Patient/Liste?Value='+ btoa(body), {headers : headers, observe : 'response'});
   }
 
   public InformationPatient()

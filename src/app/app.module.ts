@@ -15,6 +15,8 @@ import { CompteLoginComponent } from './vue/Compte-login/Compte-login.component'
 //import { ListePatientsComponent } from './vue/liste-patients/liste-patients.component';
 import { CompteService } from './service/compte/compte.service';
 import { PatientService } from './service/patient/patient.service';
+import { MedecinService } from './service/medecin/medecin.service';
+import { MedicamentService } from './service/medicament/medicament.service';
 import { JsonService } from './service/json/json.service';
 
 import { AppRoutingModule } from './vue/app-rooting.module';
@@ -33,9 +35,9 @@ import { PatientMesmigrainesComponent } from './vue/patient-mesmigraines/patient
 import { AccueilComponent } from './vue/accueil/accueil.component';
 import { PatientInformationComponent } from './vue/patient-information/patient-information.component';
 import { PatientCourbesComponent } from './vue/patient-courbes/patient-courbes.component';
-import { MedecinInformationComponent } from './vue/medecin-information/medecin-information.component';
-import { MedecinService } from './service/medecin/medecin.service';
+import { MedecinInformationComponent } from './vue/medecin-information/medecin-information.component'
 import { PatientOrdonnanceComponent } from './vue/patient-ordonnance/patient-ordonnance.component';
+import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-gestion.component';
 
 
 @NgModule({
@@ -59,6 +61,7 @@ import { PatientOrdonnanceComponent } from './vue/patient-ordonnance/patient-ord
     MedecinInformationComponent,
     PatientCourbesComponent,
     PatientOrdonnanceComponent,
+    MedicamentGestionComponent,
     ],
   imports: [
     HttpModule,
@@ -136,7 +139,7 @@ import { PatientOrdonnanceComponent } from './vue/patient-ordonnance/patient-ord
     ]),
   ],
   //providers: [{provide:HTTP_INTERCEPTORS, useClass:HTTPIntercepteur, multi:true}],
-  providers: [CompteService,PatientService,MedecinService],
+  providers: [CompteService,PatientService,MedecinService,MedicamentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

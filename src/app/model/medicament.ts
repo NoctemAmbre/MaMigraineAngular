@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 export class Medicament {
     ID:number;
     CodeCIS:number;
-    DenominationMedicment:string;
-    FromePharmaceutique:string;
-    VoieAdministration:string;
+    DenominationMedicament:string;
+    FormePharmaceutique:string;
+    VoiesAdministration:string;
     StatutAdministratif:string;
     TypeDeProcedureAutorisation:string;
     EtatCommercialisatoin:string;
-    StatutDbm:string;
+    DateAmm:string;
+    Statutbdm:string;
     NumeroAutorisation:string;
     Titulaire:string;
     SurveillanceRenforcee:string;
+    Quantite:number;
 }

@@ -32,23 +32,17 @@
       
     </div>
     <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
-   
-          <nav id="mainmenu">
-            <!-- <a class="nav-AffichagePatient" [routerLink]="[{outlets:{outlerpatient:['patientinfo']}}]">Information Patient</a>
-            <a class="nav-Ordonnance" [routerLink]="[{outlets:{outlerordonnance:['ordonnance']}}]">Ordonnance</a> -->
-            <a class="nav-AffichagePatient" [routerLink]="['patientinfo']">Information Patient</a>
-            <a class="nav-Ordonnance" [routerLink]="['ordonnance']">Ordonnance</a>
-             
-          </nav>
-          
-          <app-patient-information></app-patient-information>
-          <app-patient-ordonnance></app-patient-ordonnance>
+      <nav id="mainmenu">
+        <!-- <a class="nav-AffichagePatient" [routerLink]="[{outlets:{outlerpatient:['patientinfo']}}]">Information Patient</a>
+        <a class="nav-Ordonnance" [routerLink]="[{outlets:{outlerordonnance:['ordonnance']}}]">Ordonnance</a> -->
+        <!-- <a class="nav-AffichagePatient" [routerLink]="['patientinfo']">Information Patient</a>
+        <a class="nav-Ordonnance" [routerLink]="['ordonnance']">Ordonnance</a> -->
+        <a class="nav-AffichagePatient" (click)="InfoOuordonnance(true)">Information Patient</a>
+        <a class="nav-Ordonnance"       (click)="InfoOuordonnance(false)">Ordonnance</a>            
+      </nav>
 
-
-          <!-- <router-outlet></router-outlet> -->
-          <!-- <router-outlet name="outlerpatient"></router-outlet>
-          <router-outlet name="outlerordonnance"></router-outlet> -->
-        <!-- <app-patient-information></app-patient-information> -->
+      <div *ngIf="Selection"><app-patient-information></app-patient-information></div>
+      <div *ngIf="!Selection"><app-patient-ordonnance></app-patient-ordonnance></div>
     </div>
   </header>
   <body>

@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let Medicament of patient.MesMedicaments">
+    {{Medicament.DenominationMedicament}} {{Medicament.FormePharmaceutique}} : {{Medicament.Quantite}}
+  </li>  
+  <app-medicament-gestion></app-medicament-gestion>
+</ul>
