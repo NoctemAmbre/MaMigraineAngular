@@ -38,7 +38,37 @@ export class PatientmonMedecinComponent implements OnInit {
     // {
     //   alert('Jquery est activé')
     // });
-  }  
+    // $(function afficherPopupErreur()
+    // {
+    //   alert('Jquery est activé')
+    // });
+
+     $(function afficherPopupErreur(message) {
+           $('body').append('<div id="popuperreur" title="Erreur"></div>');
+           $("#popuperreur").html(message);
+     
+          var popup = $("#popuperreur").dialog({
+              autoOpen: true,
+              width: 400,      
+              dialogClass: 'dialogstyleperso',
+              buttons: [
+                  {      
+                      text: "OK",
+                      "class": 'ui-state-error',
+                      click: function () {
+                          $(this).dialog("close");
+                          $('#popuperreur').remove();
+                      }
+                  }
+              ]
+          });
+          $("#popuperreur").prev().addClass('ui-state-error');
+        });
+      
+    //       
+    //   }
+    // );
+  }
 
   cacher(){
     this.compte.Erreur = "";

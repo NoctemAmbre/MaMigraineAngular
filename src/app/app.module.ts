@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 //import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 //import { EasyUIModule } from './../easyui/components/easyui/easyui.module';
 import { ChartsModule } from 'ng2-charts';
@@ -18,6 +17,7 @@ import { PatientService } from './service/patient/patient.service';
 import { MedecinService } from './service/medecin/medecin.service';
 import { MedicamentService } from './service/medicament/medicament.service';
 import { JsonService } from './service/json/json.service';
+
 
 import { AppRoutingModule } from './vue/app-rooting.module';
 import { HTTPIntercepteur } from './service/intercepteur/HTTPIntercepteur';

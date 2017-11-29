@@ -1,9 +1,23 @@
 <input type="text" name ="rechercheMedicament" [(ngModel)]="MedicamentRecherche"  (keyup)="rechercheMedicament()" placeholder=""><br />    
 
-<div *ngIf="ListMedicaments">
+<div class="AffichageMedicament" *ngIf="ListMedicaments">
   <ul>
-    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (click)="onselect(Medicament)">
-      {{Medicament.DenominationMedicament}} {{Medicament.FormePharmaceutique}} {{Medicament.VoiesAdministration}}
+    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="onselect(Medicament)" (click)="onselect(Medicament)">
+      <div class="tooltip">{{Medicament.DenominationMedicament}}
+        <span class="tooltiptext">
+          <b>Dénomination : </b><span style="color:rgb(150, 150, 150);">{{Medicament.DenominationMedicament}}</span><br/>
+          <b>Titulaire : </b><span style="color:rgb(150, 150, 150);">{{Medicament.Titulaire}}</span><br/>
+          <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{Medicament.FormePharmaceutique}}</span><br/>
+          <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{Medicament.VoiesAdministration}}</span><br/>
+          <b>Statut Administratif : </b><span style="color:rgb(150, 150, 150);">{{Medicament.StatutAdministratif}}</span><br/>
+          <b>Procédure Administrative : </b><span style="color:rgb(150, 150, 150);">{{Medicament.TypeDeProcedureAutorisation}}</span><br/>
+          <b>Etat Commercialisation : </b><span style="color:rgb(150, 150, 150);">{{Medicament.EtatCommercialisatoin}}</span><br/>
+          <b>CodeCIS : </b><span style="color:rgb(150, 150, 150);">{{Medicament.CodeCIS}}</span><br/>
+          <b>Statutbdm : </b><span style="color:rgb(150, 150, 150);">{{Medicament.Statutbdm}}</span><br/>
+          <b>Numero Autorisation : </b><span style="color:rgb(150, 150, 150);">{{Medicament.NumeroAutorisation}}</span><br/>
+          <b>Surveillance Renforcee : </b><span style="color:rgb(150, 150, 150);">{{Medicament.SurveillanceRenforcee}}</span><br/>
+        </span>
+      </div>     
     </li>  
   </ul>
 </div>

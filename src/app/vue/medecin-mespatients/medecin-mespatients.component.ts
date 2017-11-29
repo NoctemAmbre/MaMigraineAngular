@@ -6,6 +6,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
 
+declare var jquery:any;
+declare var $ :any;
 
 //import { PopupComponent } from './../../vue/popup/popup.component';
 
@@ -47,6 +49,22 @@ export class MedecinMespatientsComponent implements OnInit {
   {
     this.Selection = Select;
   }
+  openInfoPatient(evt:any, Name:string)
+  {
+  $(function openInfoPatient(evt, Name) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(Name).style.display = "block";
+      evt.currentTarget.className += " active";
+    });
+  }
 
   onselect(compteAjouter : Compte) : void
   {
@@ -77,10 +95,7 @@ export class MedecinMespatientsComponent implements OnInit {
      this.patientService.compte = CompteAEnvoyer;
      this.patientService.InformationPatient().subscribe(data => {
         this.patient = data.body;
-        console.log('- 4 - ', this.patient);
         this.patientService.changePatient(this.patient);
-        console.log('- 5 - ', this.patient);
-       
         console.log('retour', data.body);
         // this.compteService.changeCompte(this.compte);
     });

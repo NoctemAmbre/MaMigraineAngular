@@ -6,12 +6,17 @@ import { Medicament } from './../../model/medicament';
 
 import { Compte } from './../../model/compte';
 
+declare var jquery:any;
+declare var $ :any;
+
 @Component({
   selector: 'app-medicament-gestion',
   templateUrl: './medicament-gestion.component.html',
   styleUrls: ['./medicament-gestion.component.css']
 })
 export class MedicamentGestionComponent implements OnInit {
+
+  title = 'abgular 4 with jquery';
 
   compte : Compte;
   MedicamentRecherche : string;
@@ -27,7 +32,12 @@ export class MedicamentGestionComponent implements OnInit {
 
   onselect(medicament : Medicament) : void
   {
-    
+    //console.log(medicament);
+      
+    $( function() {
+      $( document ).tooltip();
+    } );
+  
   }
 
   rechercheMedicament() {
