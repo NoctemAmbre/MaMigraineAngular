@@ -65,31 +65,31 @@
       
     </div>
     <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
-      <!-- <nav id="mainmenu">
+      <nav id="mainmenu">
         <a class="nav-AffichagePatient" (click)="InfoOuordonnance(true)">Information Patient</a>
         <a class="nav-Ordonnance"       (click)="InfoOuordonnance(false)">Ordonnance</a>            
-      </nav> -->
+      </nav>
 
-      <div class="tab">
+      <!-- <div class="tab">
           <button class="tablinks" (click)="openInfoPatient(event, 'Information')">Information Patient</button>
           <button class="tablinks" (click)="openInfoPatient(event, 'Ordonnance')">Ordonnance</button>
-      </div>
+      </div> -->
 
-      <div id="Information" class="tabcontent">
+      <!-- <div id="Information" class="tabcontent">
           <app-patient-information></app-patient-information>
       </div>
       
       <div id="Ordonnance" class="tabcontent">
           <app-patient-ordonnance></app-patient-ordonnance>   
-      </div>
+      </div> -->
 
       <!-- <script>
         
       </script> -->
 
-      <!-- 
+      
       <div *ngIf="Selection"><app-patient-information></app-patient-information></div>
-      <div *ngIf="!Selection"><app-patient-ordonnance></app-patient-ordonnance></div> -->
+      <div *ngIf="!Selection"><app-patient-ordonnance></app-patient-ordonnance></div>
     </div>
   </header>
   <body>

@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angula
 import { Patient } from './../../model/patient';
 import { CompteService } from './../../service/compte/compte.service';
 import { Compte } from './../../model/compte';
+import { Medicament } from './../../model/medicament';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 //import { PatientsRetour } from './../../metier/patient';
@@ -22,6 +23,7 @@ export class PatientService {
   //NAME = [];
 
   public compte:Compte;
+  //public medicament : Medicament;
   public Entravail: boolean = false;
 
   private patients = new BehaviorSubject<Compte>(new Compte());
@@ -50,6 +52,16 @@ export class PatientService {
     console.log('ce qui est envoyé',body);
     console.log('le patient  dans le service', this.patients.value);
     return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body), {headers : headers, observe : 'response'});
+  }
+
+  public AjoutMedicamentAPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify(this.compte);
+    console.log('avant envois', this.compte);
+    
+    this.Entravail = true;
+    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMedicament?Value='+ btoa(body),'', {headers : headers, observe : 'response'});
   }
 
 /*

@@ -5,6 +5,7 @@ import { PatientService } from './../../service/patient/patient.service';
 import { Medicament } from './../../model/medicament';
 
 import { Compte } from './../../model/compte';
+import { Patient } from './../../model/patient';
 
 declare var jquery:any;
 declare var $ :any;
@@ -16,21 +17,26 @@ declare var $ :any;
 })
 export class MedicamentGestionComponent implements OnInit {
 
-  title = 'abgular 4 with jquery';
+  //title = 'abgular 4 with jquery';
 
   compte : Compte;
+  patient : Compte;
   MedicamentRecherche : string;
   ListMedicaments : Medicament[] = [];
   MedicamentSelectionne : Medicament;
 
-  constructor(private medicamentService : MedicamentService,private compteService : CompteService) { }
+  constructor(private medicamentService : MedicamentService,private compteService : CompteService, private patientService : PatientService) { }
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
+    this.patientService.patient.subscribe(res => this.patient = res);
+
+    console.log('Le patient (medicaments-gestion) : ', this.patient);
     //this.medicamentService.Entravail = false;
   }
 
-  onselect(medicament : Medicament) : void
+  
+  Information(medicament : Medicament) : void
   {
     //console.log(medicament);
       
@@ -38,6 +44,34 @@ export class MedicamentGestionComponent implements OnInit {
       $( document ).tooltip();
     } );
   
+  }
+  //a la sélection on créé un compte contenant l'identifiant et le tocken. on lui ajoute le patient sélectionné et dans ce patient le médicament sélectionné
+  onselect(medicament : Medicament) : void
+  {
+    this.patientService.changePatient(this.patient);
+
+    let compteEnvois : Compte = new Compte();
+    compteEnvois.IDWeb = this.compte.IDWeb;
+    compteEnvois.Token = this.compte.Token;
+    compteEnvois.MesPatients = [];
+
+    let patientEnvois : Compte = new Compte();
+    patientEnvois.IDWeb = this.patient.IDWeb;
+    patientEnvois.MesMedicaments = [];
+
+    let medicamentEnvois : Medicament = new Medicament();
+    medicamentEnvois.ID = medicament.ID;
+
+    patientEnvois.MesMedicaments.push(medicamentEnvois);
+    compteEnvois.MesPatients.push(patientEnvois);
+
+    this.patientService.compte = compteEnvois;
+
+    this.patientService.AjoutMedicamentAPatient().subscribe(data => {
+      console.log(data.body);
+      this.patient = data.body;
+      this.patientService.changePatient(this.patient);
+    });
   }
 
   rechercheMedicament() {
@@ -64,5 +98,6 @@ export class MedicamentGestionComponent implements OnInit {
         //this.medicamentService.Entravail = false;
       });
     }
+    else if (this.ListMedicaments.length > 0) this.ListMedicaments = [];
   }
 }

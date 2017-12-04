@@ -2,7 +2,7 @@
 
 <div class="AffichageMedicament" *ngIf="ListMedicaments">
   <ul>
-    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="onselect(Medicament)" (click)="onselect(Medicament)">
+    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)" (click)="onselect(Medicament)">
       <div class="tooltip">{{Medicament.DenominationMedicament}}
         <span class="tooltiptext">
           <b>Dénomination : </b><span style="color:rgb(150, 150, 150);">{{Medicament.DenominationMedicament}}</span><br/>
