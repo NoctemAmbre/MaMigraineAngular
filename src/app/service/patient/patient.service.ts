@@ -64,6 +64,16 @@ export class PatientService {
     return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMedicament?Value='+ btoa(body),'', {headers : headers, observe : 'response'});
   }
 
+  public SupprimerMedicamentAPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify(this.compte);
+    console.log('avant envois', this.compte);
+    
+    this.Entravail = true;
+    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprMedicament?Value='+ btoa(body),'', {headers : headers, observe : 'response'});
+  }
+
 /*
   //ListePatients() : Map<number,Patient>{  
     ListePatients() :Patient[]{  

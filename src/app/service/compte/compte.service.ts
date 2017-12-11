@@ -162,6 +162,14 @@ export class CompteService {
     return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/AjoutPatient?Value=" + btoa(body), '', {headers : headers, observe : 'response'});
   }
 
+  public SuppressionPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
+    console.log('ce qui est envoyé pour la suppression dun patient du medecin',body);
+    return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/SupprPatient?Value=" + btoa(body), '', {headers : headers, observe : 'response'});
+  }
+
   public LancementMok() : Compte
   {
     let compteRetour : Compte = new Compte();

@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { MedicamentService } from './../../service/medicament/medicament.service';
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
-import { Medicament } from './../../model/medicament';
 
+
+import { Medicament } from './../../model/medicament';
 import { Compte } from './../../model/compte';
 import { Patient } from './../../model/patient';
+import { Alert } from 'selenium-webdriver';
 
-declare var jquery:any;
-declare var $ :any;
+// declare var jquery:any;
+// declare var $ :any;
 
 @Component({
   selector: 'app-medicament-gestion',
@@ -23,7 +25,9 @@ export class MedicamentGestionComponent implements OnInit {
   patient : Compte;
   MedicamentRecherche : string;
   ListMedicaments : Medicament[] = [];
+  MedicamentAffichage : Medicament;
   MedicamentSelectionne : Medicament;
+  
 
   constructor(private medicamentService : MedicamentService,private compteService : CompteService, private patientService : PatientService) { }
 
@@ -38,11 +42,12 @@ export class MedicamentGestionComponent implements OnInit {
   
   Information(medicament : Medicament) : void
   {
-    //console.log(medicament);
-      
-    $( function() {
-      $( document ).tooltip();
-    } );
+    this.MedicamentAffichage = medicament;
+    // console.log(medicament);
+    //  $( document ).Alert("test");
+    // $( function() {
+    //   $( document ).tooltip();
+    // } );
   
   }
   //a la sélection on créé un compte contenant l'identifiant et le tocken. on lui ajoute le patient sélectionné et dans ce patient le médicament sélectionné
@@ -73,7 +78,7 @@ export class MedicamentGestionComponent implements OnInit {
       this.patientService.changePatient(this.patient);
     });
   }
-
+  
   rechercheMedicament() {
     console.log(this.medicamentService.Entravail);
     //if (this.MedicamentRecherche.length > 4 && this.medicamentService.Entravail == false)

@@ -26,6 +26,8 @@ export class CompteInformationComponent implements OnInit {
   compte : Compte;
   NouveaMotDePass : boolean = false;
   ListMedecin : Compte[] = null;
+
+  time = {hour: 13, minute: 30};
   
   constructor(private compteService : CompteService,
               private medecinservice : MedecinService,

@@ -29,13 +29,11 @@
     </div>
   </div>
   </body> -->
-
-
 <div id="contenaire">
   <header>
     <div class="AffichageListPatient">
       <span>
-        <p>Mes Patients</p>
+        <!-- <p>Mes Patients</p> -->
         <div *ngIf="compte.Erreur" class="popup-globalwrap">
           <div class="popup-wrap Warning">
             <div class="popup-title">
@@ -45,30 +43,86 @@
           </div>
         </div>
       </span>
-      
+
       <div>
-        <ul>
+          <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Identifiant</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
+                      <td>{{Compte.Nom}}</td>
+                      <td>{{Compte.Prenom}}</td>
+                      <td>{{Compte.Identifiant}}</td>
+                      <!-- <td><a href="#" class="badge badge-secondary">Supprimer</a></td> -->
+                      <td><button type="button" class="btn btn-outline-primary" (click)="SupprPatient(Compte)">Supprimer</button></td>
+                  </tr>
+              </tbody>
+          </table>
+        <!-- <ul>
           <li *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
             {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
           </li>
-        </ul>
+        </ul> -->
         <input type="text" name ="Nom" [(ngModel)]="Nomrecherche" (keyup)="RechercherNouveauPatient()" placeholder="Nom patient" autocomplete="off">
         <br />
-        <div *ngIf="ListPatient">
+        <!-- <div *ngIf="ListPatient">
             <ul>
               <li *ngFor="let Compte of ListPatient" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
                   {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
               </li>
             </ul>
-          </div>
+          </div> -->
+        <div *ngIf="ListPatient">
+          <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Ajouter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Compte of ListPatient" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
+                  <td>{{Compte.Nom}}</td>
+                  <td>{{Compte.Prenom}}</td>
+                  <td><button type="button" class="btn btn-outline-primary" (click)="onselect(Compte)">Ajouter</button></td>
+                  <!-- <td (click)="onselect(Compte)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
+                </tr>
+              </tbody>
+          </table>
+        </div>
       </div>
-      
     </div>
-    <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
+
+    <ngb-tabset>
+      <ngb-tab title="Information Patient">
+        <ng-template ngbTabContent>
+          <app-patient-information></app-patient-information>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Ordonnance">
+        <ng-template ngbTabContent>
+            <app-patient-ordonnance></app-patient-ordonnance>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    
+    <!-- <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
       <nav id="mainmenu">
         <a class="nav-AffichagePatient" (click)="InfoOuordonnance(true)">Information Patient</a>
         <a class="nav-Ordonnance"       (click)="InfoOuordonnance(false)">Ordonnance</a>            
-      </nav>
+      </nav> -->
+
+
+
+
+
 
       <!-- <div class="tab">
           <button class="tablinks" (click)="openInfoPatient(event, 'Information')">Information Patient</button>
@@ -88,9 +142,9 @@
       </script> -->
 
       
-      <div *ngIf="Selection"><app-patient-information></app-patient-information></div>
+      <!-- <div *ngIf="Selection"><app-patient-information></app-patient-information></div>
       <div *ngIf="!Selection"><app-patient-ordonnance></app-patient-ordonnance></div>
-    </div>
+    </div> -->
   </header>
   <body>
     <div *ngIf="patient.IDWeb != 0" class="AffichageCourbe">

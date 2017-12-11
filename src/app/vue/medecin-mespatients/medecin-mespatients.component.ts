@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
 
@@ -75,6 +74,23 @@ export class MedecinMespatientsComponent implements OnInit {
      this.compteService.changeCompte(this.compte);
      this.compteService.AttributionPatient().subscribe(data => {
         this.compte = data.body;
+        this.patientService.Entravail = false;
+        console.log('retour', data.body);
+        this.compteService.changeCompte(this.compte);
+    });
+  }
+
+  SupprPatient(compteASupprimer : Compte) : void
+  {
+      console.log('suppression du patient ' + compteASupprimer);
+     this.ListPatient = null;
+     this.compte.MesPatients = [];
+     this.compte.MesPatients.push(compteASupprimer);
+     console.log('patient à supprimer', this.compte.MesPatients[0]);
+     this.compteService.changeCompte(this.compte);
+     this.compteService.SuppressionPatient().subscribe(data => {
+        this.compte = data.body;
+        this.patientService.Entravail = false;
         console.log('retour', data.body);
         this.compteService.changeCompte(this.compte);
     });

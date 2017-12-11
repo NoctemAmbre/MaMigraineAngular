@@ -1,17 +1,67 @@
 <div id="Information" *ngIf="compte">
   <div *ngIf="compte.Type">
-    <p>Medecin</p>
-    <p>Nom : {{compte.Nom}}</p>     
-    <p>Prenom : {{compte.Prenom}}</p> 
-    <p>Identifiant : {{compte.Identifiant}}</p> 
-    <p>Adresse : {{compte.Adresse.Numero}}  {{compte.Adresse.NomRue}}</p>
-    <p>{{compte.Adresse.CodePostal}}  {{compte.Adresse.Ville}}</p>
-    <p>Adresse Mail : {{compte.AdresseMail}}</p>
-    <p>Horaires d'ouverture</p>
-    <div *ngFor="let Horaire of compte.HoraireOuverture">
-        <p>{{Horaire.Jour}} : de {{Horaire.Matin}} à {{Horaire.Soir}}
-    </div>
-    
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Nom</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Prenom</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Prenom}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Identifiant</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Identifiant}} readonly>
+        </div>
+      </div>
+      <hr>
+      <label class="col-form-label">Adresse</label>
+      <div class="form-row">
+        <label class="col-sm-2 col-form-label">Numero</label>
+        <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse.Numero}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Nom Rue</label>
+        <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse.NomRue}} readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-2 col-form-label">Code Postal</label>
+        <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse.CodePostal}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Ville</label>
+        <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse.Ville}} readonly>
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">AdresseMail</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
+        </div>
+      </div>
+      <hr>
+      <div *ngFor="let Horaire of compte.HoraireOuverture">
+          <label class="col-form-label">{{Horaire.Jour}}</label>
+          <div class="form-row">
+            <label class="col-sm-2 col-form-label">Matin</label>
+            <div class="col-sm-2">
+              <input class="form-control form-control-sm" type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder="" disabled>
+            </div>
+            <label class="col-sm-2 col-form-label">Soir</label>
+            <div class="col-sm-2">
+              <input class="form-control form-control-sm" type="time" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder="" disabled>
+            </div>
+          </div>
+          <hr>
+          <!-- <ngb-timepicker [(ngModel)]="time" [size]="small"></ngb-timepicker> -->
+      </div>
+    </form> 
   </div>
   <div *ngIf="!compte.Type">
     <p>Patient</p>

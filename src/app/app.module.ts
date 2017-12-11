@@ -5,8 +5,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-//import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-//import { EasyUIModule } from './../easyui/components/easyui/easyui.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -69,6 +68,7 @@ import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-
     FormsModule,
     HttpClientModule,
     ChartsModule,
+    NgbModule.forRoot(),
     //BootstrapModalModule,
     //EasyUIModule,
     //AppRoutingModule

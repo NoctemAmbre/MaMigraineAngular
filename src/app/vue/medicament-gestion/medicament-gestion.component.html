@@ -1,9 +1,39 @@
 <input type="text" name ="rechercheMedicament" [(ngModel)]="MedicamentRecherche"  (keyup)="rechercheMedicament()" placeholder=""><br />    
 
-<div class="AffichageMedicament" *ngIf="ListMedicaments">
-  <ul>
-    <li *ngFor="let Medicament of ListMedicaments" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)" (click)="onselect(Medicament)">
-      <div class="tooltip">{{Medicament.DenominationMedicament}}
+
+<div class="AffichageMedicament" *ngIf="ListMedicaments.length > 0">
+  <ng-template #popContent>
+      <b>Dénomination : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.DenominationMedicament}}</span><br/>
+      <b>Titulaire : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Titulaire}}</span><br/>
+      <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.FormePharmaceutique}}</span><br/>
+      <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.VoiesAdministration}}</span><br/>
+      <b>Statut Administratif : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.StatutAdministratif}}</span><br/>
+      <b>Procédure Administrative : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.TypeDeProcedureAutorisation}}</span><br/>
+      <b>Etat Commercialisation : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.EtatCommercialisatoin}}</span><br/>
+      <b>CodeCIS : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.CodeCIS}}</span><br/>
+      <b>Statutbdm : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Statutbdm}}</span><br/>
+      <b>Numero Autorisation : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.NumeroAutorisation}}</span><br/>
+  </ng-template>
+  <table class="table table-hover table-dark">
+      <thead>
+          <tr>
+              <th scope="col">DenominationMedicament</th>
+              <th scope="col">Ajouter</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Medicament of ListMedicaments" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)" (click)="onselect(Medicament)">
+              <td>{{Medicament.DenominationMedicament}}</td>
+              <td><button type="button" class="btn btn-outline-primary" (click)="onselect(Medicament)">Ajouter</button></td>
+              <!-- <td (click)="onselect(Medicament)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
+            </tr>
+        </tbody>
+  </table>
+  <!-- <ul>
+    <li *ngFor="let Medicament of ListMedicaments" [ngbPopover]="popContent" popoverTitle="Fancy content" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)" (click)="onselect(Medicament)"> -->
+
+      
+      <!-- <div class="tooltip">{{Medicament.DenominationMedicament}}
         <span class="tooltiptext">
           <b>Dénomination : </b><span style="color:rgb(150, 150, 150);">{{Medicament.DenominationMedicament}}</span><br/>
           <b>Titulaire : </b><span style="color:rgb(150, 150, 150);">{{Medicament.Titulaire}}</span><br/>
@@ -17,7 +47,7 @@
           <b>Numero Autorisation : </b><span style="color:rgb(150, 150, 150);">{{Medicament.NumeroAutorisation}}</span><br/>
           <b>Surveillance Renforcee : </b><span style="color:rgb(150, 150, 150);">{{Medicament.SurveillanceRenforcee}}</span><br/>
         </span>
-      </div>     
-    </li>  
-  </ul>
+      </div>      -->
+    <!-- </li>  
+  </ul> -->
 </div>

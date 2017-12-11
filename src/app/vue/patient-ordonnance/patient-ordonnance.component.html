@@ -1,7 +1,37 @@
-<ul>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Denomination</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+          <ng-template #popContent>
+              <b>Dénomination : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.DenominationMedicament}}</span><br/>
+              <b>Titulaire : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Titulaire}}</span><br/>
+              <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.FormePharmaceutique}}</span><br/>
+              <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.VoiesAdministration}}</span><br/>
+              <b>Statut Administratif : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.StatutAdministratif}}</span><br/>
+              <b>Procédure Administrative : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.TypeDeProcedureAutorisation}}</span><br/>
+              <b>Etat Commercialisation : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.EtatCommercialisatoin}}</span><br/>
+              <b>CodeCIS : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.CodeCIS}}</span><br/>
+              <b>Statutbdm : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Statutbdm}}</span><br/>
+              <b>Numero Autorisation : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.NumeroAutorisation}}</span><br/>
+          </ng-template>
+
+          <tr *ngFor="let Medicament of patient.MesMedicaments" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(Medicament)">
+            <td>{{Medicament.DenominationMedicament}}</td>
+            <!-- <td (click)="Supprimer(Medicament)"><a class="badge badge-secondary">Ajouter</a></td> -->
+            <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(Medicament)">Supprimer</button></td>
+          </tr>
+      </tbody>
+</table>
+
+<!-- <ul>
   <li *ngFor="let Medicament of patient.MesMedicaments">
     {{Medicament.DenominationMedicament}} {{Medicament.FormePharmaceutique}} : {{Medicament.Quantite}}
   </li>  
-  <app-medicament-gestion></app-medicament-gestion>
-</ul>
+  
+</ul> -->
+<app-medicament-gestion></app-medicament-gestion>
 
