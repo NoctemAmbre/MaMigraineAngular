@@ -3,17 +3,28 @@ import { RouterModule, Routes} from  '@angular/router';
 
 import { CompteInformationComponent } from './compte-information/compte-information.component';
 import { ListePatientsComponent } from './liste-patients/liste-patients.component';
-import { CompteNouveauComponent } from './Compte-nouveau/compte-nouveau.component';
 import { CompteModificationComponent } from './compte-modification/compte-modification.component';
 import { CompteLoginComponent } from './Compte-login/Compte-login.component';
 import { AppComponent } from './../app.component';
 import { InfogeneralComponent } from './infogeneral/infogeneral.component';
+import { AccueilComponent } from './accueil/accueil.component';
+import { MedecinMespatientsComponent } from './medecin-mespatients/medecin-mespatients.component';
+import { PatientOrdonnanceComponent } from './patient-ordonnance/patient-ordonnance.component';
+import { PatientInformationComponent } from './patient-information/patient-information.component';
+import { ProspecComponent } from './prospec/prospec.component';
+import { PatientmonMedecinComponent } from './patient-monmedecin/patient-monmedecin.component';
+import { PatientMesmigrainesComponent } from './patient-mesmigraines/patient-mesmigraines.component';
+import { CompteNouveauComponent } from './Compte-nouveau/compte-nouveau.component';
 
 const routes: Routes = [
         // {
         //     path: '',
         //     component: AppComponent
         // },    
+        {
+          path:'accueil',
+          component : AccueilComponent
+        },
         {
           path:'nouveau',
           component : CompteNouveauComponent
@@ -30,14 +41,50 @@ const routes: Routes = [
           path:'login',
           component : CompteLoginComponent
         },
+        // {
+        //   path:'list',
+        //   component : ListePatientsComponent
+        // },
         {
-          path:'list',
-          component : ListePatientsComponent
+          path:'infoGeneral',
+          component : InfogeneralComponent
+        },
+        {
+          path:'mespatients',
+          component : MedecinMespatientsComponent
+        },
+        {
+          path:'mespatients/ordonnance',
+          component : PatientOrdonnanceComponent,
+          outlet :'outlerordonnance'
+        },
+        {
+          path:'mespatients/patientinfo',
+          component : PatientInformationComponent,
+          outlet :'outlerpatient'
+        },
+        {
+          path:'prospec',
+          component : ProspecComponent
         },
         {
           path:'infoGeneral',
           component : InfogeneralComponent
-        }
+        },
+        {
+          path:'monmedecin',
+          component : PatientmonMedecinComponent
+        },
+        {
+          path:'mesmigraines',
+          component : PatientMesmigrainesComponent
+        },
+        // {
+        //   path:'**',
+        //   component : ProspecComponent
+        // },
+
+
       ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

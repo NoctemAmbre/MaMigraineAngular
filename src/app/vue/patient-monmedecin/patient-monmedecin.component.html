@@ -1,7 +1,7 @@
 <header>
   <div class="AffichageListMedecin">
+   
     <span>
-      <p>Mes Medecins</p>
       <div *ngIf="compte.Erreur" class="popup-globalwrap">
         <div class="popup-wrap Warning">
           <div class="popup-title">
@@ -11,26 +11,63 @@
         </div>
       </div>
     </span>
-    
+
     <div>
-      <ul>
+      <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prenom</th>
+              <th scope="col">Supprimer</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Compte of compte.MesMedecin" [class.selected]="Compte == CompteSelect">
+                <td>{{Compte.Nom}}</td>
+                <td>{{Compte.Prenom}}</td>
+                <!-- <td><a href="#" class="badge badge-secondary">Supprimer</a></td> -->
+                <td><button type="button" class="btn btn-outline-primary" (click)="SupprMedecin(Compte)">Supprimer</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+      <!-- <ul>
         <li *ngFor="let Compte of compte.MesMedecin" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
           {{Compte.Nom}} {{Compte.Prenom}}
         </li>
-      </ul>
+      </ul> -->
       <input type="text" name ="Nom" [(ngModel)]="Nomrecherche" (keyup)="RechercherNouveauMedecin()" placeholder="Nom Medecin" autocomplete="off">
       <br />
-      <div *ngIf="ListMedecin">
+      <!-- <div *ngIf="ListMedecin">
           <ul>
             <li *ngFor="let Compte of ListMedecin" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
                 {{Compte.Nom}} {{Compte.Prenom}}
             </li>
           </ul>
+        </div> -->
+
+        <div *ngIf="ListMedecin">
+          <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Ajouter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Compte of ListMedecin" [class.selected]="Compte == CompteSelect">
+                  <td>{{Compte.Nom}}</td>
+                  <td>{{Compte.Prenom}}</td>
+                  <td><button type="button" class="btn btn-outline-primary" (click)="AjoutMedecin(Compte)">Ajouter</button></td>
+                  <!-- <td (click)="onselect(Compte)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
+                </tr>
+              </tbody>
+          </table>
         </div>
     </div>
-    
   </div>
-
   <div *ngIf="medecin.IDWeb != 0" class="AffichageMedecin">
       <app-medecin-information></app-medecin-information>
   </div>

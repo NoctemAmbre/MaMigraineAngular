@@ -43,27 +43,27 @@ export class PatientmonMedecinComponent implements OnInit {
     //   alert('Jquery est activé')
     // });
 
-     $(function afficherPopupErreur(message) {
-           $('body').append('<div id="popuperreur" title="Erreur"></div>');
-           $("#popuperreur").html(message);
+    //  $(function afficherPopupErreur(message) {
+    //        $('body').append('<div id="popuperreur" title="Erreur"></div>');
+    //        $("#popuperreur").html(message);
      
-          var popup = $("#popuperreur").dialog({
-              autoOpen: true,
-              width: 400,      
-              dialogClass: 'dialogstyleperso',
-              buttons: [
-                  {      
-                      text: "OK",
-                      "class": 'ui-state-error',
-                      click: function () {
-                          $(this).dialog("close");
-                          $('#popuperreur').remove();
-                      }
-                  }
-              ]
-          });
-          $("#popuperreur").prev().addClass('ui-state-error');
-        });
+    //       var popup = $("#popuperreur").dialog({
+    //           autoOpen: true,
+    //           width: 400,      
+    //           dialogClass: 'dialogstyleperso',
+    //           buttons: [
+    //               {      
+    //                   text: "OK",
+    //                   "class": 'ui-state-error',
+    //                   click: function () {
+    //                       $(this).dialog("close");
+    //                       $('#popuperreur').remove();
+    //                   }
+    //               }
+    //           ]
+    //       });
+    //       $("#popuperreur").prev().addClass('ui-state-error');
+    //     });
       
     //       
     //   }
@@ -74,7 +74,7 @@ export class PatientmonMedecinComponent implements OnInit {
     this.compte.Erreur = "";
   }
 
-  onselect(compteAjouter : Compte) : void
+  AjoutMedecin(compteAjouter : Compte) : void
   {
      this.ListMedecin = null;
      this.compte.MesMedecin = [];
@@ -82,6 +82,23 @@ export class PatientmonMedecinComponent implements OnInit {
      console.log('Mes medecin à ajouter', this.compte);
      this.compteService.changeCompte(this.compte);
      this.compteService.AttributionMedecin().subscribe(data => {
+        if (data.body != null)
+        {
+          this.compte = data.body;
+          console.log('retour', data.body);
+          this.compteService.changeCompte(this.compte);
+        }
+    });
+  }
+
+  SupprMedecin(compteASupprimer : Compte) : void
+  {
+     this.ListMedecin = null;
+     this.compte.MesMedecin = [];
+     this.compte.MesMedecin.push(compteASupprimer);
+     console.log('Mes medecin à supprimer', this.compte);
+     this.compteService.changeCompte(this.compte);
+     this.compteService.SuppressionMedecin().subscribe(data => {
         if (data.body != null)
         {
           this.compte = data.body;

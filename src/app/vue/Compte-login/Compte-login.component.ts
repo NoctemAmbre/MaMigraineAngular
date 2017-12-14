@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angula
 import { CompteService } from './../../service/compte/compte.service';
 import { CompteTestService } from './../../service/compte/compte-test.service';
 import { Compte } from './../../model/compte';
+import { Product } from './../../model/Products'; //a supprimer après test
 import { CompteInformationComponent } from './../../vue/compte-information/compte-information.component';
 //import { CompteGestionComponent }from './../../vue/compte-gestion/compte-gestion.component';
 import { EtatCompte } from './../../model/EtatCompte';
@@ -25,8 +26,7 @@ export class CompteLoginComponent implements OnInit{
 
   constructor(private compteService : CompteService,
               private router:Router,
-              private appComponent: AppComponent) {
-   }
+              private appComponent: AppComponent) {}
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
@@ -59,7 +59,62 @@ connexion(){
         //this.router.navigate(['affichage']);
       }
     });
- 
+  }
+
+  VoirCompte(){
+    this.router.navigate(['affichage']);
+  }
+  Deconnexion(){
+    localStorage.clear();
+    this.Congratulation = false;
+    this.compte = new Compte();
+    this.compte.IDWeb = 0;
+    this.compte.Identifiant = "";
+    this.compte.MotDePass = "";
+    this.compteService.changeCompte(this.compte);
+    this.appComponent.Actualisation();
+
+    this.router.navigate(['']);
+  }
+
+  NouveauCompte(){
+    this.compte = this.compteService.LancementMok(); //on écrase le compte pour le remplir avec des informations générique pour ne pas laisser les champs vides
+
+    console.log("après Moke");
+    this.compteService.changeCompte(this.compte);
+    console.log("envois sur nouveau");
+    this.router.navigate(['nouveau']);
+  }
+
+  Test(name: string, description: string) {
+    console.log('Nom récupéré : ' + name);
+    console.log('Description récupérée : ' + description);
+    const nouveauProduit = new Product(name, description);
+    this.compteService.createProduct(nouveauProduit);
+  }
+
+  Test2(name: string, description: string) {
+    console.log('Nom récupéré : ' + name);
+    console.log('Description récupérée : ' + description);
+    const nouveauProduit = new Product(name, description);
+    this.compteService.ConnexionTest3();
+    
+  }
+
+  Test3(name: string, description: string) {
+    console.log('Nom récupéré : ' + name);
+    console.log('Description récupérée : ' + description);
+    const nouveauProduit = new Product(name, description);
+    this.compteService.ConnexionTest4();
+  }
+}
+
+
+
+
+
+
+
 
 
     
@@ -81,33 +136,10 @@ connexion(){
     //this.CompteTest.GET().subscribe(data => {if (data) {console.log('donnée : ', data);} else {}});
     //this.compteService.Login(this);
     //this.compteService.connexionTest1();
-    
-}
-VoirCompte()
-{
-  this.router.navigate(['affichage']);
-}
-Deconnexion(){
-  localStorage.clear();
-  this.Congratulation = false;
-  this.compte = new Compte();
-  this.compte.IDWeb = 0;
-  this.compte.Identifiant = "";
-  this.compte.MotDePass = "";
-  this.compteService.changeCompte(this.compte);
-  this.appComponent.Actualisation();
 
-  this.router.navigate(['']);
-}
 
-NouveauCompte(){
-  this.compte = this.compteService.LancementMok(); //on écrase le compte pour le remplir avec des informations générique pour ne pas laisser les champs vides
 
-  console.log("après Moke");
-  this.compteService.changeCompte(this.compte);
-  console.log("envois sur nouveau");
-  this.router.navigate(['nouveau']);
-}
+
 
 // connexion1(){
 //   const req = this.http.get('http://jsonplaceholder.typicode.com/posts',{
@@ -177,12 +209,3 @@ NouveauCompte(){
   //   //this.http.post('http://localhost/Service1.svc/Post',params, options).subscribe()
     
   // }
-
-  // connexion4(){
-  //   //const body = {      username:'Patient',      Pass:'MonMotDePasse'    };
-  //   const body = {};
-  //   this.http.post('http://localhost:57928/Service1.svc/Patient/log?username=Patient', body, {params:new HttpParams().set('username', 'Patient')}).subscribe();
-  //   //this.http.post('http://localhost:57928/Service1.svc/Patient/log?username=Patient', body).subscribe();
-  // }
-}  
-

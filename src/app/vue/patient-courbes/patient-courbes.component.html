@@ -1,10 +1,5 @@
-<p>
-  patient-courbes works!
-</p>
-
-
-<div class="row">
-    <div class="col-md-6">
+<div class="container">
+    <div class="col-md-12">
       <div style="display: block;">
       <canvas baseChart width="400" height="400"
                   [datasets]="lineChartData"
@@ -17,8 +12,9 @@
                   (chartClick)="chartClicked($event)"></canvas>
       </div>
     </div>
-    <div class="col-md-6" style="margin-bottom: 10px">
-      <table class="table table-responsive table-condensed">
+  </div>
+    <!-- <div class="col-md-5" style="margin-bottom: 10px">
+      <table class="table table-hover table-dark">
         <tr>
           <th *ngFor="let label of lineChartLabels">{{label}}</th>
         </tr>
@@ -27,7 +23,24 @@
         </tr>
       </table>
       <button (click)="randomize()">CLICK</button>
-    </div>
-</div>
+    </div> -->
+
+
+    <!-- <div class="col-md-5">
+      <table class="table table-hover table-dark">
+        <thead>
+          <tr *ngFor="let label of lineChartLabels">
+              <th scope="col">{{label}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of lineChartData; let j=index">
+              <td>{{data[0]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+
 
 

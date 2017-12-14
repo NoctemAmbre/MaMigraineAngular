@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientService } from './../../service/patient/patient.service'
+import { Compte } from '../../model/compte';
 
 @Component({
   selector: 'app-patient-courbes',
@@ -6,19 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-courbes.component.css']
 })
 export class PatientCourbesComponent implements OnInit {
-
-  constructor() { }
+  patient : Compte;
+  constructor(private patientService:PatientService) { }
 
   ngOnInit() {
+    this.patientService.patient.subscribe(res => this.patient = res);
   }
 
-
   public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+    {data: [1.3,  2.6,  3.1,  2.0,   0.0,   1.6,  3.0],   label: 'Intensité Moyenne'},
+    {data: [2,    4,    2,    2,    0,      2,    1],     label: 'Fréquence Mensuel Total'},
+    {data: [1,    3,    1,    2,    0,      1,    0],     label: 'Fréquence Mensuel Intensité 1'},
+    {data: [1,    0,    0,    0,    0,      1,    0],     label: 'Fréquence Mensuel Intensité 2'},
+    {data: [0,    0,    0,    0,    0,      0,    1],     label: 'Fréquence Mensuel Intensité 3'},
+    {data: [0,    0,    1,    0,    0,      0,    0],     label: 'Fréquence Mensuel Intensité 4'},
+    {data: [0,    1,    0,    0,    0,      0,    0],     label: 'Fréquence Mensuel Intensité 5'}
   ];
+
   public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+
+
   public lineChartOptions:any = {
     responsive: true
   };

@@ -21,7 +21,6 @@ import { JsonService } from './service/json/json.service';
 import { AppRoutingModule } from './vue/app-rooting.module';
 import { HTTPIntercepteur } from './service/intercepteur/HTTPIntercepteur';
 import { CompteChangemotdepassComponent } from './vue/compte-changemotdepass/compte-changemotdepass.component';
-import { CompteNouveauComponent } from './vue/compte-nouveau/compte-nouveau.component';
 import { CompteInformationComponent } from './vue/compte-information/compte-information.component';
 import { CompteGestionComponent } from './vue/compte-gestion/compte-gestion.component';
 import { CompteModificationComponent } from './vue/compte-modification/compte-modification.component';
@@ -37,6 +36,8 @@ import { PatientCourbesComponent } from './vue/patient-courbes/patient-courbes.c
 import { MedecinInformationComponent } from './vue/medecin-information/medecin-information.component'
 import { PatientOrdonnanceComponent } from './vue/patient-ordonnance/patient-ordonnance.component';
 import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-gestion.component';
+import { CompteNouveauComponent } from './vue/Compte-nouveau/compte-nouveau.component';
+import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.component';
 
 
 @NgModule({
@@ -58,9 +59,10 @@ import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-
     AccueilComponent,
     PatientInformationComponent,
     MedecinInformationComponent,
-    PatientCourbesComponent,
     PatientOrdonnanceComponent,
     MedicamentGestionComponent,
+    PatientCourbesComponent,
+    PatientTableauComponent,
     ],
   imports: [
     HttpModule,
@@ -71,8 +73,8 @@ import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-
     NgbModule.forRoot(),
     //BootstrapModalModule,
     //EasyUIModule,
-    //AppRoutingModule
-    RouterModule.forRoot([ 
+    AppRoutingModule,
+    // RouterModule.forRoot([ 
       // {
       //   path:'',
       //   redirectTo: 'home',
@@ -82,61 +84,61 @@ import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-
       //   path:'home',
       //   component : AppComponent
       // },
-      {
-        path:'accueil',
-        component : AccueilComponent
-      },
-      {
-        path:'nouveau',
-        component : CompteNouveauComponent
-      },
-      {
-        path:'affichage',
-        component : CompteInformationComponent
-      },
-      {
-        path:'modification',
-        component : CompteModificationComponent
-      },
-      {
-        path:'login',
-        component : CompteLoginComponent
-      },
-      {
-        path:'mespatients',
-        component : MedecinMespatientsComponent
-      },
-      {
-        path:'mespatients/ordonnance',
-        component : PatientOrdonnanceComponent,
-        outlet :'outlerordonnance'
-      },
-      {
-        path:'mespatients/patientinfo',
-        component : PatientInformationComponent,
-        outlet :'outlerpatient'
-      },
-      {
-        path:'prospec',
-        component : ProspecComponent
-      },
-      {
-        path:'infoGeneral',
-        component : InfogeneralComponent
-      },
-      {
-        path:'monmedecin',
-        component : PatientmonMedecinComponent
-      },
-      {
-        path:'mesmigraines',
-        component : PatientMesmigrainesComponent
-      },
+      // {
+      //   path:'accueil',
+      //   component : AccueilComponent
+      // },
+      // {
+      //   path:'nouveau',
+      //   component : CompteNouveauComponent
+      // },
+      // {
+      //   path:'affichage',
+      //   component : CompteInformationComponent
+      // },
+      // {
+      //   path:'modification',
+      //   component : CompteModificationComponent
+      // },
+      // {
+      //   path:'login',
+      //   component : CompteLoginComponent
+      // },
+      // {
+      //   path:'mespatients',
+      //   component : MedecinMespatientsComponent
+      // },
+      // {
+      //   path:'mespatients/ordonnance',
+      //   component : PatientOrdonnanceComponent,
+      //   outlet :'outlerordonnance'
+      // },
+      // {
+      //   path:'mespatients/patientinfo',
+      //   component : PatientInformationComponent,
+      //   outlet :'outlerpatient'
+      // },
+      // {
+      //   path:'prospec',
+      //   component : ProspecComponent
+      // },
+      // {
+      //   path:'infoGeneral',
+      //   component : InfogeneralComponent
+      // },
+      // {
+      //   path:'monmedecin',
+      //   component : PatientmonMedecinComponent
+      // },
+      // {
+      //   path:'mesmigraines',
+      //   component : PatientMesmigrainesComponent
+      // },
       // {
       //   path:'**',
       //   component : ProspecComponent
       // },
-    ]),
+    // ]),
   ],
   //providers: [{provide:HTTP_INTERCEPTORS, useClass:HTTPIntercepteur, multi:true}],
   providers: [CompteService,PatientService,MedecinService,MedicamentService],

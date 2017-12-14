@@ -1,0 +1,18 @@
+
+div.Container{
+    display: flex;
+    flex-direction: row;
+    background-color: #313d4C;
+}
+div.Courbe{
+    background-color: #313d4C;
+    position: relative;
+    width: 50%; height: 50%;
+    border: 1px solid #555454;
+}
+div.Tableau{
+    position: relative;
+    width: 50%; height: 50%;
+    border: 1px solid #555454;
+    background-color: #313d4C;
+}
