@@ -1,0 +1,23 @@
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+          <ng-template #popContent>
+              <b>Nom : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Nom}}</span><br/>
+              <b>Question : </b><span style="color:rgb(150, 150, 150);">{{MedicamentAffichage.Question}}</span><br/>
+          </ng-template>
+
+          <tr *ngFor="let facteur of ListeFacteurs" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(Medicament)">
+            <td>{{facteur.Nom}}</td>
+            <!-- <td (click)="Supprimer(Medicament)"><a class="badge badge-secondary">Ajouter</a></td> -->
+            <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(facteur)">Supprimer</button></td>
+          </tr>
+      </tbody>
+</table>
+<app-facteur-gestion></app-facteur-gestion>
+

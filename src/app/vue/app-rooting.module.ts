@@ -15,6 +15,7 @@ import { ProspecComponent } from './prospec/prospec.component';
 import { PatientmonMedecinComponent } from './patient-monmedecin/patient-monmedecin.component';
 import { PatientMesmigrainesComponent } from './patient-mesmigraines/patient-mesmigraines.component';
 import { CompteNouveauComponent } from './Compte-nouveau/compte-nouveau.component';
+import { PatientFacteursComponent } from './patient-facteurs/patient-facteurs.component';
 
 const routes: Routes = [
         // {
@@ -41,10 +42,10 @@ const routes: Routes = [
           path:'login',
           component : CompteLoginComponent
         },
-        // {
-        //   path:'list',
-        //   component : ListePatientsComponent
-        // },
+        {
+          path:'facteurs',
+          component : PatientFacteursComponent
+        },
         {
           path:'infoGeneral',
           component : InfogeneralComponent

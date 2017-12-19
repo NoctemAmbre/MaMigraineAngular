@@ -5,14 +5,14 @@
       <th>Heure Debut</th>
       <th>Heure Fin</th>
       <th>Intensité</th>
-      <th>Realpax</th>
+      <!-- <th>Realpax</th>
       <th>Doliprane</th>
       <th>Aspirine 1000</th>
       <th>Vomissement</th>
-      <th>Incapacité de travail</th>
+      <th>Incapacité de travail</th> -->
       <!-- <th *ngFor="let label of lineChartLabels">{{label}}</th> -->
     </tr>
-    <tr>
+    <!-- <tr>
       <td>Lundi 12 Mars 2017</td>
       <td>6h30</td>
       <td>9h00</td>
@@ -22,10 +22,86 @@
       <td>oui</td>
       <td>non</td>
       <td>non</td>
-    </tr>
-    <!-- <tr *ngFor="let d of lineChartData">
-      <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
     </tr> -->
+    <tr *ngFor="let Migraine of ListeMigraine">
+      <td>{{ListeMedicament.ID}} </td>
+      <td>{{ListeMedicament.Debut}} </td>
+      <td>{{ListeMedicament.Fin}} </td>
+      <td>{{ListeMedicament.Intensite}} </td>
+      <!-- <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td> -->
+    </tr>
   </table>
+  <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
 </div>
+<div *ngIf="AffichageNouvelleMigraine">
+    <form>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Date</label>
+          <div class="input-group col-sm-8">
+              <input class="form-control" placeholder="aaaa-mm-jj"
+                    name="dp" [(ngModel)]="model" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
+              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Heure Début</label>
+          <div class="col-sm-8">
+            <input class="form-control form-control-sm" type="time" placeholder={{NouvelleMigraine.debut}}>
+          </div>
+        </div>  
+        <div class="form-row">
+            <label class="col-sm-3 col-form-label">Heure Fin</label>
+            <div class="col-sm-8">
+              <input class="form-control form-control-sm" type="time" placeholder={{NouvelleMigraine.fin}}>
+            </div>
+          </div> 
+          <hr>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Intensité</label>
+          <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star" [class.filled]="fill === 100">&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+        </div>
+
+        <ngb-accordion #acc="ngbAccordion" activeIds="config-panel-one">
+            <ngb-panel title="Médicaments" id="config-panel-one">
+              <ng-template ngbPanelContent>
+                <div class="form-row">
+                  <!-- <label class="col-sm-3 col-form-label">Médicaments</label> -->
+                  <div class="col-sm-8">
+                    <div class="form-check" *ngFor="let medicament of ListeMedicament; let j=index">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value={{j}}>
+                          {{medicament.DenominationMedicament}}
+                        </label>
+                      </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+
+            <ngb-panel title="Facteurs">
+                <ng-template ngbPanelContent>
+                  <div class="form-row">
+                    <!-- <label class="col-sm-3 col-form-label">Médicaments</label> -->
+                    <div class="col-sm-8">
+                      <div class="form-check" *ngFor="let facteur of ListeFacteurs; let j=index">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value={{j}}>
+                            {{facteur.Nom}}
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
+    </form>    
+</div>
+
 

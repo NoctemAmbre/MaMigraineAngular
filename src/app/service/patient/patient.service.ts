@@ -10,6 +10,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 //import { PatientsRetour } from './../../metier/patient';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import { Migraine } from '../../model/migraine';
+import { HttpParams } from '@angular/common/http/src/params';
+import { Facteur } from '../../model/facteur';
 
 @Injectable()
 export class PatientService {
@@ -37,42 +40,74 @@ export class PatientService {
 
 
   CherchePatients(){ 
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Compte[]>('http://localhost:57928/Service1.svc/Patient/Liste?Value='+ btoa(body), {headers : headers, observe : 'response'});
+    return this.http.get<Compte[]>('http://localhost:57928/Service1.svc/Patient/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   public InformationPatient()
   {
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify(this.compte);
     console.log('ce qui est envoyé',body);
     console.log('le patient  dans le service', this.patients.value);
-    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body), {headers : headers, observe : 'response'});
+    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   public AjoutMedicamentAPatient()
   {
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', this.compte);
     
     this.Entravail = true;
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMedicament?Value='+ btoa(body),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   public SupprimerMedicamentAPatient()
   {
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token')); 
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', this.compte);
     
     this.Entravail = true;
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprMedicament?Value='+ btoa(body),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
+  public ListeMigrainesDuPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
+    //var headers = new Headers().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
+
+    var body = JSON.stringify(this.compte);
+    console.log('Get List Migraine', this.compte);
+    return this.http.get<Migraine[]>('http://localhost:57928/Service1.svc/Patient/ListMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+  }
+
+  public ListeMedicamentsDuPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
+    var body = JSON.stringify(this.compte);
+    console.log('Get List Medicament', this.compte);
+    return this.http.get<Medicament[]>('http://localhost:57928/Service1.svc/Patient/ListMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+  }
+
+  public ListeFacteursDuPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify(this.compte);
+    console.log('Get List Facteurs', this.compte);
+    return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Patient/ListFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+  }
+  
 
 /*
   //ListePatients() : Map<number,Patient>{  

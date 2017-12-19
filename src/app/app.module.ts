@@ -15,6 +15,7 @@ import { CompteService } from './service/compte/compte.service';
 import { PatientService } from './service/patient/patient.service';
 import { MedecinService } from './service/medecin/medecin.service';
 import { MedicamentService } from './service/medicament/medicament.service';
+import { FacteurService } from './service/facteur/facteur.service';
 import { JsonService } from './service/json/json.service';
 
 
@@ -38,6 +39,8 @@ import { PatientOrdonnanceComponent } from './vue/patient-ordonnance/patient-ord
 import { MedicamentGestionComponent } from './vue/medicament-gestion/medicament-gestion.component';
 import { CompteNouveauComponent } from './vue/Compte-nouveau/compte-nouveau.component';
 import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.component';
+import { PatientFacteursComponent } from './vue/patient-facteurs/patient-facteurs.component';
+import { FacteurGestionComponent } from './vue/facteur-gestion/facteur-gestion.component';
 
 
 @NgModule({
@@ -63,6 +66,8 @@ import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.c
     MedicamentGestionComponent,
     PatientCourbesComponent,
     PatientTableauComponent,
+    PatientFacteursComponent,
+    FacteurGestionComponent,
     ],
   imports: [
     HttpModule,
@@ -141,7 +146,7 @@ import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.c
     // ]),
   ],
   //providers: [{provide:HTTP_INTERCEPTORS, useClass:HTTPIntercepteur, multi:true}],
-  providers: [CompteService,PatientService,MedecinService,MedicamentService],
+  providers: [CompteService,PatientService,MedecinService,MedicamentService,FacteurService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,27 @@
+<span><input type="text" name ="rechercheFacteur" [(ngModel)]="FacteurRecherche"  (keyup)="rechercheFacteur()" placeholder=""></span>
+<span><button type="button" class="btn btn-outline-primary" (click)="rechercheToutFacteur()">tous</button></span>
+
+<div class="AffichageFacteur" *ngIf="ListFacteur.length > 0">
+  <ng-template #popContent>
+      <b>nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.nom}}</span><br/>
+      <b>Titulaire : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.Question}}</span><br/>
+      <!-- <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.FormePharmaceutique}}</span><br/>
+      <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.VoiesAdministration}}</span><br/> -->
+</ng-template>
+  <table class="table table-hover table-dark">
+      <thead>
+          <tr>
+              <th scope="col">nom</th>
+              <th scope="col">Ajouter</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let facteur of ListFacteur" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="facteur == FacteurSelectionne" (mouseenter)="Information(facteur)">
+              <td>{{facteur.nom}}</td>
+              <td><button type="button" class="btn btn-outline-primary" (click)="onselect(facteur)">Ajouter</button></td>
+              <!-- <td (click)="onselect(Medicament)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
+            </tr>
+        </tbody>
+  </table>
+</div>
+

@@ -48,7 +48,8 @@ connexion(){
     this.compteService.Login().subscribe(data => {
       this.compte = data.body;
       console.log('retour', data.body);
-      if (data.body.Erreur == null) {   
+      if (data.body.Erreur == null) {  
+        localStorage.setItem('Token', data.body.Token);
         this.Congratulation = true;
         //localStorage.setItem('compte', JSON.stringify(data.body));
         //localStorage.setItem('EtatCompte', EtatCompte.affichage.toString());
@@ -90,14 +91,14 @@ connexion(){
     console.log('Nom récupéré : ' + name);
     console.log('Description récupérée : ' + description);
     const nouveauProduit = new Product(name, description);
-    this.compteService.createProduct(nouveauProduit);
+    this.compteService.createProduct();
   }
 
   Test2(name: string, description: string) {
     console.log('Nom récupéré : ' + name);
     console.log('Description récupérée : ' + description);
     const nouveauProduit = new Product(name, description);
-    this.compteService.ConnexionTest3();
+    this.compteService.ConnexionTest3().subscribe();
     
   }
 
@@ -106,6 +107,10 @@ connexion(){
     console.log('Description récupérée : ' + description);
     const nouveauProduit = new Product(name, description);
     this.compteService.ConnexionTest4();
+  }
+
+  Test4() {
+    this.compteService.ConnexionTest5().subscribe();
   }
 }
 

@@ -112,14 +112,14 @@ header
 div.AffichageListPatient
 {
     position: relative;
-    width: 50%; height: 50%;
+    width: 40%; height: 50%;
     border: 1px solid #555454;
 }
 
 div.AffichagePatient
 {
     position: relative;
-    width: 50%; height: 50%;
+    width: 60%; height: 50%;
     border: 1px solid #555454;
 }
 

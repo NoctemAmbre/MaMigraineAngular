@@ -111,6 +111,16 @@
             <app-patient-ordonnance></app-patient-ordonnance>
         </ng-template>
       </ngb-tab>
+      <ngb-tab title="Facteurs Favorable">
+        <ng-template ngbTabContent>
+            <app-patient-facteurs [Favorable]="true"></app-patient-facteurs>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Facteurs Défavorable">
+          <ng-template ngbTabContent>
+              <app-patient-facteurs [Favorable]="false"></app-patient-facteurs>
+          </ng-template>
+        </ngb-tab>
     </ngb-tabset>
     
     <!-- <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">

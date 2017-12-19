@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let Medicament of ListMedicaments" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)" (click)="onselect(Medicament)">
+            <tr *ngFor="let Medicament of ListMedicaments" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="Medicament == MedicamentSelectionne" (mouseenter)="Information(Medicament)">
               <td>{{Medicament.DenominationMedicament}}</td>
               <td><button type="button" class="btn btn-outline-primary" (click)="onselect(Medicament)">Ajouter</button></td>
               <!-- <td (click)="onselect(Medicament)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->

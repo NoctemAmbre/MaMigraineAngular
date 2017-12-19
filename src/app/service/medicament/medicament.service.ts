@@ -19,7 +19,7 @@ export class MedicamentService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Medicament[]>('http://localhost:57928/Service1.svc/Medicament/Liste?Value='+ btoa(body), {headers : headers, observe : 'response'});
+    return this.http.get<Medicament[]>('http://localhost:57928/Service1.svc/Medicament/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
     
   }
 }
