@@ -26,6 +26,7 @@ export class PatientService {
   //NAME = [];
 
   public compte:Compte;
+  //public facteur:Facteur;
   //public medicament : Medicament;
   public Entravail: boolean = false;
 
@@ -107,7 +108,14 @@ export class PatientService {
     console.log('Get List Facteurs', this.compte);
     return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Patient/ListFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
   }
-  
+
+  public AjouterFacteurAuPatient()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify(this.compte);
+    console.log('Get List Facteurs', this.compte);
+    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjouterFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+  }
 
 /*
   //ListePatients() : Map<number,Patient>{  

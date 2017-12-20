@@ -16,11 +16,17 @@ export class PatientFacteursComponent implements OnInit {
   @Input() Favorable : boolean;
   patient : Compte;
   ListeFacteurs : Facteur[] = [];
+  FacteurSelect : Facteur;
 
 
   ngOnInit() {
     this.patientService.patient.subscribe(res => this.patient = res);
     this.ListeFacteurs = this.patient.MesFacteurs.filter(elt => elt.Type == this.Favorable);
     if (this.Favorable) console.log("vrais");
+  }
+
+  Information(facteur:Facteur)
+  {
+    this.FacteurSelect = facteur;
   }
 }
