@@ -1,14 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http'
 
-import { Facteur } from '../../model/facteur';
+import { Facteur, TypeFacteur, TypeReponse } from '../../model/facteur';
 
 @Injectable()
 export class FacteurService {
 
   Facteur : Facteur;
   public Entravail : boolean = false;
+  public ListeTypeFacteur : TypeFacteur[];
+  public ListeTypeReponse : TypeReponse[];
+
   constructor(private http:HttpClient) { }
+
+  GetListTypeFacteur()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    return this.http.get<TypeFacteur[]>('http://localhost:57928/Service1.svc/TypeFacteur/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+  }
+
+  GetListTypeReponse()
+  {
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    return this.http.get<TypeReponse[]>('http://localhost:57928/Service1.svc/TypeReponse/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+  }
 
   GetFacteur() {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');

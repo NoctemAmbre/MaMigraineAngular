@@ -2,8 +2,23 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Facteur {
     ID : number;
-    Type : boolean;
     Nom : string;
     Question : string;
-    Quantite : number;
+    Selection : boolean;
+    Reponse : number;
+    TypeDeFacteur : TypeFacteur;
+    TypeDeReponse : TypeReponse;
+}
+
+@Injectable()
+export class TypeFacteur {
+    ID : number;
+    Type : string;
+}
+
+@Injectable()
+export class TypeReponse {
+    ID : number;
+    Type : string;
+    Information : string;
 }

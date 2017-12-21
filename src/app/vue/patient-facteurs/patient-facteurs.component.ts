@@ -13,20 +13,32 @@ import { Facteur } from '../../model/facteur';
 export class PatientFacteursComponent implements OnInit {
 
   constructor(private patientService:PatientService) { }
-  @Input() Favorable : boolean;
+  // @Input() Favorable : boolean;
   patient : Compte;
   ListeFacteurs : Facteur[] = [];
   FacteurSelect : Facteur;
 
-
   ngOnInit() {
     this.patientService.patient.subscribe(res => this.patient = res);
-    this.ListeFacteurs = this.patient.MesFacteurs.filter(elt => elt.Type == this.Favorable);
-    if (this.Favorable) console.log("vrais");
+    //this.ListeFacteurs = this.patient.MesFacteurs.filter(elt => elt.Type == this.Favorable);
+    //if (this.Favorable) console.log("vrais");
   }
 
   Information(facteur:Facteur)
   {
     this.FacteurSelect = facteur;
+  }
+
+  Supprimer(facteur:Facteur)
+  {
+    let PatientEnvois : Compte = new Compte();
+    PatientEnvois.IDWeb = this.patient.IDWeb;
+    PatientEnvois.MesFacteurs = [];
+    PatientEnvois.MesFacteurs.push(facteur);
+    this.patientService.compte = PatientEnvois;
+    this.patientService.SupprimerFacteurAPatient().subscribe(data => {
+      this.patient = data.body as Compte;
+      this.patientService.changePatient(this.patient);
+    });
   }
 }

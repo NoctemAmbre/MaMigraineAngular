@@ -4,6 +4,7 @@
         <tr>
             <th scope="col">Nom</th>
             <th scope="col">Question</th>
+            <th scope="col">Type De facteur</th>
             <th scope="col">Supprimer</th>
         </tr>
       </thead>
@@ -12,11 +13,16 @@
               <b>ID : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.ID}}</span><br/>
               <b>Nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Nom}}</span><br/>
               <b>Question : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Question}}</span><br/>
+              <b>Type de facteur : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Type}}</span><br/>
+              <b>Information complétaire : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Information}}</span><br/>
+              <b>Type de réponse : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeReponse.Type}}</span><br/>
           </ng-template>
 
-          <tr *ngFor="let facteur of ListeFacteurs" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(facteur)">
+          <tr *ngFor="let facteur of patient.MesFacteurs" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(facteur)">
+            
             <td>{{facteur.Nom}}</td>
             <td>{{facteur.Question}}</td>
+            <td>{{FacteurSelect.TypeDeFacteur.Type}}</td>
             <!-- <td (click)="Supprimer(Medicament)"><a class="badge badge-secondary">Ajouter</a></td> -->
             <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(facteur)">Supprimer</button></td>
           </tr>

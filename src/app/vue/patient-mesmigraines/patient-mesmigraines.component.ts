@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { PatientService } from './../../service/patient/patient.service';
+import { CompteService } from './../../service/compte/compte.service';
 import { Compte } from '../../model/compte';
 
 @Component({
@@ -12,12 +13,21 @@ import { Compte } from '../../model/compte';
 })
 export class PatientMesmigrainesComponent implements OnInit {
   patient : Compte;
-  constructor(private patientService:PatientService) { }
+  compte : Compte;
+  constructor(private compteService:CompteService, private patientService:PatientService) { }
 
   ngOnInit() {
+    this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
-    //this.patientService.changePatient(this.patient);
-    
+
+    console.log('compte : ',this.compte);
+    console.log('patient: ',this.patient);
+    if (this.patient.IDWeb == 0)
+    {
+      this.patient = this.compte;
+      this.patientService.changePatient(this.patient);
+    }
+
   }
 
 }

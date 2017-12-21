@@ -13,7 +13,6 @@ declare var $ : any;
   selector: 'app-patient-monmedecin',
   templateUrl: './patient-monmedecin.component.html',
   styleUrls: ['./patient-monmedecin.component.css']
-  //providers : [MedecinService]
 })
 export class PatientmonMedecinComponent implements OnInit {
 

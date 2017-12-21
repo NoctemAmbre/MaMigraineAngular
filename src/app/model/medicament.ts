@@ -16,4 +16,5 @@ export class Medicament {
     Titulaire:string;
     SurveillanceRenforcee:string;
     Quantite:number;
+    Selection:boolean;
 }

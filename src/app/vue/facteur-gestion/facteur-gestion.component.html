@@ -1,35 +1,6 @@
 <span><input type="text" name ="rechercheFacteur" [(ngModel)]="FacteurRecherche"  (keyup)="rechercheFacteur()" placeholder=""></span>
 <span><button type="button" class="btn btn-outline-primary" (click)="rechercheToutFacteur()">tous</button></span>
-
-<div class="AffichageFacteur" *ngIf="ListFacteur.length > 0">
-  <ng-template #popContent>
-      <b>nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.Nom}}</span><br/>
-      <b>Question : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.Question}}</span><br/>
-      <!-- <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.FormePharmaceutique}}</span><br/>
-      <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.VoiesAdministration}}</span><br/> -->
-  </ng-template>
-  <table class="table table-hover table-dark">
-      <thead>
-          <tr>
-              <th scope="col">Nom</th>
-              <th scope="col">Question</th>
-              <th scope="col">Modifier</th>
-              <th scope="col">Supprimer</th>
-              <th scope="col">Ajouter Au Patient</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let facteur of ListFacteur" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="facteur == FacteurSelectionne" (mouseenter)="Information(facteur)">
-              <td>{{facteur.Nom}}</td>
-              <td>{{facteur.Question}}</td>
-              <td><button type="button" class="btn btn-outline-primary" (click)="Modifier(facteur)">Modifier</button></td>
-              <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(facteur)">Supprimer</button></td>
-              <td><button type="button" class="btn btn-outline-primary" (click)="AjouterAPatient(facteur)">Ajouter</button></td>
-            </tr>
-        </tbody>
-  </table>
-  <button type="button" class="btn btn-outline-primary" (click)="AffichagenouveauFacteur()">Nouveau Facteur</button>
-</div>
+<span><button type="button" class="btn btn-outline-primary" (click)="AffichagenouveauFacteur()">Nouveau Facteur</button></span>
 
 <div *ngIf="AffichageNouveauFacteur">
     <form>
@@ -52,12 +23,28 @@
                 <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
                   <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
                   <div class="dropdown-menu" ngbDropdownMenu>
-                    <button class="dropdown-item" type="button" (click)="Choisi(true)">Facteur Favorable</button>
-                    <button class="dropdown-item" type="button" (click)="Choisi(false)">Facteur Défavorable</button>
+                    <div *ngFor="let TypeFacteur of facteurService.ListeTypeFacteur;let j=index">
+                      <button class="dropdown-item" type="button" (click)="ChoisiTypeFacteur(TypeFacteur)">{{TypeFacteur.Type}}</button>
+                    </div>
+                    <!-- <button class="dropdown-item" type="button" (click)="Choisi()">Facteur Défavorable</button> -->
                   </div>
                 </div>
               </div>
           </div> 
+          <div class="form-row">
+              <label class="col-sm-3 col-form-label">Type</label>
+              <div class="btn-group">
+                  <button type="button" class="btn btn-primary">{{texttypeReponse}}</button>
+                  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                    <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                      <div *ngFor="let TypeReponse of facteurService.ListeTypeReponse;let j=index">
+                        <button class="dropdown-item" type="button" (click)="ChoisiTypeReponse(TypeReponse)">{{TypeReponse.Type}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div> 
           <hr>
         <button type="submit" class="btn btn-outline-primary" (click)="AjoutNouveauFacteur()">Ajouter</button>
         <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
@@ -95,5 +82,38 @@
         <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
     </form>    
 </div>
+
+
+<div class="AffichageFacteur" *ngIf="ListFacteur.length > 0">
+  <ng-template #popContent>
+      <b>nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.Nom}}</span><br/>
+      <b>Question : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.Question}}</span><br/>
+      <!-- <b>Forme Pharmaceutique : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.FormePharmaceutique}}</span><br/>
+      <b>Voies Administration : </b><span style="color:rgb(150, 150, 150);">{{FacteurAffichage.VoiesAdministration}}</span><br/> -->
+  </ng-template>
+  <table class="table table-hover table-dark">
+      <thead>
+          <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Question</th>
+              <th scope="col">Modifier</th>
+              <th scope="col">Supprimer</th>
+              <th scope="col">Ajouter Au Patient</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let facteur of ListFacteur" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [class.selected]="facteur == FacteurSelectionne" (mouseenter)="Information(facteur)">
+              <td>{{facteur.Nom}}</td>
+              <td>{{facteur.Question}}</td>
+              <td><button type="button" class="btn btn-outline-primary" (click)="Modifier(facteur)">Modifier</button></td>
+              <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(facteur)">Supprimer</button></td>
+              <td><button type="button" class="btn btn-outline-primary" (click)="AjouterAPatient(facteur)">Ajouter</button></td>
+            </tr>
+        </tbody>
+  </table>
+  
+</div>
+
+
 
 

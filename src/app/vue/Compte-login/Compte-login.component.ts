@@ -17,7 +17,6 @@ import { AppComponent } from './../../app.component';
   styleUrls: ['./Compte-login.component.css'],
   //providers : []
 })
-//export class MigraineLoginComponent implements OnInit {
 export class CompteLoginComponent implements OnInit{
 
   Nouveau : boolean = false;

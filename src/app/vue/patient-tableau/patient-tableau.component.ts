@@ -21,9 +21,9 @@ const model = {year: new Date().getFullYear(), month: new Date().getMonth() + 1,
 export class PatientTableauComponent implements OnInit {
   compte : Compte;
   patient : Compte;
-  ListeMigraine : Migraine[] = [];
-  ListeMedicament : Medicament[] = [];
-  ListeFacteurs : Facteur[] = [];
+  // ListeMigraine : Migraine[] = [];
+  // ListeMedicament : Medicament[] = [];
+  // ListeFacteurs : Facteur[] = [];
   NouvelleMigraine : Migraine = new Migraine();
   AffichageNouvelleMigraine : boolean = false;
   model: NgbDateStruct;
@@ -31,7 +31,7 @@ export class PatientTableauComponent implements OnInit {
   //currentRate = 6;
 
   constructor(private config: NgbAccordionConfig, private patientService:PatientService, private compteService:CompteService) {
-    config.closeOthers = true;
+    config.closeOthers = false;
     config.type = 'info';
    }
 
@@ -39,68 +39,109 @@ export class PatientTableauComponent implements OnInit {
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
-   
-    this.ListeMigrainesPatient();
+    this.NouvelleMigraine.MedicamentsPris = [];
+    this.NouvelleMigraine.Facteurs = [];
+    this.compte.MesMedicaments.forEach(medicament => {medicament.Selection = false;});
+    this.compte.MesFacteurs.forEach(facteur => {facteur.Selection = false;});
+    
+    // this.patientService.compte = this.patient;
+    // this.patientService.InformationPatient().subscribe(data => {
+    //   this.patient = data.body as Compte;
+    //   this.patientService.changePatient(this.patient);
+    // }
+    // );
+    // this.ListeMigrainesPatient();
   }
 
   Aujourdui()
   {
-    
   }
+
+  // AjoutMedicament(medicament:Medicament)
+  // {
+  //   if (medicament.Selection)
+  //   {
+  //     if (!this.NouvelleMigraine.MedicamentsPris.includes(medicament)) this.NouvelleMigraine.MedicamentsPris.push(medicament);
+  //   } 
+  //   else this.NouvelleMigraine.MedicamentsPris.splice(this.NouvelleMigraine.MedicamentsPris.indexOf(medicament));
+
+  //   console.log('Médicament pris : ',this.NouvelleMigraine.MedicamentsPris);
+  //   console.log('mes médicaments : ',this.patient.MesMedicaments);
+  // }
 
   AjoutMigraine()
   {
     this.AffichageNouvelleMigraine = true;
-    this.ListeMedicamentsPatient();
+    //this.ListeMedicamentsPatient();
   }
 
-  ListeMigrainesPatient()
+  ValidationMigraine()
   {
-    let comptetEnvois : Compte = new Compte();
-    if (!this.compte.Type)
-    {
-      comptetEnvois.IDWeb = this.compte.IDWeb;
-      
-      //this.patientService.changePatient(this.compte); //opération temporaire pour avoir un patient d'existant dans le service patient. J'y place le compte car sans quoi il est vide
-    }
-    else comptetEnvois.IDWeb = this.patient.IDWeb;
+    this.NouvelleMigraine.MedicamentsPris = [];
+    this.NouvelleMigraine.Facteurs = [];
+    this.compte.MesMedicaments.forEach(medicament => {if (medicament.Selection) this.NouvelleMigraine.MedicamentsPris.push(medicament);});
+    this.compte.MesFacteurs.forEach(facteur => {if (facteur.Selection) this.NouvelleMigraine.Facteurs.push(facteur);});
+    
+    console.log(this.NouvelleMigraine);
+    console.log('mes MedicamentsPris : ',this.NouvelleMigraine.MedicamentsPris);
+    console.log('mes Facteurs : ',this.NouvelleMigraine.Facteurs);
 
-    this.patientService.compte = comptetEnvois;
-    console.log('ce qu\'il y a dans le compte', comptetEnvois);
-    this.patientService.ListeMigrainesDuPatient().subscribe(
-      data => {
-        this.ListeMigraine = data.body;
-        console.log('retour', data.body);
-      });
-    }
+    var patientEnvois : Compte = new Compte();
+    patientEnvois.IDWeb = this.patient.IDWeb;
+    patientEnvois.MesMigraines = [];
+    patientEnvois.MesMigraines.push(this.NouvelleMigraine);
 
-    ListeMedicamentsPatient()
-    {
-      let compteEnvois : Compte = new Compte();
-      if (!this.compte.Type) compteEnvois.IDWeb = this.compte.IDWeb;
-      else compteEnvois.IDWeb = this.patient.IDWeb;
+    this.patientService.compte = patientEnvois;
+    
+  }
+
+  // ListeMigrainesPatient()
+  // {
+  //   let comptetEnvois : Compte = new Compte();
+  //   if (!this.compte.Type)
+  //   {
+  //     comptetEnvois.IDWeb = this.compte.IDWeb;
       
-      this.patientService.compte = compteEnvois;
+  //     //this.patientService.changePatient(this.compte); //opération temporaire pour avoir un patient d'existant dans le service patient. J'y place le compte car sans quoi il est vide
+  //   }
+  //   else comptetEnvois.IDWeb = this.patient.IDWeb;
+
+  //   this.patientService.compte = comptetEnvois;
+  //   console.log('ce qu\'il y a dans le compte', comptetEnvois);
+  //   this.patientService.ListeMigrainesDuPatient().subscribe(
+  //     data => {
+  //       //this.ListeMigraine = data.body;
+  //       console.log('retour', data.body);
+  //     });
+  //   }
+
+    // ListeMedicamentsPatient()
+    // {
+    //   let compteEnvois : Compte = new Compte();
+    //   if (!this.compte.Type) compteEnvois.IDWeb = this.compte.IDWeb;
+    //   else compteEnvois.IDWeb = this.patient.IDWeb;
+      
+    //   this.patientService.compte = compteEnvois;
   
-      this.patientService.ListeMedicamentsDuPatient().subscribe(
-      data => {
-        this.ListeMedicament = data.body;
-        console.log('retour', data.body);
-      });
-    }
+    //   this.patientService.ListeMedicamentsDuPatient().subscribe(
+    //   data => {
+    //     //this.ListeMedicament = data.body;
+    //     console.log('retour', data.body);
+    //   });
+    // }
 
-    ListeFacteursPatient()
-    {
-      let compteEnvois : Compte = new Compte();
-      if (!this.compte.Type) compteEnvois.IDWeb = this.compte.IDWeb;
-      else compteEnvois.IDWeb = this.patient.IDWeb;
+    // ListeFacteursPatient()
+    // {
+    //   let compteEnvois : Compte = new Compte();
+    //   if (!this.compte.Type) compteEnvois.IDWeb = this.compte.IDWeb;
+    //   else compteEnvois.IDWeb = this.patient.IDWeb;
       
-      this.patientService.compte = compteEnvois;
+    //   this.patientService.compte = compteEnvois;
   
-      this.patientService.ListeFacteursDuPatient().subscribe(
-      data => {
-        this.ListeFacteurs = data.body;
-        console.log('retour', data.body);
-      });
-    }
+    //   this.patientService.ListeFacteursDuPatient().subscribe(
+    //   data => {
+    //     //this.ListeFacteurs = data.body;
+    //     console.log('retour', data.body);
+    //   });
+    // }
 }

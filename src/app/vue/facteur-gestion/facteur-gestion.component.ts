@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Facteur } from '../../model/facteur';
+import { Facteur, TypeReponse, TypeFacteur } from '../../model/facteur';
 import { PatientService } from './../../service/patient/patient.service';
 import { FacteurService } from './../../service/facteur/facteur.service';
 import { Compte } from '../../model/compte';
@@ -21,10 +21,13 @@ export class FacteurGestionComponent implements OnInit {
   AffichageNouveauFacteur : boolean = false;
   AffichageModificationFacteur : boolean = false;
   texttypeFacteur : string = "Type de facteur";
+  texttypeReponse : string = "Type de réponse";
   constructor(private facteurService : FacteurService, private patientService : PatientService) { }
 
   ngOnInit() {
     this.patientService.patient.subscribe(res => this.patient = res);
+    this.facteurService.GetListTypeFacteur().subscribe(data => this.facteurService.ListeTypeFacteur = data.body);
+    this.facteurService.GetListTypeReponse().subscribe(data => this.facteurService.ListeTypeReponse = data.body);
   }
 
   Supprimer(facteurAsupprimer : Facteur)
@@ -63,12 +66,16 @@ export class FacteurGestionComponent implements OnInit {
   rechercheFacteur() {
     if (this.FacteurRecherche.length > 4)
     {
+      this.ListFacteur = [];
       this.facteurService.Facteur = new Facteur();
       this.facteurService.Facteur.Nom = this.FacteurRecherche;
       this.facteurService.GetFacteur().subscribe(data => {
         this.facteurService.Entravail = false;        
         this.ListFacteur = (data.body as Facteur[]);
       });
+    }
+    else { //on vide la liste dans le cas ou il y a moins de 4 caractère frappé dans le champs de recherche
+      if (this.ListFacteur.length > 0) this.ListFacteur = [];
     }
   }
   rechercheToutFacteur() {
@@ -105,12 +112,15 @@ export class FacteurGestionComponent implements OnInit {
     });
   }
 
-  Choisi(ValeurChoisit : boolean)
+  ChoisiTypeFacteur(typeFacteur : TypeFacteur)
   {
-    console.log(ValeurChoisit);
-    if (ValeurChoisit) this.texttypeFacteur = "Facteur Favorable";
-    else this.texttypeFacteur = "Facteur défavorable";
-    this.NouveauFacteur.Type = ValeurChoisit;
+    this.texttypeFacteur = typeFacteur.Type;
+    this.NouveauFacteur.TypeDeFacteur = typeFacteur;
+  }
+  ChoisiTypeReponse(typeReponse : TypeReponse)
+  {
+    this.texttypeReponse = typeReponse.Type;
+    this.NouveauFacteur.TypeDeReponse = typeReponse;
   }
 
   Annule()
