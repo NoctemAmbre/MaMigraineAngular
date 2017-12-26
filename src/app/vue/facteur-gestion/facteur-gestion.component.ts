@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Facteur, TypeReponse, TypeFacteur } from '../../model/facteur';
+//import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
 import { FacteurService } from './../../service/facteur/facteur.service';
 import { Compte } from '../../model/compte';
@@ -13,6 +14,7 @@ import { Compte } from '../../model/compte';
 export class FacteurGestionComponent implements OnInit {
 
   patient : Compte;
+  //compte : Compte;
   ListFacteur : Facteur[] = [];
   FacteurRecherche : string;
   FacteurAffichage : Facteur;
@@ -26,30 +28,41 @@ export class FacteurGestionComponent implements OnInit {
 
   ngOnInit() {
     this.patientService.patient.subscribe(res => this.patient = res);
+    //this.compteService.compte.subscribe(res => this.compte = res);
     this.facteurService.GetListTypeFacteur().subscribe(data => this.facteurService.ListeTypeFacteur = data.body);
     this.facteurService.GetListTypeReponse().subscribe(data => this.facteurService.ListeTypeReponse = data.body);
   }
 
   Supprimer(facteurAsupprimer : Facteur)
   {
-    this.facteurService.Facteur = facteurAsupprimer;
+    let FacteurEnvois : Facteur = new Facteur();
+    FacteurEnvois.ID = facteurAsupprimer.ID;
+    this.facteurService.Facteur = FacteurEnvois;
     this.facteurService.SupressionFacteur().subscribe(data => {      
       this.ListFacteur = (data.body as Facteur[]);
     });
   }
   Modifier(facteurAModifier : Facteur)
   {
+
+
     this.NouveauFacteur = facteurAModifier;
     if (this.AffichageModificationFacteur == true)  this.AffichageModificationFacteur = false;
     else this.AffichageModificationFacteur = true;
   }
 
+  //dans un patient on ajoute dans un nouveau Facteur l'id de celui-ci affin qu'il soit ajouté
   AjouterAPatient(facteurAAjouterPatient : Facteur)
   {
-    var patientEnvois : Compte = new Compte();
+    let patientEnvois : Compte = new Compte();
     patientEnvois.IDWeb = this.patient.IDWeb;
     patientEnvois.MesFacteurs = [];
-    patientEnvois.MesFacteurs.push(facteurAAjouterPatient);
+
+    let FacteurEnvois : Facteur = new Facteur()
+    FacteurEnvois.ID = facteurAAjouterPatient.ID;
+
+    patientEnvois.MesFacteurs.push(FacteurEnvois);
+
     this.patientService.compte = patientEnvois;
 
     this.patientService.AjouterFacteurAuPatient().subscribe(data => {      
@@ -83,7 +96,8 @@ export class FacteurGestionComponent implements OnInit {
     else 
     {
       this.facteurService.GetToutFacteur().subscribe(data => {
-        this.facteurService.Entravail = false;        
+        this.facteurService.Entravail = false;
+        console.log("tout les facteurs : ", data.body); 
         this.ListFacteur = (data.body as Facteur[]);
       });
     }
@@ -95,7 +109,10 @@ export class FacteurGestionComponent implements OnInit {
   }
   AjoutNouveauFacteur(){
     this.AffichageModificationFacteur = false;
+    console.log('Le facteur a créer : ', this.NouveauFacteur);
+    
     this.facteurService.Facteur = this.NouveauFacteur;
+    //console.log('Avant création nouveau Facteur', JSON.stringify(this.NouveauFacteur) );
     this.facteurService.AjoutFacteur().subscribe(data => {    
       this.ListFacteur = (data.body as Facteur[]);
       this.AffichageNouveauFacteur = false;
@@ -103,10 +120,21 @@ export class FacteurGestionComponent implements OnInit {
   }
 
   ModificationFacteur(){
+    
     this.AffichageModificationFacteur = false;
+    console.log('Le facteur a modifier : ', this.NouveauFacteur);
+    // let FacteurEnvois : Facteur = new Facteur();
+    // FacteurEnvois.ID = this.NouveauFacteur.ID;
+    // FacteurEnvois.Nom = this.NouveauFacteur.Nom;
+    // FacteurEnvois.Question = this.NouveauFacteur.Question;
+    // FacteurEnvois.TypeDeFacteur = null;
+    // FacteurEnvois.TypeDeReponse = null;
+    //FacteurEnvois.TypeDeFacteur = facteurAModifier.TypeDeFacteur;
+    //FacteurEnvois.TypeDeReponse = facteurAModifier.TypeDeReponse;
+
+
     this.facteurService.Facteur = this.NouveauFacteur;
     this.facteurService.ModificationFacteur().subscribe(data => {
-      this.facteurService.Entravail = false;        
       this.ListFacteur = (data.body as Facteur[]);
       this.AffichageModificationFacteur = false;
     });

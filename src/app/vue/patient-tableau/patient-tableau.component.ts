@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct, NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbDateAdapter, NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { PatientService } from './../../service/patient/patient.service'
@@ -10,7 +10,8 @@ import { Medicament } from '../../model/medicament';
 import { Facteur } from '../../model/facteur';
 
 
-const model = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
+const dateDebut = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
+const dateFin = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
 
 @Component({
   selector: 'app-patient-tableau',
@@ -26,8 +27,14 @@ export class PatientTableauComponent implements OnInit {
   // ListeFacteurs : Facteur[] = [];
   NouvelleMigraine : Migraine = new Migraine();
   AffichageNouvelleMigraine : boolean = false;
-  model: NgbDateStruct;
-  date: {year: number, month: number};
+  dateDebut: NgbDateStruct;
+  dateFin: NgbDateStruct;
+
+  // dateDebut : Date;
+  // dateFin : Date;
+  // timeDebut = {};
+  // timeFin = {};
+  //date: {year: number, month: number};
   //currentRate = 6;
 
   constructor(private config: NgbAccordionConfig, private patientService:PatientService, private compteService:CompteService) {
@@ -57,6 +64,38 @@ export class PatientTableauComponent implements OnInit {
   {
   }
 
+  ChoixBinaire(facteur : Facteur, valeur : number)
+  {
+    facteur.Selection = true;
+    facteur.Reponse = valeur;
+    console.log(this.compte.MesFacteurs);
+  }
+
+  ChoixAnalogique(facteur : Facteur, valeur : number)
+  {
+    facteur.Selection = true;
+    facteur.Reponse = valeur;
+  }
+
+  changeTimeDebut(searchValue : DateTimeFormat)
+  {
+    // let dateNow : Date = new Date();
+    // let dateNowISO = dateNow.toISOString();
+    // let dateNowMilliseconds = dateNow.getTime();
+    // console.log(dateNow);
+    // console.log(dateNowISO);
+    // console.log(dateNowMilliseconds);
+    console.log('debut', searchValue);
+    this.NouvelleMigraine.Debut = this.dateDebut.year + "-" + this.dateDebut.month + "-" + this.dateDebut.day + "T" + searchValue;
+    console.log(this.NouvelleMigraine.Debut);
+  }
+  changeTimeFin(searchValue : DateTimeFormat)
+  {
+    console.log('fin', searchValue);
+    this.NouvelleMigraine.Fin = this.dateFin.year + "-" + this.dateFin.month + "-" + this.dateFin.day + "T" + searchValue;
+    console.log(this.NouvelleMigraine.Fin);
+  }
+
   // AjoutMedicament(medicament:Medicament)
   // {
   //   if (medicament.Selection)
@@ -79,8 +118,26 @@ export class PatientTableauComponent implements OnInit {
   {
     this.NouvelleMigraine.MedicamentsPris = [];
     this.NouvelleMigraine.Facteurs = [];
-    this.compte.MesMedicaments.forEach(medicament => {if (medicament.Selection) this.NouvelleMigraine.MedicamentsPris.push(medicament);});
-    this.compte.MesFacteurs.forEach(facteur => {if (facteur.Selection) this.NouvelleMigraine.Facteurs.push(facteur);});
+    this.compte.MesMedicaments.forEach(medicament => 
+    {
+      if (medicament.Selection)
+      {
+        let nouveauMedicament : Medicament = new Medicament();
+        nouveauMedicament.ID = medicament.ID;
+        nouveauMedicament.Quantite = 1;
+        this.NouvelleMigraine.MedicamentsPris.push(nouveauMedicament);
+      }
+    });
+    this.compte.MesFacteurs.forEach(facteur => 
+    {
+      if (facteur.Selection)
+      {
+        let nouveauFacteur : Facteur = new Facteur();
+        nouveauFacteur.ID = facteur.ID;
+        nouveauFacteur.Reponse = facteur.Reponse;
+        this.NouvelleMigraine.Facteurs.push(nouveauFacteur);
+      }
+    });
     
     console.log(this.NouvelleMigraine);
     console.log('mes MedicamentsPris : ',this.NouvelleMigraine.MedicamentsPris);
@@ -92,7 +149,13 @@ export class PatientTableauComponent implements OnInit {
     patientEnvois.MesMigraines.push(this.NouvelleMigraine);
 
     this.patientService.compte = patientEnvois;
-    
+    console.log('nouvelle  Migraine', this.NouvelleMigraine);
+    console.log('patient contenant la nouvelle migraine', patientEnvois);
+
+    this.patientService.AjouterMigraineAPatient().subscribe(data => 
+    {
+      this.patient = data.body as Compte;
+    });
   }
 
   // ListeMigrainesPatient()

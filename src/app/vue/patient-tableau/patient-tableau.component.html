@@ -19,28 +19,38 @@
 <div *ngIf="AffichageNouvelleMigraine">
     <form>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Date</label>
-          <div class="input-group col-sm-8">
+          <label class="col-sm-3 col-form-label">Date Debut</label>
+          <div class="input-group col-sm-3">
               <input class="form-control" placeholder="aaaa-mm-jj"
-                    name="dp" [(ngModel)]="model" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
+                    name="dpDebut" [(ngModel)]="dateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
               <button class="input-group-addon" (click)="d.toggle()" type="button">
                     <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
               </button>
           </div>
-        </div>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Heure Début</label>
-          <div class="col-sm-8">
-            <input class="form-control form-control-sm" type="time" placeholder={{NouvelleMigraine.debut}}>
+          <label class="col-sm-3 col-form-label">Date Fin</label>
+          <div class="input-group col-sm-3">
+              <input class="form-control" placeholder="aaaa-mm-jj"
+                    name="dpFin" [(ngModel)]="dateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
+              <button class="input-group-addon" (click)="f.toggle()" type="button">
+                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
           </div>
-        </div>  
+        </div>
+        
         <div class="form-row">
-            <label class="col-sm-3 col-form-label">Heure Fin</label>
-            <div class="col-sm-8">
-              <input class="form-control form-control-sm" type="time" placeholder={{NouvelleMigraine.fin}}>
-            </div>
-          </div> 
-          <hr>
+          
+          <label class="col-sm-3 col-form-label">Heure Début</label>
+          <div class="col-sm-3">
+            <input class="form-control form-control-sm" (input)="changeTimeDebut($event.target.value)" type="time">
+          </div>        
+          <label class="col-sm-3 col-form-label">Heure Fin</label>
+          <div class="col-sm-3">
+            <input class="form-control form-control-sm" (input)="changeTimeFin($event.target.value)" type="time">
+          </div>
+        </div>
+       
+        <hr>
+        
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Intensité</label>
           <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
@@ -49,7 +59,7 @@
             </ng-template>
           </ngb-rating>
         </div>
-
+        
         <p>
           <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
               Médicaments
@@ -61,7 +71,6 @@
                 <div class="col-sm-8">
                   <div class="form-check" *ngFor="let medicament of patient.MesMedicaments; let j=index">
                       <label class="form-check-label">
-                          <!-- <input [(ngModel)]="medicament.Selection" (change)="AjoutMedicament(medicament)" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch"> -->
                           <input [(ngModel)]="medicament.Selection" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch">
                           {{medicament.DenominationMedicament}}
                       </label>
@@ -79,16 +88,25 @@
         <div class="collapse" id="collapseFacteur">
             <div class="card card-body">
               <div class="form-row">
-                  <div class="col-sm-8">
-                    <div class="form-check" *ngFor="let facteur of patient.MesFacteurs; let j=index">
-                      <label class="form-check-label">
-                        <!-- <input [(ngModel)]="facteur.Selection" (change)="AjoutFacteur(facteur)" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch"> -->
-                        <input [(ngModel)]="facteur.Selection" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch">
-                          {{facteur.Nom}}
-                        </label>
-                      </div>
+                <div class="col-sm-8">
+                  <div *ngFor="let facteur of patient.MesFacteurs; let j=index">
+                    <label>{{facteur.Question}}</label>
+                    <div *ngIf="facteur.TypeDeReponse.ID == 1">
+                        <ngb-rating [(rate)]="facteur.Reponse" (rateChange)="ChoixAnalogique(facteur, facteur.Reponse)" max="5">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                    </div>
+                    <div *ngIf="facteur.TypeDeReponse.ID == 2">
+                      <input type="radio" id="ChoixOui" (change)="ChoixBinaire(facteur, 1)" name={{facteur.Question}}>
+                      <label for="ChoixOui">Oui</label>
+                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}} checked>
+                      <label for="ChoixNon">Non</label><br />
+                    </div>
                   </div>
                 </div>
+              </div>
           </div>
         </div>
         <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>

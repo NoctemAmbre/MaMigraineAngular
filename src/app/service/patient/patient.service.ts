@@ -42,7 +42,7 @@ export class PatientService {
 
   CherchePatients(){ 
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', body);
     
@@ -53,7 +53,7 @@ export class PatientService {
   public InformationPatient()
   {
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('ce qui est envoyé',body);
     console.log('le patient  dans le service', this.patients.value);
@@ -63,7 +63,7 @@ export class PatientService {
   public AjoutMedicamentAPatient()
   {
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', this.compte);
     
@@ -74,7 +74,7 @@ export class PatientService {
   public SupprimerMedicamentAPatient()
   {
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token')); 
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('avant envois', this.compte);
     
@@ -103,7 +103,7 @@ export class PatientService {
 
   public ListeFacteursDuPatient()
   {
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('Get List Facteurs', this.compte);
     return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Patient/ListFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
@@ -111,15 +111,15 @@ export class PatientService {
 
   public AjouterFacteurAuPatient()
   {
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
-    console.log('Get List Facteurs', this.compte);
+    console.log('Ajout Facteur à patient', this.compte);
     return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjouterFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   public SupprimerFacteurAPatient()
   {
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('suppr facteur', this.compte);
     return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
@@ -127,7 +127,7 @@ export class PatientService {
 
   public AjouterMigraineAPatient()
   {
-    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('Ajout Migraine', this.compte);
     return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});

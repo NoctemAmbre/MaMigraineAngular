@@ -29,12 +29,16 @@ export class PatientFacteursComponent implements OnInit {
     this.FacteurSelect = facteur;
   }
 
+  //dans un nouveau patient a l'id du patient choisit on envois dans un nouveau facteur l'id du facteur sélectionné
   Supprimer(facteur:Facteur)
   {
     let PatientEnvois : Compte = new Compte();
     PatientEnvois.IDWeb = this.patient.IDWeb;
     PatientEnvois.MesFacteurs = [];
-    PatientEnvois.MesFacteurs.push(facteur);
+
+    let FacteurEnvois : Facteur = new Facteur();
+    FacteurEnvois.ID = facteur.ID;
+    PatientEnvois.MesFacteurs.push(FacteurEnvois);
     this.patientService.compte = PatientEnvois;
     this.patientService.SupprimerFacteurAPatient().subscribe(data => {
       this.patient = data.body as Compte;

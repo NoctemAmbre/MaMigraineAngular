@@ -65,14 +65,30 @@
           </div>
         </div>  
         <div class="form-row">
-            <label class="col-sm-3 col-form-label">Type</label>
+          <label class="col-sm-3 col-form-label">Type Question</label>
+          <div class="btn-group">
+              <button type="button" class="btn btn-primary">{{texttypeFacteur}}</button>
+              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <div *ngFor="let TypeFacteur of facteurService.ListeTypeFacteur;let j=index">
+                    <button class="dropdown-item" type="button" (click)="ChoisiTypeFacteur(TypeFacteur)">{{TypeFacteur.Type}}</button>
+                  </div>
+                  <!-- <button class="dropdown-item" type="button" (click)="Choisi()">Facteur Défavorable</button> -->
+                </div>
+              </div>
+            </div>
+        </div> 
+        <div class="form-row">
+            <label class="col-sm-3 col-form-label">Type réponse</label>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary">{{texttypeFacteur}}</button>
+                <button type="button" class="btn btn-primary">{{texttypeReponse}}</button>
                 <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
                   <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
                   <div class="dropdown-menu" ngbDropdownMenu>
-                    <button class="dropdown-item" type="button" (click)="Choisi(true)">Facteur Favorable</button>
-                    <button class="dropdown-item" type="button" (click)="Choisi(false)">Facteur Défavorable</button>
+                    <div *ngFor="let TypeReponse of facteurService.ListeTypeReponse;let j=index">
+                      <button class="dropdown-item" type="button" (click)="ChoisiTypeReponse(TypeReponse)">{{TypeReponse.Type}}</button>
+                    </div>
                   </div>
                 </div>
               </div>
