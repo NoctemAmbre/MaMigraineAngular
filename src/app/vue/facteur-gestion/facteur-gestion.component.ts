@@ -132,8 +132,16 @@ export class FacteurGestionComponent implements OnInit {
     //FacteurEnvois.TypeDeFacteur = facteurAModifier.TypeDeFacteur;
     //FacteurEnvois.TypeDeReponse = facteurAModifier.TypeDeReponse;
 
+    var facteurEnvois : Facteur = new Facteur();
+    facteurEnvois.ID = this.NouveauFacteur.ID;
+    facteurEnvois.Nom = this.NouveauFacteur.Nom;
+    facteurEnvois.Question = this.NouveauFacteur.Question;
+    facteurEnvois.TypeDeFacteur = new TypeFacteur();
+    facteurEnvois.TypeDeReponse = new TypeReponse();
+    facteurEnvois.TypeDeFacteur.ID = this.NouveauFacteur.TypeDeFacteur.ID;
+    facteurEnvois.TypeDeReponse.ID = this.NouveauFacteur.TypeDeReponse.ID;
 
-    this.facteurService.Facteur = this.NouveauFacteur;
+    this.facteurService.Facteur = facteurEnvois;
     this.facteurService.ModificationFacteur().subscribe(data => {
       this.ListFacteur = (data.body as Facteur[]);
       this.AffichageModificationFacteur = false;

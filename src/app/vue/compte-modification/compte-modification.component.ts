@@ -30,6 +30,8 @@ export class CompteModificationComponent implements OnInit {
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.compteService.changeCompte(this.compte);
+    if (this.compte.IDWeb == 0) this.router.navigate(['prospec']); 
+    if (this.compte == null) this.router.navigate(['prospec']); 
     console.log('modification', this.compte);
   }
 

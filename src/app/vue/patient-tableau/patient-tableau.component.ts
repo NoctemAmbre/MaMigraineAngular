@@ -158,6 +158,20 @@ export class PatientTableauComponent implements OnInit {
     });
   }
 
+  Annule()
+  {
+    this.AffichageNouvelleMigraine = false;
+    this.NouvelleMigraine = new Migraine();
+  }
+
+  Date(InformaitonDate : string) : string
+  { 
+    return InformaitonDate.substring(0, InformaitonDate.indexOf('T'));
+  }
+  Heure(InformaitonDate: string) : string
+  {
+    return InformaitonDate.substring(InformaitonDate.indexOf('T') + 1, InformaitonDate.length);
+  }
   // ListeMigrainesPatient()
   // {
   //   let comptetEnvois : Compte = new Compte();

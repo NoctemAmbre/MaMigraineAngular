@@ -1,22 +1,26 @@
-<div class="col-md-5" style="margin-bottom: 10px">
-  <table class="table table-hover table-dark">
-    <tr>
-      <th>Date</th>
-      <th>Heure Debut</th>
-      <th>Heure Fin</th>
-      <th>Intensité</th>
-    </tr>
-    <tr *ngFor="let Migraine of patient.MesMigraines">
-      <td>{{ListeMedicament.ID}} </td>
-      <td>{{ListeMedicament.Debut}} </td>
-      <td>{{ListeMedicament.Fin}} </td>
-      <td>{{ListeMedicament.Intensite}} </td>
-      <!-- <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td> -->
-    </tr>
+    <table class="table table-hover table-dark">
+      <tr>
+        <th>Date Début</th>
+        <th>Heure Début</th>
+        <th>Date Fin</th>
+        <th>Heure Fin</th>
+        <th>Intensité</th>
+        <th>Durée</th>
+      </tr>
+      <tr *ngFor="let Migraine of patient.MesMigraines">
+        <td>{{Date(Migraine.Debut)}}</td>
+        <td>{{Heure(Migraine.Debut)}}</td>
+        <td>{{Date(Migraine.Fin)}}</td>
+        <td>{{Heure(Migraine.Fin)}}</td>
+        <td>{{Migraine.Intensite}}</td>
+        <td>{{Migraine.Duree}} heure</td>
+        <!-- <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td> -->
+      </tr>
   </table>
   <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
-</div>
-<div *ngIf="AffichageNouvelleMigraine">
+  
+
+  <div *ngIf="AffichageNouvelleMigraine">
     <form>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Date Debut</label>
@@ -110,6 +114,7 @@
           </div>
         </div>
         <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
+        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
     </form>    
 </div>
 

@@ -32,6 +32,8 @@ export class PatientmonMedecinComponent implements OnInit {
     this.medecinService.medecin.subscribe(res => this.medecin = res);
     this.medecinService.changeMedecin(this.medecin);
 
+    if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
+
     console.log('modification', this.compte);
     // $(document).ready(function()
     // {

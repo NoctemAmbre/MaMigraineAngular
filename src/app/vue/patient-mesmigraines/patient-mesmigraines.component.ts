@@ -14,11 +14,14 @@ import { Compte } from '../../model/compte';
 export class PatientMesmigrainesComponent implements OnInit {
   patient : Compte;
   compte : Compte;
-  constructor(private compteService:CompteService, private patientService:PatientService) { }
+  constructor(private compteService:CompteService,
+     private patientService:PatientService,
+     private router:Router) { }
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
+    if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
 
     console.log('compte : ',this.compte);
     console.log('patient: ',this.patient);

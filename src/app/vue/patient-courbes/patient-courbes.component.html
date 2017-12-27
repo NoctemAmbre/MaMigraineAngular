@@ -1,3 +1,43 @@
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Nombre</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item" (click)="LectureValeurAbscisse()">Nombre</button>
+        <button class="dropdown-item">Intensité moyenne</button>
+        <button class="dropdown-item">Durée moyenne</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Médicament</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div *ngFor="let Medicament of patient.MesMedicaments;let j=index">
+            <button class="dropdown-item" type="button" (click)="ChoisiMedicament(Medicament)">{{Medicament.DenominationMedicament}}</button>
+        </div>
+<!--           
+        <button class="dropdown-item">Eletridtane</button>
+        <button class="dropdown-item">Profenid</button>
+        <button class="dropdown-item">Aspirine UPSA</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Facteur</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+          <div *ngFor="let Facteur of patient.MesFacteurs;let j=index">
+              <button class="dropdown-item" type="button" (click)="ChoisiFacteur(Facteur)">{{Facteur.Nom}}</button>
+          </div>
+        <!-- <button class="dropdown-item">Stresse</button>
+        <button class="dropdown-item">Vomissement</button>
+        <button class="dropdown-item">Boisson</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <div class="col-md-12">
       <div style="display: block;">
@@ -13,33 +53,6 @@
       </div>
     </div>
   </div>
-    <!-- <div class="col-md-5" style="margin-bottom: 10px">
-      <table class="table table-hover table-dark">
-        <tr>
-          <th *ngFor="let label of lineChartLabels">{{label}}</th>
-        </tr>
-        <tr *ngFor="let d of lineChartData">
-          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-        </tr>
-      </table>
-      <button (click)="randomize()">CLICK</button>
-    </div> -->
-
-
-    <!-- <div class="col-md-5">
-      <table class="table table-hover table-dark">
-        <thead>
-          <tr *ngFor="let label of lineChartLabels">
-              <th scope="col">{{label}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of lineChartData; let j=index">
-              <td>{{data[0]}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
 
 
 

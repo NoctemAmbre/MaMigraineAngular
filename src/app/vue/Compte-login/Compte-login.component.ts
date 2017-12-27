@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http'
 
 import { CompteService } from './../../service/compte/compte.service';
-import { CompteTestService } from './../../service/compte/compte-test.service';
+import { PatientService } from './../../service/patient/patient.service';
+//import { CompteTestService } from './../../service/compte/compte-test.service';
 import { Compte } from './../../model/compte';
 import { Product } from './../../model/Products'; //a supprimer après test
 import { CompteInformationComponent } from './../../vue/compte-information/compte-information.component';
@@ -22,14 +23,17 @@ export class CompteLoginComponent implements OnInit{
   Nouveau : boolean = false;
   Congratulation : boolean = false; 
   compte:Compte = new Compte();
+  patient : Compte;
 
   constructor(private compteService : CompteService,
+              private patientService : PatientService,
               private router:Router,
               private appComponent: AppComponent) {}
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
-    this.compteService.changeCompte(this.compte);
+    this.patientService.patient.subscribe(res => this.patient = res);
+    //this.compteService.changeCompte(this.compte);
     console.log('login', this.compte);
   }
 
@@ -71,6 +75,8 @@ connexion(){
     this.compte.IDWeb = 0;
     this.compte.Identifiant = "";
     this.compte.MotDePass = "";
+    this.patient = new Compte();
+    this.patientService.changePatient(this.patient);
     this.compteService.changeCompte(this.compte);
     this.appComponent.Actualisation();
 
