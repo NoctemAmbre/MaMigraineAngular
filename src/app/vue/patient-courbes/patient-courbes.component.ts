@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompteService } from './../../service/compte/compte.service'
 import { PatientService } from './../../service/patient/patient.service'
 import { Compte } from '../../model/compte';
-import { Synthese } from '../../model/synthese';
+import { Synthese, Valeur } from '../../model/synthese';
 import { Migraine } from '../../model/migraine';
 import { Alert } from 'selenium-webdriver';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -15,132 +15,136 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class PatientCourbesComponent implements OnInit {
   patient : Compte;
   compte : Compte;
+  synthese : Synthese;
 
   constructor(private compteService:CompteService, private patientService:PatientService) { }
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
+    this.synthese = new Synthese();
+    this.patientService.changeSynthese(this.synthese);
+    this.patientService.synthese.subscribe(res => this.synthese = res);
     if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte; this.patientService.changePatient(this.patient);}
     this.LectureValeurAbscisse();
-    this.NombreMoyenMensuel();
+    this.NombreMensuel();
   }
-
-
-  public lineChartData:Array<any> = [
-    {data: [1.3,  2.6,  3.1,  2.0,   0.0,   1.6,  3.0],   label: 'Intensité Moyenne'},
-    {data: [2,    4,    2,    2,    0,      2,    1],     label: 'Fréquence Mensuel Total'},
-    {data: [1,    3,    1,    2,    0,      1,    0],     label: 'Fréquence Mensuel Intensité 1'},
-    {data: [1,    0,    0,    0,    0,      1,    0],     label: 'Fréquence Mensuel Intensité 2'},
-    {data: [0,    0,    0,    0,    0,      0,    1],     label: 'Fréquence Mensuel Intensité 3'},
-    {data: [0,    0,    1,    0,    0,      0,    0],     label: 'Fréquence Mensuel Intensité 4'},
-    {data: [0,    1,    0,    0,    0,      0,    0],     label: 'Fréquence Mensuel Intensité 5'}
-  ];
-
-
-  
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public LectureValeurAbscisse()
   {
-    //let syntheses : Synthese[] = [];
-    //let label : string;
     let ValeurAbscisse:Array<any> = [];
     this.patient.MesMigraines.forEach(elementMigraine => {
       let index : number = ValeurAbscisse.findIndex(elt => elt == elementMigraine.Moi)
       if ( index == -1)
       {
-        //let migraine = new Synthese();
-        //migraine.label = elementMigraine.Moi;
-        //migraine.data = []
         ValeurAbscisse.push(elementMigraine.Moi);
       }
-      // else 
-      // {
-      //   if (syntheses[index].data.
-      //   syntheses[index].data
-      // }
     });
     console.log(ValeurAbscisse);
-    this.lineChartLabels = ValeurAbscisse;
+    this.synthese.lineChartLabels = ValeurAbscisse;
+    this.patientService.changeSynthese(this.synthese);
   }
 
-  public NombreMoyenMensuel()
+  public NombreMensuel()
   {
     let _lineChartData:Array<any> = new Array(1);
-    
-    let syntheses : Synthese[] =  [];
-    for (let i = 0; i < this.lineChartLabels.length; i++)
+    this.synthese.Valeurs = [];
+
+    for (let i = 0; i < this.synthese.lineChartLabels.length; i++)
     {
-      let synthese : Synthese = new Synthese();
-      synthese.abscisse = this.lineChartLabels[i] as string;
-      synthese.ordonne = 0;
-      // syntheses.push({abscisse : this.lineChartLabels[i] as string, ordonne : 0 as number });
-      syntheses.push(synthese);
+      let valeur : Valeur = new Valeur();
+      valeur.abscisse = this.synthese.lineChartLabels[i] as string;
+      valeur.ordonne = 0 as number;
+      this.synthese.Valeurs.push(valeur);
     }
+    console.log('liste nombre de migraine',this.synthese.Valeurs);
+
     this.patient.MesMigraines.forEach(eltMigrain => {
-      syntheses.find(eltSynth => eltSynth.abscisse == eltMigrain.Moi).ordonne++;
+      this.synthese.Valeurs.find(eltValeur => eltValeur.abscisse == eltMigrain.Moi).ordonne++;
     });
-    console.log(syntheses);
+    console.log(this.synthese.Valeurs);
     _lineChartData[0] = {data: new Array(12), label: 'Fréquence mensuel'};
-    for (let j = 0; j < this.lineChartLabels.length; j++) {
-      //_lineChartData[0].data[j] = Math.floor((Math.random() * 100) + 1);
-      _lineChartData[0].data[j] = syntheses[j].ordonne;
+    for (let j = 0; j < this.synthese.lineChartLabels.length; j++) {
+      _lineChartData[0].data[j] = this.synthese.Valeurs[j].ordonne;
     }
  
-    this.lineChartData = _lineChartData;
+    this.synthese.lineChartData = _lineChartData;
+    this.patientService.changeSynthese(this.synthese);
   }
 
 
-  public lineChartOptions:any = {
-    responsive: true
-  };
-  public lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+
+  public intensiteMoyenMensuel()
+  {
+    let _lineChartData:Array<any> = new Array(1);
+    this.synthese.Valeurs = [];
+
+    //initiation du tableau et ajout du nom du moi
+    for (let i = 0; i < this.synthese.lineChartLabels.length; i++)
+    {
+      let valeur : Valeur = new Valeur();
+      valeur.abscisse = this.synthese.lineChartLabels[i] as string;
+      valeur.ordonne = [];
+      this.synthese.Valeurs.push(valeur);
     }
-  ];
-  public lineChartLegend:boolean = false;
-  public lineChartType:string = 'line';
- 
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
+
+    //ajout dans le tableau de la liste des intensité de migraine par moi
+    this.patient.MesMigraines.forEach(eltMigrain => {
+      this.synthese.Valeurs.find(eltValeur => eltValeur.abscisse == eltMigrain.Moi).ordonne.push(eltMigrain.Intensite);
+    });
+    console.log('liste des intensité',this.synthese.Valeurs);
+
+    //transformation d'un tableau d'intensité en une intensité moyenne
+    this.synthese.Valeurs.forEach(elt => {
+      let resultat : number = 0;
+      elt.ordonne.forEach(element => {
+        resultat += element;
+      });
+      elt.ordonne = resultat / elt.ordonne.length;
+    });
+    console.log('liste des moyennes',this.synthese.Valeurs);
+
+    //remplissage du tableau pour affichage
+    _lineChartData[0] = {data: new Array(12), label: 'Intensité moyenne'};
+    for (let j = 0; j < this.synthese.lineChartLabels.length; j++) {
+      _lineChartData[0].data[j] = this.synthese.Valeurs[j].ordonne;
     }
-    this.lineChartData = _lineChartData;
-  }
- 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
+    this.synthese.lineChartData = _lineChartData;
+    this.patientService.changeSynthese(this.synthese);
   }
 
+  public TempMoyen()
+  {
+    let _lineChartData:Array<any> = new Array(1);
+    this.synthese.Valeurs = [];
+    for (let i = 0; i < this.synthese.lineChartLabels.length; i++)
+    {
+      let valeur : Valeur = new Valeur();
+      valeur.abscisse = this.synthese.lineChartLabels[i] as string;
+      valeur.ordonne = [];
+      this.synthese.Valeurs.push(valeur);
+    }
+
+    //ajout dans le tableau de la liste des durée des migraine par moi
+    this.patient.MesMigraines.forEach(eltMigrain => {
+      this.synthese.Valeurs.find(eltValeur => eltValeur.abscisse == eltMigrain.Moi).ordonne.push(eltMigrain.Duree);
+    });
+
+    //transformation d'un tableau de durée en une durée moyenne
+    this.synthese.Valeurs.forEach(elt => {
+      let resultat : number = 0;
+      elt.ordonne.forEach(element => {
+        resultat += element;
+      });
+      elt.ordonne = resultat / elt.ordonne.length;
+    });
+    console.log('liste des moyennes',this.synthese.Valeurs);
+    
+    //remplissage du tableau pour affichage
+    _lineChartData[0] = {data: new Array(12), label: 'Durée moyenne'};
+    for (let j = 0; j < this.synthese.lineChartLabels.length; j++) {
+      _lineChartData[0].data[j] = this.synthese.Valeurs[j].ordonne;
+    }
+    this.synthese.lineChartData = _lineChartData;
+    this.patientService.changeSynthese(this.synthese);
+  }
 }

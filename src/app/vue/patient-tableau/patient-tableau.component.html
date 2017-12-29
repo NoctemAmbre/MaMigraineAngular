@@ -1,3 +1,19 @@
+  <ng-template #popContent>
+      <b>Debut : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.DateDebut.day}}/{{MigraineAffichage.DateDebut.month}}/{{MigraineAffichage.DateDebut.year}} à {{MigraineAffichage.HeureDebut.hour}} heure {{MigraineAffichage.HeureDebut.minute}}</span><br/>
+      <b>Fin : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.DateFin.day}}/{{MigraineAffichage.DateFin.month}}/{{MigraineAffichage.DateFin.year}} à {{MigraineAffichage.HeureFin.hour}} heure {{MigraineAffichage.HeureFin.minute}}</span><br/>
+      <b>Durée : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.Duree}}</span><br/>
+      <b>Intensité : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.Intensite}}</span><br/>
+      <b>Médicaments : </b><span style="color:rgb(150, 150, 150);">
+        <tr *ngFor="let medicament of MigraineAffichage.MedicamentsPris">
+          <td>{{medicament.DenominationMedicament}}</td>
+        </tr>
+      </span><br/>
+      <b>Facteur : </b><span style="color:rgb(150, 150, 150);">
+        <tr *ngFor="let facteur of MigraineAffichage.Facteurs">
+            <td>{{facteur.Nom}} : {{facteur.Reponse}}</td>
+        </tr>
+      </span><br/>
+    </ng-template>
     <table class="table table-hover table-dark">
       <tr>
         <th>Date Début</th>
@@ -6,21 +22,120 @@
         <th>Heure Fin</th>
         <th>Intensité</th>
         <th>Durée</th>
+        <th>Modifier</th>
       </tr>
-      <tr *ngFor="let Migraine of patient.MesMigraines">
-        <td>{{Date(Migraine.Debut)}}</td>
-        <td>{{Heure(Migraine.Debut)}}</td>
-        <td>{{Date(Migraine.Fin)}}</td>
-        <td>{{Heure(Migraine.Fin)}}</td>
+      <tr *ngFor="let Migraine of patient.MesMigraines" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(Migraine)">
+        <td>{{Migraine.DateDebut.day}}/{{Migraine.DateDebut.month}}/{{Migraine.DateDebut.year}}</td>
+        <td>{{Migraine.HeureDebut.hour}} : {{Migraine.HeureDebut.minute}}</td>
+        <td>{{Migraine.DateFin.day}}/{{Migraine.DateFin.month}}/{{Migraine.DateFin.year}}</td>
+        <td>{{Migraine.HeureFin.hour}} : {{Migraine.HeureFin.minute}}</td>
         <td>{{Migraine.Intensite}}</td>
         <td>{{Migraine.Duree}} heure</td>
-        <!-- <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td> -->
+        <td><button type="button" class="btn btn-outline-primary" (click)="ModifierMigraine(Migraine)">Modifier</button></td>
       </tr>
   </table>
   <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
   
 
   <div *ngIf="AffichageNouvelleMigraine">
+    <form>
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Date Debut</label>
+          <div class="input-group col-sm-3">
+              <input class="form-control" placeholder="aaaa-mm-jj"
+                    name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
+              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+          </div>
+          <label class="col-sm-3 col-form-label">Date Fin</label>
+          <div class="input-group col-sm-3">
+              <input class="form-control" placeholder="aaaa-mm-jj"
+                    name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
+              <button class="input-group-addon" (click)="f.toggle()" type="button">
+                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          
+          <label class="col-sm-3 col-form-label">Heure Début</label>
+          <div class="col-sm-3">
+            <input class="form-control form-control-sm" (input)="changeTimeDebut($event.target.value)" type="time">
+          </div>        
+          <label class="col-sm-3 col-form-label">Heure Fin</label>
+          <div class="col-sm-3">
+            <input class="form-control form-control-sm" (input)="changeTimeFin($event.target.value)" type="time">
+          </div>
+        </div>
+       
+        <hr>
+        
+        <div class="form-row">
+          <label class="col-sm-3 col-form-label">Intensité</label>
+          <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star" [class.filled]="fill === 100">&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+        </div>
+        
+        <p>
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
+              Médicaments
+          </a>
+        </p>
+        <div class="collapse" id="collapseMedicament">
+          <div class="card card-body">
+            <div class="form-row">
+                <div class="col-sm-8">
+                  <div class="form-check" *ngFor="let medicament of patient.MesMedicaments; let j=index">
+                      <label class="form-check-label">
+                          <input [(ngModel)]="medicament.Selection" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch">
+                          {{medicament.DenominationMedicament}}
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <p>
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament">
+              Facteurs
+          </a>
+        </p>
+        <div class="collapse" id="collapseFacteur">
+            <div class="card card-body">
+              <div class="form-row">
+                <div class="col-sm-8">
+                  <div *ngFor="let facteur of patient.MesFacteurs; let j=index">
+                    <label>{{facteur.Question}}</label>
+                    <div *ngIf="facteur.TypeDeReponse.ID == 1">
+                        <ngb-rating [(rate)]="facteur.Reponse" (rateChange)="ChoixAnalogique(facteur, facteur.Reponse)" max="5">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                    </div>
+                    <div *ngIf="facteur.TypeDeReponse.ID == 2">
+                      <input type="radio" id="ChoixOui" (change)="ChoixBinaire(facteur, 1)" name={{facteur.Question}}>
+                      <label for="ChoixOui">Oui</label>
+                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}} checked>
+                      <label for="ChoixNon">Non</label><br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
+        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
+    </form>    
+</div>
+
+<div *ngIf="AffichageModificationMigraine">
     <form>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Date Debut</label>
@@ -52,7 +167,6 @@
             <input class="form-control form-control-sm" (input)="changeTimeFin($event.target.value)" type="time">
           </div>
         </div>
-       
         <hr>
         
         <div class="form-row">

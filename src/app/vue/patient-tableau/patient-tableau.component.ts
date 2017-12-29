@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct, NgbDateAdapter, NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NgbTimeStruct ,NgbDateStruct, NgbDateAdapter, NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { PatientService } from './../../service/patient/patient.service'
@@ -10,8 +10,8 @@ import { Medicament } from '../../model/medicament';
 import { Facteur } from '../../model/facteur';
 
 
-const dateDebut = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
-const dateFin = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
+// const dateDebut = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
+// const dateFin = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
 
 @Component({
   selector: 'app-patient-tableau',
@@ -22,20 +22,13 @@ const dateFin = {year: new Date().getFullYear(), month: new Date().getMonth() + 
 export class PatientTableauComponent implements OnInit {
   compte : Compte;
   patient : Compte;
-  // ListeMigraine : Migraine[] = [];
-  // ListeMedicament : Medicament[] = [];
-  // ListeFacteurs : Facteur[] = [];
-  NouvelleMigraine : Migraine = new Migraine();
-  AffichageNouvelleMigraine : boolean = false;
-  dateDebut: NgbDateStruct;
-  dateFin: NgbDateStruct;
 
-  // dateDebut : Date;
-  // dateFin : Date;
-  // timeDebut = {};
-  // timeFin = {};
-  //date: {year: number, month: number};
-  //currentRate = 6;
+  NouvelleMigraine : Migraine = new Migraine();
+  MigraineAffichage : Migraine;
+  AffichageNouvelleMigraine : boolean = false;
+  AffichageModificationMigraine : boolean = false;
+  // dateDebut: NgbDateStruct;
+  // dateFin: NgbDateStruct;
 
   constructor(private config: NgbAccordionConfig, private patientService:PatientService, private compteService:CompteService) {
     config.closeOthers = false;
@@ -50,18 +43,14 @@ export class PatientTableauComponent implements OnInit {
     this.NouvelleMigraine.Facteurs = [];
     this.compte.MesMedicaments.forEach(medicament => {medicament.Selection = false;});
     this.compte.MesFacteurs.forEach(facteur => {facteur.Selection = false;});
-    
-    // this.patientService.compte = this.patient;
-    // this.patientService.InformationPatient().subscribe(data => {
-    //   this.patient = data.body as Compte;
-    //   this.patientService.changePatient(this.patient);
-    // }
-    // );
-    // this.ListeMigrainesPatient();
   }
 
-  Aujourdui()
+  ModifierMigraine(Migraine)
   {
+    this.NouvelleMigraine = Migraine;
+    //this.dateDebut = this.NouvelleMigraine.DateDebut;
+    this.AffichageNouvelleMigraine = false;
+    this.AffichageModificationMigraine = true;
   }
 
   ChoixBinaire(facteur : Facteur, valeur : number)
@@ -77,23 +66,22 @@ export class PatientTableauComponent implements OnInit {
     facteur.Reponse = valeur;
   }
 
-  changeTimeDebut(searchValue : DateTimeFormat)
+  changeTimeDebut(searchValue : string)
   {
-    // let dateNow : Date = new Date();
-    // let dateNowISO = dateNow.toISOString();
-    // let dateNowMilliseconds = dateNow.getTime();
-    // console.log(dateNow);
-    // console.log(dateNowISO);
-    // console.log(dateNowMilliseconds);
     console.log('debut', searchValue);
-    this.NouvelleMigraine.Debut = this.dateDebut.year + "-" + this.dateDebut.month + "-" + this.dateDebut.day + "T" + searchValue;
-    console.log(this.NouvelleMigraine.Debut);
+    console.log('DateDebut', this.NouvelleMigraine.DateDebut);
+    this.NouvelleMigraine.HeureDebut = {hour : parseInt(searchValue.split(':')[0]), minute : parseInt(searchValue.split(':')[1]), second : 0};
+    
+    this.NouvelleMigraine.Debut = this.NouvelleMigraine.DateDebut.year + "-" + this.NouvelleMigraine.DateDebut.month + "-" + this.NouvelleMigraine.DateDebut.day + "T" + searchValue;
+    console.log('time debut', this.NouvelleMigraine);
   }
-  changeTimeFin(searchValue : DateTimeFormat)
+  // changeTimeFin(searchValue : DateTimeFormat)
+  changeTimeFin(searchValue : string)
   {
     console.log('fin', searchValue);
-    this.NouvelleMigraine.Fin = this.dateFin.year + "-" + this.dateFin.month + "-" + this.dateFin.day + "T" + searchValue;
-    console.log(this.NouvelleMigraine.Fin);
+    this.NouvelleMigraine.HeureFin = {hour : parseInt(searchValue.split(':')[0]), minute : parseInt(searchValue.split(':')[1]), second : 0};
+    this.NouvelleMigraine.Fin = this.NouvelleMigraine.DateFin.year + "-" + this.NouvelleMigraine.DateFin.month + "-" + this.NouvelleMigraine.DateFin.day + "T" + searchValue;
+    console.log('time fin', this.NouvelleMigraine);
   }
 
   // AjoutMedicament(medicament:Medicament)
@@ -158,20 +146,28 @@ export class PatientTableauComponent implements OnInit {
     });
   }
 
+  Information(migraine : Migraine)
+  {
+    this.MigraineAffichage = migraine;
+  }
+
   Annule()
   {
     this.AffichageNouvelleMigraine = false;
+    this.AffichageModificationMigraine = false;
     this.NouvelleMigraine = new Migraine();
   }
 
-  Date(InformaitonDate : string) : string
-  { 
-    return InformaitonDate.substring(0, InformaitonDate.indexOf('T'));
-  }
-  Heure(InformaitonDate: string) : string
-  {
-    return InformaitonDate.substring(InformaitonDate.indexOf('T') + 1, InformaitonDate.length);
-  }
+  // Date(migraine : Migraine) : string
+  // { 
+  //   let retour : string = "";
+  //   retour = migraine..day + InformationDate.month
+  //   return InformaitonDate.substring(0, InformaitonDate.indexOf('T'));
+  // }
+  // Heure(migraine : Migraine) : string
+  // {
+  //   return InformaitonDate.substring(InformaitonDate.indexOf('T') + 1, InformaitonDate.length);
+  // }
   // ListeMigrainesPatient()
   // {
   //   let comptetEnvois : Compte = new Compte();

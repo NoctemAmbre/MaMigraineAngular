@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 import { Migraine } from '../../model/migraine';
 import { HttpParams } from '@angular/common/http/src/params';
 import { Facteur } from '../../model/facteur';
+import { Synthese } from '../../model/synthese';
 
 @Injectable()
 export class PatientService {
@@ -33,12 +34,18 @@ export class PatientService {
   private patients = new BehaviorSubject<Compte>(new Compte());
   patient = this.patients.asObservable();
 
+  private syntheses = new BehaviorSubject<Synthese>(new Synthese());
+  synthese = this.syntheses.asObservable();
+
   constructor(private http:HttpClient) { }
 
   changePatient(patient){
     this.patients.next(patient);
   }
 
+  changeSynthese(synthese){
+    this.syntheses.next(synthese);
+  }
 
   CherchePatients(){ 
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
@@ -55,8 +62,8 @@ export class PatientService {
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
-    console.log('ce qui est envoyé',body);
-    console.log('le patient  dans le service', this.patients.value);
+    // console.log('ce qui est envoyé',body);
+    // console.log('le patient  dans le service', this.patients.value);
     return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 

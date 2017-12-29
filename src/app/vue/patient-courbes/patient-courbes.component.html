@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col">
     <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Nombre</button>
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Synthèse</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item" (click)="LectureValeurAbscisse()">Nombre</button>
-        <button class="dropdown-item">Intensité moyenne</button>
-        <button class="dropdown-item">Durée moyenne</button>
+        <button class="dropdown-item" (click)="NombreMensuel()">Fréquence mensuel</button>
+        <button class="dropdown-item" (click)="intensiteMoyenMensuel()">Intensité moyenne</button>
+        <button class="dropdown-item" (click)="TempMoyen()">Durée moyenne</button>
       </div>
     </div>
   </div>
@@ -42,14 +42,14 @@
     <div class="col-md-12">
       <div style="display: block;">
       <canvas baseChart width="400" height="400"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
+                  [datasets]="synthese.lineChartData"
+                  [labels]="synthese.lineChartLabels"
+                  [options]="synthese.lineChartOptions"
+                  [colors]="synthese.lineChartColors"
+                  [legend]="synthese.lineChartLegend"
+                  [chartType]="synthese.lineChartType"
+                  (chartHover)="synthese.chartHovered($event)"
+                  (chartClick)="synthese.chartClicked($event)"></canvas>
       </div>
     </div>
   </div>

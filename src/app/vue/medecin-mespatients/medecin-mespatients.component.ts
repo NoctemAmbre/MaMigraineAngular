@@ -99,21 +99,20 @@ export class MedecinMespatientsComponent implements OnInit {
   //on envois le compte Medecin avec un seul "MesPatient" celui sélectionné
   selectAffichage(compteAAfficher : Compte) : void
   {
-    this.patient = compteAAfficher;
-    this.patientService.changePatient(this.patient);
-    let CompteAEnvoyer : Compte = new Compte();
-    CompteAEnvoyer.IDWeb = this.compte.IDWeb;
-    CompteAEnvoyer.Token = this.compte.Token;
-    CompteAEnvoyer.MesPatients = [];
-    CompteAEnvoyer.MesPatients.push(this.patient);
+    //this.patient = compteAAfficher;
+    this.patientService.compte = compteAAfficher;
+    // let CompteAEnvoyer : Compte = new Compte();
+    // CompteAEnvoyer.IDWeb = this.compte.IDWeb;
+    // CompteAEnvoyer.Token = this.compte.Token;
+    // CompteAEnvoyer.MesPatients = [];
+    // CompteAEnvoyer.MesPatients.push(this.patient);
     
-     this.patient = compteAAfficher;
-     this.patientService.compte = CompteAEnvoyer;
+    //  this.patient = compteAAfficher;
+    //  this.patientService.compte = CompteAEnvoyer;
      this.patientService.InformationPatient().subscribe(data => {
         this.patient = data.body;
         this.patientService.changePatient(this.patient);
-        console.log('retour', data.body);
-        // this.compteService.changeCompte(this.compte);
+        console.log('Patient Sélectionné', this.patient);
     });
   }
 
