@@ -1,10 +1,10 @@
 <div *ngIf="patient.Nom"><p>Nom : {{patient.Nom}}</p></div>
 <p>Prenom : {{patient.Prenom}}</p> 
 <p>Identifiant : {{patient.Identifiant}}</p> 
-<div *ngIf="patient.MedecinAttitre"><p>Medecin Attitré : Docteur {{patient.MedecinAttitre.Nom}} {{patient.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
-<div *ngIf="ListMedecin">
+<div *ngIf="patient.MesMedecin"><p>Medecin Attitré : Docteur {{patient.MedecinAttitre.Nom}} {{patient.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
+<div *ngIf="patient.MesMedecin">
   <ul>
-    <li *ngFor="let Compte of ListMedecin">
+    <li *ngFor="let Compte of patient.MesMedecin">
         Docteur {{Compte.Nom}} {{Compte.Prenom}}
     </li>
   </ul>

@@ -44,7 +44,14 @@ export class Synthese {
     ];
     lineChartLegend:boolean = false;
     lineChartType:string = 'line';
-
+    // events
+    public chartClicked(e:any):void {
+        console.log(e);
+    }
+    
+    public chartHovered(e:any):void {
+        console.log(e);
+    }
 
     public Valeurs : Valeur[] = [];
 }

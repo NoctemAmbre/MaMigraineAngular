@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from  '@angular/router';
 
 import { CompteInformationComponent } from './compte-information/compte-information.component';
-import { ListePatientsComponent } from './liste-patients/liste-patients.component';
 import { CompteModificationComponent } from './compte-modification/compte-modification.component';
 import { CompteLoginComponent } from './Compte-login/Compte-login.component';
 import { AppComponent } from './../app.component';
