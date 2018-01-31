@@ -133,7 +133,7 @@ export class CompteService {
   {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     //var body = JSON.stringify(this.comptes.value);
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, MotDePass : this.comptes.value.MotDePass, Token :this.comptes.value.Token});
+    var body = JSON.stringify({IDWeb : this.comptes.value.IDWeb, Identifiant : this.comptes.value.Identifiant, MotDePass : this.comptes.value.MotDePass, Token :this.comptes.value.Token});
     console.log('ce qui est envoyé',body);
     
     return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/ChangeMDP?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
@@ -164,7 +164,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
     //console.log('ce qui est envoyé pour ajoute un patient au medecin',body);
-    return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/AjoutPatient?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>("http://localhost:57928/Service1.svc/Medecin/AjoutPatient?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public SuppressionMedecin()
@@ -180,7 +180,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
     console.log('ce qui est envoyé pour la suppression dun patient du medecin',body);
-    return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/SupprPatient?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>("http://localhost:57928/Service1.svc/Medecin/SupprPatient?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public LancementMok() : Compte

@@ -24,7 +24,7 @@ export class PatientOrdonnanceComponent implements OnInit {
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
-    console.log('Le patient (ordonnance) : ', this.patient);
+    //console.log('Le patient (ordonnance) : ', this.patient);
   }
 
   Information(medicament : Medicament) : void

@@ -44,6 +44,5 @@ export class MedecinService {
     console.log('le Médecin dans le service', this.medecins.value);
     return this.http.get<Compte>("http://localhost:57928/Service1.svc/Medecin/Voir?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
-
 }
 

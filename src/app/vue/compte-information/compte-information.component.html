@@ -40,6 +40,14 @@
       <hr>
 
       <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Téléphone Cabinet</label>
+        <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="mail" placeholder={{compte.Telephone}} readonly>
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group row">
         <label class="col-sm-2 col-form-label">AdresseMail</label>
         <div class="col-sm-10">
             <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
@@ -51,11 +59,11 @@
           <div class="form-row">
             <label class="col-sm-2 col-form-label">Matin</label>
             <div class="col-sm-2">
-              <input class="form-control form-control-sm" type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder="" disabled>
+              <input class="form-control form-control-sm" type="text" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}} disabled>
             </div>
             <label class="col-sm-2 col-form-label">Soir</label>
             <div class="col-sm-2">
-              <input class="form-control form-control-sm" type="time" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder="" disabled>
+              <input class="form-control form-control-sm" type="text" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}} disabled>
             </div>
           </div>
           <hr>
