@@ -10,19 +10,22 @@ export class FacteurService {
   public Entravail : boolean = false;
   public ListeTypeFacteur : TypeFacteur[];
   public ListeTypeReponse : TypeReponse[];
+  public WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  //private WebService = 'http://86.195.103.177:3000/Service1.svc';
+
 
   constructor(private http:HttpClient) { }
 
   GetListTypeFacteur()
   {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    return this.http.get<TypeFacteur[]>('http://localhost:57928/Service1.svc/TypeFacteur/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<TypeFacteur[]>(this.WebService + '/TypeFacteur/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   GetListTypeReponse()
   {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    return this.http.get<TypeReponse[]>('http://localhost:57928/Service1.svc/TypeReponse/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<TypeReponse[]>(this.WebService + '/TypeReponse/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   GetFacteur() {
@@ -31,7 +34,7 @@ export class FacteurService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Facteur/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Facteur[]>(this.WebService + '/Facteur/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
     
   }
   GetToutFacteur()
@@ -39,7 +42,7 @@ export class FacteurService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
    
     this.Entravail = true;
-    return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Facteur/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Facteur[]>(this.WebService + '/Facteur/Liste?Token=' + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   AjoutFacteur()
@@ -49,7 +52,7 @@ export class FacteurService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.post<Facteur[]>('http://localhost:57928/Service1.svc/Facteur/Ajout?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Facteur[]>(this.WebService + '/Facteur/Ajout?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   ModificationFacteur()
@@ -59,7 +62,7 @@ export class FacteurService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.post<Facteur[]>('http://localhost:57928/Service1.svc/Facteur/Modification?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Facteur[]>(this.WebService + '/Facteur/Modification?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   SupressionFacteur()
@@ -69,7 +72,7 @@ export class FacteurService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.post<Facteur[]>('http://localhost:57928/Service1.svc/Facteur/Suppression?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Facteur[]>(this.WebService + '/Facteur/Suppression?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
 }

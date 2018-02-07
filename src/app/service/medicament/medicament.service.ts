@@ -9,6 +9,9 @@ export class MedicamentService {
 
   compte : Compte;
   public Entravail : boolean = false;
+  public WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  //private WebService = 'http://86.195.103.177:3000/Service1.svc';
+
   
 
   constructor(private http:HttpClient) { }
@@ -19,7 +22,7 @@ export class MedicamentService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Medicament[]>('http://localhost:57928/Service1.svc/Medicament/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Medicament[]>(this.WebService + '/Medicament/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
     
   }
 }

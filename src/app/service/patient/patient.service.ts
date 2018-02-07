@@ -27,6 +27,9 @@ export class PatientService {
   //NAME = [];
 
   public compte:Compte;
+  public WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  //private WebService = 'http://86.195.103.177:3000/Service1.svc';
+
   //public facteur:Facteur;
   //public medicament : Medicament;
   public Entravail: boolean = false;
@@ -54,7 +57,7 @@ export class PatientService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Compte[]>('http://localhost:57928/Service1.svc/Patient/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Compte[]>(this.WebService + '/Patient/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   public InformationPatient()
@@ -64,7 +67,7 @@ export class PatientService {
     var body = JSON.stringify(this.compte);
     // console.log('ce qui est envoyé',body);
     // console.log('le patient  dans le service', this.patients.value);
-    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Patient/Voir?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Compte>(this.WebService + '/Patient/Voir?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   public AjoutMedicamentAPatient()
@@ -75,7 +78,7 @@ export class PatientService {
     console.log('avant envois', this.compte);
     
     this.Entravail = true;
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(this.WebService + '/Patient/AjoutMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   public SupprimerMedicamentAPatient()
@@ -86,7 +89,7 @@ export class PatientService {
     console.log('avant envois', this.compte);
     
     this.Entravail = true;
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(this.WebService + '/Patient/SupprMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
   public ListeMigrainesDuPatient()
   {
@@ -96,7 +99,7 @@ export class PatientService {
 
     var body = JSON.stringify(this.compte);
     console.log('Get List Migraine', this.compte);
-    return this.http.get<Migraine[]>('http://localhost:57928/Service1.svc/Patient/ListMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+    return this.http.get<Migraine[]>(this.WebService + '/Patient/ListMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
   }
 
   public ListeMedicamentsDuPatient()
@@ -105,7 +108,7 @@ export class PatientService {
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  
     var body = JSON.stringify(this.compte);
     console.log('Get List Medicament', this.compte);
-    return this.http.get<Medicament[]>('http://localhost:57928/Service1.svc/Patient/ListMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+    return this.http.get<Medicament[]>(this.WebService + '/Patient/ListMedicament?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
   }
 
   public ListeFacteursDuPatient()
@@ -113,7 +116,7 @@ export class PatientService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('Get List Facteurs', this.compte);
-    return this.http.get<Facteur[]>('http://localhost:57928/Service1.svc/Patient/ListFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
+    return this.http.get<Facteur[]>(this.WebService + '/Patient/ListFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),{headers : headers, observe : 'response'});
   }
 
   public AjouterFacteurAuPatient()
@@ -121,7 +124,7 @@ export class PatientService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('Ajout Facteur à patient', this.compte);
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjouterFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(this.WebService + '/Patient/AjouterFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   public SupprimerFacteurAPatient()
@@ -129,7 +132,7 @@ export class PatientService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('suppr facteur', this.compte);
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/SupprFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(this.WebService + '/Patient/SupprFacteur?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
   public AjouterMigraineAPatient()
@@ -137,7 +140,7 @@ export class PatientService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     var body = JSON.stringify(this.compte);
     console.log('Ajout Migraine', this.compte);
-    return this.http.post<Compte>('http://localhost:57928/Service1.svc/Patient/AjoutMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(this.WebService + '/Patient/AjoutMigraine?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'),'', {headers : headers, observe : 'response'});
   }
 
 /*

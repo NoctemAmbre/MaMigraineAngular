@@ -62,13 +62,76 @@ header
 div.AffichageListMedecin
 {
     position: relative;
-    width: 50%; height: 50%;
-    border: 1px solid #555454;
+    width: 100%; height: 50%;
+    border: 1px solid #4E5E73;
 }
 
-div.AffichageMedecin
+/* div.AffichageMedecin
 {
+     
     position: relative;
     width: 50%; height: 50%;
     border: 1px solid #555454;
+} */
+
+
+#TableauMesMedecin
+{
+    display: flex;
+    flex-direction: column;
+    
+    flex-wrap: nowrap;
+    background-color: #3e4b5b;
+    /* background-color: #313d4C; */
+    width: 100%; height: 80%;
+}
+
+
+#TableauMesMedecin > div.lignetitre
+{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 100%;
+    /* border: 1px solid #555454; */
+    border-bottom: 1px solid #4E5E73;
+    
+}
+
+div.titre
+{
+    height: 100%;
+    width: 25%;
+    background-color: #313d4C;
+    color : white;
+    border: 2px;
+    align-items: center;
+}
+#TableauMesMedecin > div.MesMedecin
+{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #4E5E73;
+    margin-left: auto; padding: 5px 0;
+    /* border: 1px solid #555454; */
+}
+
+#TableauMesMedecin > div.MesMedecin :active
+{
+    background-color: #3e4b5b;
+}
+#TableauMesMedecin > div.MesMedecin :hover
+{
+    background-color: #3e4b5b;
+}
+div.donee
+{
+    height: 100%;
+    width: 25%;
+    /* background-color: green; */
+    color : white;
+    border: 2px;
+    align-items: center;
 }

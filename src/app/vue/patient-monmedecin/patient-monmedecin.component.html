@@ -11,9 +11,25 @@
         </div>
       </div>
     </span>
+    <nav id="TableauMesMedecin">
+      <div class="lignetitre" >
+        <div class="titre">nom</div>
+        <div class="titre">prenom</div>
+        <div class="titre">adresse Mail</div>
+        <div class="titre">Telephone</div>
+      </div>
+
+      <div class="MesMedecin" *ngFor="let Medecin of compte.MesMedecin" [class.selected]="Medecin == CompteSelect" style="background :#3e4b5b">
+        <div class="donee">{{Medecin.Nom}}</div>
+        <div class="donee">{{Medecin.Prenom}}</div>
+        <div class="donee">{{Medecin.AdresseMail}}</div>
+        <div class="donee">{{Medecin.Telephone}}</div>
+
+      </div>
+    </nav>
 
     <div>
-      <table class="table table-hover table-dark">
+      <!-- <table class="table table-hover table-dark">
         <thead>
           <tr>
               <th scope="col">Nom</th>
@@ -25,11 +41,11 @@
             <tr *ngFor="let Compte of compte.MesMedecin" [class.selected]="Compte == CompteSelect">
                 <td>{{Compte.Nom}}</td>
                 <td>{{Compte.Prenom}}</td>
-                <!-- <td><a href="#" class="badge badge-secondary">Supprimer</a></td> -->
+                <td><a href="#" class="badge badge-secondary">Supprimer</a></td> 
                 <td><button type="button" class="btn btn-outline-primary" (click)="SupprMedecin(Compte)">Supprimer</button></td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
     
     
       <!-- <ul>

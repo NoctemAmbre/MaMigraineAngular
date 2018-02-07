@@ -1,6 +1,6 @@
   <ng-template #popContent>
-      <b>Debut : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.DateDebut.day}}/{{MigraineAffichage.DateDebut.month}}/{{MigraineAffichage.DateDebut.year}} à {{MigraineAffichage.HeureDebut.hour}} heure {{MigraineAffichage.HeureDebut.minute}}</span><br/>
-      <b>Fin : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.DateFin.day}}/{{MigraineAffichage.DateFin.month}}/{{MigraineAffichage.DateFin.year}} à {{MigraineAffichage.HeureFin.hour}} heure {{MigraineAffichage.HeureFin.minute}}</span><br/>
+      <b>Debut : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.DebutPresentation}}</span><br/>
+      <b>Fin : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.FinPresentation}}</span><br/>
       <b>Durée : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.Duree}}</span><br/>
       <b>Intensité : </b><span style="color:rgb(150, 150, 150);">{{MigraineAffichage.Intensite}}</span><br/>
       <b>Médicaments : </b><span style="color:rgb(150, 150, 150);">
@@ -14,7 +14,28 @@
         </tr>
       </span><br/>
     </ng-template>
-    <table class="table table-hover table-dark">
+
+
+
+    <div *ngIf="compte" >
+      <div class="contenaire" *ngFor="let Migraine of patient.MesMigraines">
+          <button class="historiqueComplet" [ngbPopover]="popContent" (click)="ModifierMigraine(Migraine)" triggers="mouseenter:mouseleave" (mouseenter)="Information(Migraine)">
+              <div class="DateDebut">Du {{Migraine.DebutPresentation}}</div>
+              <div class="DateFin">Au {{Migraine.FinPresentation}} </div>
+              <div class="Duree">Durée : {{Migraine.Duree}} heure</div>
+              <div class="Intensite">Intensité :
+                 <span *ngIf="Migraine.Intensite > 0" style="font-size:100%;color:blue;">&#9733;</span>
+                 <span *ngIf="Migraine.Intensite > 1" style="font-size:100%;color:blue;">&#9733;</span>
+                 <span *ngIf="Migraine.Intensite > 2" style="font-size:100%;color:blue;">&#9733;</span>
+                 <span *ngIf="Migraine.Intensite > 3" style="font-size:100%;color:blue;">&#9733;</span>
+                 <span *ngIf="Migraine.Intensite > 4" style="font-size:100%;color:blue;">&#9733;</span>
+              </div>
+          </button>
+      </div>
+    </div>
+
+
+    <!-- <table class="table table-hover table-dark">
       <tr>
         <th>Date Début</th>
         <th>Heure Début</th>
@@ -33,7 +54,7 @@
         <td>{{Migraine.Duree}} heure</td>
         <td><button type="button" class="btn btn-outline-primary" (click)="ModifierMigraine(Migraine)">Modifier</button></td>
       </tr>
-  </table>
+  </table> -->
   <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
   
 

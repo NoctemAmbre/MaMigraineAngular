@@ -15,6 +15,9 @@ export class MedecinService {
 
   public compte:Compte;
   public Entravail: boolean = false;
+  public WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  //private WebService = 'http://86.195.103.177:3000/Service1.svc';
+
 
   constructor(private http:HttpClient) { }
 
@@ -28,12 +31,12 @@ export class MedecinService {
     console.log('avant envois', body);
     
     this.Entravail = true;
-    return this.http.get<Compte[]>('http://localhost/Service1.svc/Medecin/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Compte[]>(this.WebService + '/Medecin/Liste?Value='+ btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 
   ListMedecin()
   {
-      return this.http.get<Compte[]>('http://localhost:57928/Service1.svc/Medecin/Liste', {observe : 'response'});
+      return this.http.get<Compte[]>(this.WebService + '/Medecin/Liste', {observe : 'response'});
   }
 
   public InformationMedecin()
@@ -42,7 +45,7 @@ export class MedecinService {
     var body = JSON.stringify(this.compte);
     console.log('ce qui est envoyé',body);
     console.log('le Médecin dans le service', this.medecins.value);
-    return this.http.get<Compte>("http://localhost:57928/Service1.svc/Medecin/Voir?Value=" + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
+    return this.http.get<Compte>(this.WebService + '/Medecin/Voir?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), {headers : headers, observe : 'response'});
   }
 }
 
