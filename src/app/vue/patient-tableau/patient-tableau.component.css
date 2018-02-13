@@ -31,12 +31,51 @@ button.historiqueComplet {
     margin : 2px 5px 2px 5px;
     color: white;
 }
+div.Information{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content : space-between;
+    background-color: #3e4b5b;
+    width: 92%;
+    height: 45px;
+}
+div.IconesBouton{
+    width: 8%;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 20%; */
+}
+img.BoutonEdit{
+    border: 1px solid #313d4C;
+    height:22px;
+    width:22px;
+    /* background-image: url('/assets/Delete.png');
+    border-radius: 5px;
+    background-size: cover; */
+
+    background: url('/assets/Edit.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+img.BoutonDelete{
+    border: 1px solid #313d4C;
+    height:22px;
+    width:22px;
+    /* background-image: url('/assets/Delete.png');
+    border-radius: 5px;
+    background-size: cover; */
+
+    background: url('/assets/Delete.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+}
 
 button.historiqueComplet :hover{
     background-color: #3e4b5b;
 }
 div.DateDebut, div.DateFin, div.Duree{
-    width: 45%;
+    width: 48%;
     height: 20px;
     padding: 3px;
     padding-top: 2px;
@@ -46,8 +85,9 @@ div.DateDebut, div.DateFin, div.Duree{
     color: white;
 }
 div.Intensite {
-    width: 45%;
+    width: 48%;
     height: 20px;
+    font-size: 0.8rem;
     /* margin-bottom: 25px; */
     text-align: left;
     background-color: #3e4b5b;

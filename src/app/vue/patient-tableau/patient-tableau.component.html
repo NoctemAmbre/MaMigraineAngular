@@ -17,19 +17,25 @@
 
 
 
-    <div *ngIf="compte" >
+    <div *ngIf="patient">
       <div class="contenaire" *ngFor="let Migraine of patient.MesMigraines">
-          <button class="historiqueComplet" [ngbPopover]="popContent" (click)="ModifierMigraine(Migraine)" triggers="mouseenter:mouseleave" (mouseenter)="Information(Migraine)">
+          <button class="historiqueComplet" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(Migraine)">
+            <div class="Information">
               <div class="DateDebut">Du {{Migraine.DebutPresentation}}</div>
               <div class="DateFin">Au {{Migraine.FinPresentation}} </div>
               <div class="Duree">Durée : {{Migraine.Duree}} heure</div>
               <div class="Intensite">Intensité :
-                 <span *ngIf="Migraine.Intensite > 0" style="font-size:100%;color:blue;">&#9733;</span>
-                 <span *ngIf="Migraine.Intensite > 1" style="font-size:100%;color:blue;">&#9733;</span>
-                 <span *ngIf="Migraine.Intensite > 2" style="font-size:100%;color:blue;">&#9733;</span>
-                 <span *ngIf="Migraine.Intensite > 3" style="font-size:100%;color:blue;">&#9733;</span>
-                 <span *ngIf="Migraine.Intensite > 4" style="font-size:100%;color:blue;">&#9733;</span>
+                <span *ngIf="Migraine.Intensite > 0" style="font-size:1.0rem;color:blue;">&#9733;</span>
+                <span *ngIf="Migraine.Intensite > 1" style="font-size:1.0rem;color:blue;">&#9733;</span>
+                <span *ngIf="Migraine.Intensite > 2" style="font-size:1.0rem;color:blue;">&#9733;</span>
+                <span *ngIf="Migraine.Intensite > 3" style="font-size:1.0rem;color:blue;">&#9733;</span>
+                <span *ngIf="Migraine.Intensite > 4" style="font-size:1.0rem;color:blue;">&#9733;</span>
               </div>
+            </div>
+            <div class="IconesBouton">
+              <img type="button" class="BoutonEdit" (click)="ModifierMigraine(Migraine)"/>
+              <img type="button" class="BoutonDelete" (click)="SupprimerMigraine(Migraine)"/>
+            </div>
           </button>
       </div>
     </div>
@@ -56,26 +62,25 @@
       </tr>
   </table> -->
   <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
-  
 
   <div *ngIf="AffichageNouvelleMigraine">
     <form>
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Date Debut</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj"
+              <input class="form-control" placeholder="aaaa-mm-jj" (click)="d.toggle()" 
                     name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
-              <button class="input-group-addon" (click)="d.toggle()" type="button">
+              <!-- <button class="input-group-addon" (click)="d.toggle()" type="button">
                     <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button>
+              </button> -->
           </div>
           <label class="col-sm-3 col-form-label">Date Fin</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj"
+              <input class="form-control" placeholder="aaaa-mm-jj" (click)="f.toggle()"
                     name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
-              <button class="input-group-addon" (click)="f.toggle()" type="button">
+              <!-- <button class="input-group-addon" (click)="f.toggle()" type="button">
                     <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button>
+              </button> -->
           </div>
         </div>
         
@@ -161,19 +166,19 @@
         <div class="form-row">
           <label class="col-sm-3 col-form-label">Date Debut</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj"
+              <input class="form-control" placeholder="aaaa-mm-jj" (click)="d.toggle()" type="button"
                     name="dpDebut" [(ngModel)]="dateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
-              <button class="input-group-addon" (click)="d.toggle()" type="button">
+              <!-- <button class="input-group-addon" (click)="d.toggle()" type="button">
                     <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button>
+              </button> -->
           </div>
           <label class="col-sm-3 col-form-label">Date Fin</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj"
+              <input class="form-control" placeholder="aaaa-mm-jj" (click)="f.toggle()" type="button"
                     name="dpFin" [(ngModel)]="dateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
-              <button class="input-group-addon" (click)="f.toggle()" type="button">
+              <!-- <button class="input-group-addon" (click)="f.toggle()" type="button">
                     <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button>
+              </button> -->
           </div>
         </div>
         

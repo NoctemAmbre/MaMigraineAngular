@@ -16,6 +16,7 @@ export class PatientInformationComponent implements OnInit {
 
   ngOnInit() {
     this.patientService.patient.subscribe(res => this.patient = res);
+    console.log('le patient a l\'affichage', this.patient);
   }
 
 }

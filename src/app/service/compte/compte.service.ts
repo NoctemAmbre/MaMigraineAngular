@@ -26,8 +26,12 @@ export class CompteService {
   private comptes = new BehaviorSubject<Compte>(new Compte());
   compte = this.comptes.asObservable();
   public static CleBasic : string = "j6tYtmgst2XIOIeRsPHR";
-  private WebService : String = 'http://192.168.1.11:3000/Service1.svc';
-  //private WebService = 'http://86.195.103.177:3000/Service1.svc';
+  //static WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  //static WebService : String = 'http://192.168.1.11:57928/Service1.svc';
+  
+  
+  public static WebService = 'http://86.195.103.177:3000/Service1.svc';
+  //static WebService : String = 'http://localhost:57928/Service1.svc';
 
   constructor(private http:HttpClient) { }
 
@@ -73,7 +77,7 @@ export class CompteService {
     //var body = localStorage.getItem('compte');
     var body = JSON.stringify(this.comptes.value);
     console.log('avant envois', body);
-    return this.http.post<Compte>(this.WebService + '/Compte/Ajout?Value=' + btoa(body), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Compte/Ajout?Value=' + btoa(body), '', {headers : headers, observe : 'response'});
   }
 
   public ModificationCompte()
@@ -81,7 +85,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     //var body = localStorage.getItem('compte');
     var body = JSON.stringify(this.comptes.value);
-    return this.http.post<Compte>(this.WebService + '/ChangeInformation?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/ChangeInformation?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public Login(){
@@ -114,7 +118,7 @@ export class CompteService {
     //return this.http.post<Compte>("http://localhost:57928/Service1.svc/Compte/login?Token=" + btoa(body), '', {headers : headers, observe : 'response'});
     console.log('ce qui est envoyé',body);
     
-    return this.http.post<Compte>(this.WebService + '/Compte/login?Value=' + btoa(body), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Compte/login?Value=' + btoa(body), '', {headers : headers, observe : 'response'});
 
     // const req = this.http.post('http://localhost/Service1.svc/Patient/Login',{
     //   "Login":"Noctem",
@@ -138,7 +142,7 @@ export class CompteService {
     var body = JSON.stringify({IDWeb : this.comptes.value.IDWeb, Identifiant : this.comptes.value.Identifiant, MotDePass : this.comptes.value.MotDePass, Token :this.comptes.value.Token});
     console.log('ce qui est envoyé',body);
     
-    return this.http.post<Compte>(this.WebService + '/Compte/ChangeMDP?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Compte/ChangeMDP?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
 
   }
 
@@ -157,7 +161,7 @@ export class CompteService {
      
     console.log('ce qui est envoyé',body);
     
-    return this.http.post<Compte>(this.WebService + '/Compte/AjoutMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Compte/AjoutMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
 
   }
 
@@ -166,7 +170,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
     //console.log('ce qui est envoyé pour ajoute un patient au medecin',body);
-    return this.http.post<Compte>(this.WebService + '/Medecin/AjoutPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Medecin/AjoutPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public SuppressionMedecin()
@@ -174,7 +178,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : this.comptes.value.MesMedecin, Token :this.comptes.value.Token });
     console.log('ce qui est envoyé pour la suppression dun medecin d\'un patient',body);
-    return this.http.post<Compte>(this.WebService + '/Compte/SupprMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Compte/SupprMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public SuppressionPatient()
@@ -182,7 +186,7 @@ export class CompteService {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
     console.log('ce qui est envoyé pour la suppression dun patient du medecin',body);
-    return this.http.post<Compte>(this.WebService + '/Medecin/SupprPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+    return this.http.post<Compte>(CompteService.WebService + '/Medecin/SupprPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public LancementMok() : Compte
@@ -234,7 +238,7 @@ export class CompteService {
     //const headers = new HttpHeaders().set("Content-Type", "x-www-form-urlencoded");
     const headers = new HttpHeaders().set("Content-Type", "application/json");
     console.log('le body envoyé pour le test est : ', body);
-    return this.http.post(this.WebService + '/testSimple',body, {headers : headers, observe : 'response'});
+    return this.http.post(CompteService.WebService + '/testSimple',body, {headers : headers, observe : 'response'});
   }
 
   connexionTest1()
@@ -245,7 +249,7 @@ export class CompteService {
     const headers = new HttpHeaders().set("Content-Type", "x-www-form-urlencoded");
     //const headers = new HttpHeaders().set("Content-Type", "application/json");
     console.log('le body envoyé pour le test est : ', body);
-    this.http.post(this.WebService + '/testSimple',body, {headers : headers, observe : 'response'})
+    this.http.post(CompteService.WebService + '/testSimple',body, {headers : headers, observe : 'response'})
     .subscribe(
       res => {
         console.log(res);
@@ -262,7 +266,7 @@ export class CompteService {
     console.log('Envois de l\'objet ',compte);
     
     const httpOptions = {headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
-    return this.http.post<Compte>(this.WebService + '/testSimple', compte, httpOptions).pipe(
+    return this.http.post<Compte>(CompteService.WebService + '/testSimple', compte, httpOptions).pipe(
       tap((compte: Compte) => console.log('le résultat est ', compte)));
   }
 
@@ -305,7 +309,7 @@ export class CompteService {
        
       //const req = this.http.post('http://localhost:57928/Service1.svc/testSimple', {body : param, headers : headers, observe : 'response'})
       //return this.http.post('http://jsonplaceholder.typicode.com/post', JSON.stringify(body),  {headers})
-      return this.http.post(this.WebService + '/testSimple', JSON.stringify(body),  {headers})
+      return this.http.post(CompteService.WebService + '/testSimple', JSON.stringify(body),  {headers})
       .map(
         (data) => {console.log(data); return data;}
       );
@@ -320,7 +324,7 @@ export class CompteService {
     const  headers = new HttpHeaders().set('Content-Type', 'application/json').set('Token', localStorage.getItem('Token'));
     //const req = this.http.request('POST', 'http://localhost:57928/Service1.svc/testSimple', {body :param , headers : headers, observe : 'response' } )
     //this.http.options('http://localhost:57928/Service1.svc/testSimple',{headers}).subscribe();
-    const req = this.http.request('POST', this.WebService + '/testSimple', {body :param , headers : headers, observe : 'response' } )
+    const req = this.http.request('POST',CompteService.WebService + '/testSimple', {body :param , headers : headers, observe : 'response' } )
       .pipe()
       .subscribe(
         res => {
@@ -359,9 +363,9 @@ export class CompteService {
       //  bodyMessage.set('email',etudient.email);   
        let headers = new HttpHeaders();
        headers = headers.set('Content-Type', 'application/json').set('Token', localStorage.getItem('Token')); 
-       this.http.options(this.WebService + '/testSimple',{headers}).subscribe();
+       this.http.options(CompteService.WebService + '/testSimple',{headers}).subscribe();
        //return this.http.post('http://192.168.1.15:8082/api/students/', JSON.stringify(bodyMessage),  {headers});
-       return this.http.post(this.WebService + '/testSimple', JSON.stringify(bodyMessage),  {headers});
+       return this.http.post(CompteService.WebService + '/testSimple', JSON.stringify(bodyMessage),  {headers});
       }
 
   /*

@@ -39,10 +39,12 @@ export class PatientTableauComponent implements OnInit {
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
+    console.log('le compte : ',this.compte);
+    console.log('le patient : ',this.patient);
     this.NouvelleMigraine.MedicamentsPris = [];
     this.NouvelleMigraine.Facteurs = [];
-    this.compte.MesMedicaments.forEach(medicament => {medicament.Selection = false;});
-    this.compte.MesFacteurs.forEach(facteur => {facteur.Selection = false;});
+    this.patient.MesMedicaments.forEach(medicament => {medicament.Selection = false;});
+    this.patient.MesFacteurs.forEach(facteur => {facteur.Selection = false;});
   }
 
   ModifierMigraine(Migraine)
@@ -99,7 +101,6 @@ export class PatientTableauComponent implements OnInit {
   AjoutMigraine()
   {
     this.AffichageNouvelleMigraine = true;
-    //this.ListeMedicamentsPatient();
   }
 
   ValidationMigraine()
@@ -142,8 +143,27 @@ export class PatientTableauComponent implements OnInit {
 
     this.patientService.AjouterMigraineAPatient().subscribe(data => 
     {
+      this.AffichageNouvelleMigraine = false;
+      this.AffichageModificationMigraine = false;
       this.patient = data.body as Compte;
     });
+  }
+
+  SupprimerMigraine(migraine : Migraine){
+    this.AffichageNouvelleMigraine = false;
+    this.AffichageModificationMigraine = false;
+    var patientEnvois : Compte = new Compte();
+    patientEnvois.IDWeb = this.patient.IDWeb;
+    patientEnvois.MesMigraines = [];
+
+    let MigraineASupprimer : Migraine = new Migraine();
+    MigraineASupprimer.ID = migraine.ID;
+    patientEnvois.MesMigraines.push(MigraineASupprimer);
+    this.patientService.compte = patientEnvois;
+    this.patientService.SupprimerMigraineAPatient().subscribe(data => 
+      {
+        this.patient = data.body as Compte;
+      });
   }
 
   Information(migraine : Migraine)

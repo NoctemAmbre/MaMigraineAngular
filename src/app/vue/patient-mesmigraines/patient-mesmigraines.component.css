@@ -6,13 +6,13 @@ div.Container{
 }
 div.Courbe{
     background-color: #313d4C;
-    position: relative;
-    width: 50%; height: 50%;
-    border: 1px solid #555454;
+    position: relative; 
+    width: 60%; height: 70%;
+    /* border: 1px solid #555454; */
 }
 div.Tableau{
     position: relative;
-    width: 50%; height: 50%;
-    border: 1px solid #555454;
+    width: 40%; height: 30%;
+    /* border: 1px solid #555454; */
     background-color: #313d4C;
 }
