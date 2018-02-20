@@ -17,6 +17,7 @@ import { MedecinService } from './service/medecin/medecin.service';
 import { MedicamentService } from './service/medicament/medicament.service';
 import { FacteurService } from './service/facteur/facteur.service';
 import { JsonService } from './service/json/json.service';
+import { SyntheseService } from './service/synthese/synthese.service';
 
 
 import { AppRoutingModule } from './vue/app-rooting.module';
@@ -146,7 +147,7 @@ import { FacteurGestionComponent } from './vue/facteur-gestion/facteur-gestion.c
     // ]),
   ],
   //providers: [{provide:HTTP_INTERCEPTORS, useClass:HTTPIntercepteur, multi:true}],
-  providers: [CompteService,PatientService,MedecinService,MedicamentService,FacteurService],
+  providers: [CompteService,PatientService,MedecinService,MedicamentService,FacteurService, SyntheseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

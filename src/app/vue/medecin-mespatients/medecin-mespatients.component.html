@@ -45,7 +45,24 @@
       </span>
 
       <div>
-          <table class="table table-hover table-dark">
+          <nav id="TableauMesPatient">
+            <div class="lignetitre" >
+              <div class="titrenom">nom</div>
+              <div class="titreprenom">prenom</div>
+              <div class="titremail">adresse Mail</div>
+              <div class="titreportable">Telephone Portable</div>
+            </div>
+      
+            <div class="MesPatient" *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)" style="background :#3e4b5b">
+              <div class="valeurnom">{{Compte.Nom}}</div>
+              <div class="valeurprenom">{{Compte.Prenom}}</div>
+              <div class="valeurmail">{{Compte.AdresseMail}}</div>
+              <div class="valeurportable">{{Compte.TelephonePortable}}</div>
+            </div>
+          </nav>
+
+
+          <!-- <table class="table table-hover table-dark">
               <thead>
                 <tr>
                     <th scope="col">Nom</th>
@@ -59,11 +76,10 @@
                       <td>{{Compte.Nom}}</td>
                       <td>{{Compte.Prenom}}</td>
                       <td>{{Compte.Identifiant}}</td>
-                      <!-- <td><a href="#" class="badge badge-secondary">Supprimer</a></td> -->
                       <td><button type="button" class="btn btn-outline-primary" (click)="SupprPatient(Compte)">Supprimer</button></td>
                   </tr>
               </tbody>
-          </table>
+          </table> -->
         <!-- <ul>
           <li *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
             {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}

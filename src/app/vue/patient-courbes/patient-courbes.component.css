@@ -1,5 +1,26 @@
 div.row{
     width: 100%; height: 100%;
-    /* display: flex;
-    flex-direction: row; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+/* div.col{
+    background-color: brown;
+    width: 40px; height: 80%;
+} */
+
+ul.navbar-nav{
+    width: 100%; height: 40px;
+    padding-right : 30px;
+    padding-left : 30px;
+    /* background-color: brown; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+.nav-item dropdown{
+    /* width: 50px; height: 35px; */
+    /* background-color: yellow; */
 }

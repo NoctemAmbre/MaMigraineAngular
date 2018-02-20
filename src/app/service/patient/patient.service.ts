@@ -38,8 +38,8 @@ export class PatientService {
   private patients = new BehaviorSubject<Compte>(new Compte());
   patient = this.patients.asObservable();
 
-  private syntheses = new BehaviorSubject<Synthese>(new Synthese());
-  synthese = this.syntheses.asObservable();
+  // private syntheses = new BehaviorSubject<Synthese>(new Synthese());
+  // synthese = this.syntheses.asObservable();
 
   constructor(private http:HttpClient) { }
 
@@ -47,9 +47,9 @@ export class PatientService {
     this.patients.next(patient);
   }
 
-  changeSynthese(synthese){
-    this.syntheses.next(synthese);
-  }
+  // changeSynthese(synthese){
+  //   this.syntheses.next(synthese);
+  // }
 
   CherchePatients(){ 
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  

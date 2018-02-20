@@ -11,6 +11,7 @@ declare var $ :any;
 //import { PopupComponent } from './../../vue/popup/popup.component';
 
 import { Compte } from './../../model/compte';
+import { Synthese } from '../../model/synthese';
 
 @Component({
   selector: 'app-medecin-mespatients',
@@ -38,6 +39,7 @@ export class MedecinMespatientsComponent implements OnInit {
     if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
     //this.patientService.changePatient(this.patient);
     this.compteService.changeCompte(this.compte);
+    console.log('compte', this.compte);
   }
 
   cacher(){
@@ -110,7 +112,24 @@ export class MedecinMespatientsComponent implements OnInit {
     //  this.patient = compteAAfficher;
     //  this.patientService.compte = CompteAEnvoyer;
      this.patientService.InformationPatient().subscribe(data => {
+       console.log('le patient pour info courbe',this.patient);
+        // let courbe1 : boolean = this.patient.synthese.courbe1;
+        // let courbe2 : boolean = this.patient.synthese.courbe2;
+        // let courbe3 : boolean = this.patient.synthese.courbe3;
+        let courbe1 : boolean = true;
+        let courbe2 : boolean = false;
+        let courbe3 : boolean = false;
         this.patient = data.body;
+
+        //mise a jours de la courbe
+        this.patient.synthese = new Synthese();
+        this.patient.synthese.courbe1 = courbe1;
+        this.patient.synthese.courbe2 = courbe2;
+        this.patient.synthese.courbe3 = courbe3;
+        this.patient.synthese.ActualisationCourbe(this.patient);
+        console.log('le nombre de moi',this.patient.synthese.lineChartLabels.length);
+        console.log('le nombre de moi',this.patient.synthese.lineChartData[0].data.length);
+
         this.patientService.changePatient(this.patient);
         console.log('Patient Sélectionné', this.patient);
     });

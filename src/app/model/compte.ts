@@ -4,6 +4,7 @@ import { Horaire } from './Horaires';
 import { Migraine } from './migraine';
 import { Medicament } from './medicament';
 import { Facteur } from './facteur';
+import { Synthese } from './synthese';
 
 @Injectable()
 export class Compte {
@@ -36,4 +37,5 @@ export class Compte {
     HoraireOuverture:Horaire[];
     Token:string;
     Erreur:string;
+    synthese:Synthese;
 }
