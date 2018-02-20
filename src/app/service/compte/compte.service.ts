@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpParams} from '@angular/common/http'
 //import { Http, Headers } from '@angular/http';
 import { Compte } from './../../model/compte';
-import { Horaire } from './../../model/horaires';
+import { Horaire } from './../../model/horaire';
 import { Adresse } from './../../model/adresse';
 import { Product } from './../../model/Products'; //a supprimer après test
 //import { Identifiant } from './../../metier/identifiant';

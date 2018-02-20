@@ -9,7 +9,7 @@ import { Synthese, Valeur } from '../../model/synthese';
 import { Migraine } from '../../model/migraine';
 import { Alert } from 'selenium-webdriver';
 import { forEach } from '@angular/router/src/utils/collection';
-import { Patient } from '../../metier/patient';
+import { Patient } from '../../model/patient';
 
 @Component({
   selector: 'app-patient-courbes',
@@ -30,7 +30,13 @@ export class PatientCourbesComponent implements OnInit {
     this.patientService.patient.subscribe(res => this.patient = res);
     
     
-    if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte; this.patientService.changePatient(this.patient);}
+    if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte;}
+    if (this.patient.synthese == null){ 
+      this.patient.synthese = new Synthese();
+      this.patient.synthese.courbe1 = true;
+      this.patient.synthese.courbe2 = false;
+      this.patient.synthese.courbe3 = false;
+    }
     this.patient.synthese.ActualisationCourbe(this.patient);
     this.patientService.changePatient(this.patient);
   }

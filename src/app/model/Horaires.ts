@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Horaire } from './horaire';
+
+
 @Injectable()
 export class HorairesSemaine {
     ListHoraires:Horaire[] = [];
@@ -11,14 +14,4 @@ export class HorairesSemaine {
         this.ListHoraires.push(new Horaire('Samedi', '07:30', '19:00'));
         this.ListHoraires.push(new Horaire('Dimanche', '', ''));
     }
-}
-export class Horaire{
-    constructor(jour:string, matin:string, soir:string){
-        this.Jour = jour;
-        this.Matin = matin;
-        this.Soir = soir;
-    }
-    Jour:string;
-    Matin:string;
-    Soir:string;
 }

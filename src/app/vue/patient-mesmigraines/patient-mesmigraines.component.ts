@@ -23,14 +23,14 @@ export class PatientMesmigrainesComponent implements OnInit {
     this.patientService.patient.subscribe(res => this.patient = res);
     if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
 
-    console.log('compte : ',this.compte);
-    console.log('patient: ',this.patient);
+
     if (this.patient.IDWeb == 0)
     {
       this.patient = this.compte;
       this.patientService.changePatient(this.patient);
     }
-
+    console.log('compte : ',this.compte);
+    console.log('patient: ',this.patient);
   }
 
 }
