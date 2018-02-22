@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Adresse } from './adresse';
-import { Horaire } from './Horaire';
+import { Horaire } from './horaire';
 import { Migraine } from './migraine';
 import { Medicament } from './medicament';
 import { Facteur } from './facteur';

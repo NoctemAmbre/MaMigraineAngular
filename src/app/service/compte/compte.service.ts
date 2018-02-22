@@ -26,8 +26,8 @@ export class CompteService {
   private comptes = new BehaviorSubject<Compte>(new Compte());
   compte = this.comptes.asObservable();
   public static CleBasic : string = "j6tYtmgst2XIOIeRsPHR";
-  //public static WebService = 'http://86.195.103.177:3000/Service1.svc';
-  static WebService : String = 'http://192.168.1.11:3000/Service1.svc';
+  public static WebService = 'http://86.195.103.177:3000/Service1.svc';
+  //public static WebService : String = 'http://192.168.1.11:3000/Service1.svc';
   //static WebService : String = 'http://192.168.1.11:57928/Service1.svc';
   
   

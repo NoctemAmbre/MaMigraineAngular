@@ -10,7 +10,7 @@ import { Compte } from './../../model/compte';
 import { Adresse } from './../../model/adresse';
 import { Cities } from './../../model/cities';
 import { Reponse } from './../../model/reponse';
-import { Horaire } from './../../model/Horaires';
+import { Horaire } from './../../model/horaire';
 import { EtatCompte } from './../../model/EtatCompte';
 
 @Component({

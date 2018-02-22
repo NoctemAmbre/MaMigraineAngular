@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+// @Injectable()
 export class Horaire{
     constructor(jour:string, matin:string, soir:string){
         this.Jour = jour;

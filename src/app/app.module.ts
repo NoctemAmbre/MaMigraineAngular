@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng4-charts';
+
 
 import { AppComponent } from './app.component';
 import { CompteLoginComponent } from './vue/Compte-login/Compte-login.component';

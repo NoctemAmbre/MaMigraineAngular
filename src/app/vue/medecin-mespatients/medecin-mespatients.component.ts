@@ -113,22 +113,29 @@ export class MedecinMespatientsComponent implements OnInit {
     //  this.patientService.compte = CompteAEnvoyer;
      this.patientService.InformationPatient().subscribe(data => {
        console.log('le patient pour info courbe',this.patient);
-        // let courbe1 : boolean = this.patient.synthese.courbe1;
-        // let courbe2 : boolean = this.patient.synthese.courbe2;
-        // let courbe3 : boolean = this.patient.synthese.courbe3;
-        let courbe1 : boolean = true;
-        let courbe2 : boolean = false;
-        let courbe3 : boolean = false;
+        let Typeligne : string;
+        if (this.patient.synthese == null){
+          Typeligne = "line";
+
+        }
+        else {
+          // console.log('le type de ligne', this.patient.synthese.lineChartType);
+          Typeligne = this.patient.synthese.lineChartType;
+          // console.log('le type de ligne', Typeligne);
+        }
+
         this.patient = data.body;
 
         //mise a jours de la courbe
         this.patient.synthese = new Synthese();
-        this.patient.synthese.courbe1 = courbe1;
-        this.patient.synthese.courbe2 = courbe2;
-        this.patient.synthese.courbe3 = courbe3;
+        this.patient.synthese.lineChartType = Typeligne;
+        // this.patient.synthese.courbe1 = courbe1;
+        // this.patient.synthese.courbe2 = courbe2;
+        // this.patient.synthese.courbe3 = courbe3;
         this.patient.synthese.ActualisationCourbe(this.patient);
         console.log('le nombre de moi',this.patient.synthese.lineChartLabels.length);
-        console.log('le nombre de moi',this.patient.synthese.lineChartData[0].data.length);
+        //console.log('le nombre de moi',this.patient.synthese.lineChartData[0].data.length);
+        console.log('le nombre de moi',this.patient.synthese.lineChartData[0].length);
 
         this.patientService.changePatient(this.patient);
         console.log('Patient Sélectionné', this.patient);
