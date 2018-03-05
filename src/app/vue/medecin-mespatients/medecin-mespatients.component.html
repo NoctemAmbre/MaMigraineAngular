@@ -51,13 +51,33 @@
               <div class="titreprenom">prenom</div>
               <div class="titremail">adresse Mail</div>
               <div class="titreportable">Telephone Portable</div>
+              <div class="supprimer">Supprimer</div>
             </div>
-      
-            <div class="MesPatient" *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)" style="background :#3e4b5b">
-              <div class="valeurnom">{{Compte.Nom}}</div>
-              <div class="valeurprenom">{{Compte.Prenom}}</div>
-              <div class="valeurmail">{{Compte.AdresseMail}}</div>
-              <div class="valeurportable">{{Compte.TelephonePortable}}</div>
+
+            <div *ngFor="let Patient of compte.MesPatients" style="background :#3e4b5b">
+              <div class="MesPatient" *ngIf="Patient.ConfirmationPatient && Patient.ConfirmationMedecin" [class.selected]="Patient == CompteSelect" (click)="selectAffichage(Patient)" >
+                <div class="donee">{{Patient.Nom}}</div>
+                <div class="donee">{{Patient.Prenom}}</div>
+                <div class="donee">{{Patient.AdresseMail}}</div>
+                <div class="donee">{{Patient.TelephonePortable}}</div>
+                <div class="donee" (click)="SupprPatient(Patient)">Supprimer</div>
+              </div>
+
+              <div class="MesPatientNonValide" *ngIf="!Patient.ConfirmationPatient && Patient.ConfirmationMedecin">
+                <div class="doneenomValide">{{Patient.Nom}}</div>
+                <div class="doneenomValide">{{Patient.Prenom}}</div>
+                <div class="doneenomValide">{{Patient.AdresseMail}}</div>
+                <div class="doneenomValide">{{Patient.Telephone}}</div>
+                <div class="doneenomValide" (click)="SupprPatient(Patient)">Supprimer</div>
+              </div>
+
+              <div class="MesPatientNonValide" *ngIf="Patient.ConfirmationPatient && !Patient.ConfirmationMedecin">
+                <div class="doneenomValide">{{Patient.Nom}}</div>
+                <div class="doneenomValide">{{Patient.Prenom}}</div>
+                <div class="doneenomValide">{{Patient.AdresseMail}}</div>
+                <div class="doneenomValide">{{Patient.Telephone}}</div>
+                <div class="doneenomValide" (click)="ValiderNouveauPatient(Patient)">Accepter</div>
+              </div>
             </div>
           </nav>
 

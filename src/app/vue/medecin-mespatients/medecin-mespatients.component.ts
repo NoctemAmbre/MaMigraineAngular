@@ -82,6 +82,20 @@ export class MedecinMespatientsComponent implements OnInit {
     });
   }
 
+  ValiderNouveauPatient(Patient : Compte){
+    this.ListPatient = null;
+    this.compte.MesPatients = [];
+    this.compte.MesPatients.push(Patient);
+    console.log('Mes patient à valider', this.compte);
+    this.compteService.changeCompte(this.compte);
+    this.compteService.ValidationPatient().subscribe(data => {
+       this.compte = data.body;
+       this.patientService.Entravail = false;
+       console.log('retour', data.body);
+       this.compteService.changeCompte(this.compte);
+   });
+  }
+
   SupprPatient(compteASupprimer : Compte) : void
   {
       console.log('suppression du patient ' + compteASupprimer);
@@ -99,10 +113,10 @@ export class MedecinMespatientsComponent implements OnInit {
   }
 
   //on envois le compte Medecin avec un seul "MesPatient" celui sélectionné
-  selectAffichage(compteAAfficher : Compte) : void
+  selectAffichage(PatientAAfficher : Compte) : void
   {
     //this.patient = compteAAfficher;
-    this.patientService.compte = compteAAfficher;
+    this.patientService.compte = PatientAAfficher;
     // let CompteAEnvoyer : Compte = new Compte();
     // CompteAEnvoyer.IDWeb = this.compte.IDWeb;
     // CompteAEnvoyer.Token = this.compte.Token;
@@ -159,4 +173,5 @@ export class MedecinMespatientsComponent implements OnInit {
       });
     }
   }
+
 }

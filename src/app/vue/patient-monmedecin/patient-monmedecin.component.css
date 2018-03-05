@@ -107,7 +107,7 @@ div.titre
     border: 2px;
     align-items: center;
 }
-#TableauMesMedecin > div.MesMedecin
+#TableauMesMedecin > div > div.MesMedecin
 {
     display: flex;
     flex-direction: row;
@@ -118,11 +118,32 @@ div.titre
     /* border: 1px solid #555454; */
 }
 
-#TableauMesMedecin > div.MesMedecin :active
+#TableauMesMedecin > div > div.MesMedecinNonValide
+{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 100%;
+    /* border-bottom: 1px solid #4E5E73; */
+    border: 1px solid rgb(138, 0, 0);
+    /* background-color: rgb(255, 183, 183); */
+    margin-left: auto; padding: 5px 0;
+    /* border: 1px solid #555454; */
+}
+/* #TableauMesMedecin > div > div.MesMedecinNonValide :active
 {
     background-color: #3e4b5b;
 }
-#TableauMesMedecin > div.MesMedecin :hover
+#TableauMesMedecin > div > div.MesMedecinNonValide :hover
+{
+    background-color: #3e4b5b;
+} */
+
+#TableauMesMedecin > div > div.MesMedecin :active
+{
+    background-color: #3e4b5b;
+}
+#TableauMesMedecin > div > div.MesMedecin :hover
 {
     background-color: #3e4b5b;
 }
@@ -131,7 +152,17 @@ div.donee
     height: 100%;
     width: 25%;
     /* background-color: green; */
+    
     color : white;
+    border: 2px;
+    align-items: center;
+}
+
+div.doneeNonValide
+{
+    height: 100%;
+    width: 25%;
+    color : gray;
     border: 2px;
     align-items: center;
 }

@@ -17,14 +17,31 @@
         <div class="titre">prenom</div>
         <div class="titre">adresse Mail</div>
         <div class="titre">Telephone</div>
+        <div class="titre">Suppression</div>
       </div>
 
-      <div class="MesMedecin" *ngFor="let Medecin of compte.MesMedecin" [class.selected]="Medecin == CompteSelect" style="background :#3e4b5b">
-        <div class="donee">{{Medecin.Nom}}</div>
-        <div class="donee">{{Medecin.Prenom}}</div>
-        <div class="donee">{{Medecin.AdresseMail}}</div>
-        <div class="donee">{{Medecin.Telephone}}</div>
-
+      <div *ngFor="let Medecin of compte.MesMedecin" [class.selected]="Medecin == CompteSelect" style="background :#3e4b5b">
+        <div class="MesMedecin" *ngIf="Medecin.ConfirmationPatient && Medecin.ConfirmationMedecin">
+          <div class="donee">{{Medecin.Nom}}</div>
+          <div class="donee">{{Medecin.Prenom}}</div>
+          <div class="donee">{{Medecin.AdresseMail}}</div>
+          <div class="donee">{{Medecin.Telephone}}</div>
+          <div class="donee" (click)="SupprMedecin(Medecin)">Supprimer</div>
+        </div>
+        <div class="MesMedecinNonValide" *ngIf="Medecin.ConfirmationPatient && !Medecin.ConfirmationMedecin">
+          <div class="doneeNonValide">{{Medecin.Nom}}</div>
+          <div class="doneeNonValide">{{Medecin.Prenom}}</div>
+          <div class="doneeNonValide">{{Medecin.AdresseMail}}</div>
+          <div class="doneeNonValide">{{Medecin.Telephone}}</div>
+          <div class="donee" (click)="SupprMedecin(Medecin)">Supprimer</div>
+        </div>
+        <div class="MesMedecinNonValide" *ngIf="!Medecin.ConfirmationPatient && Medecin.ConfirmationMedecin">
+          <div class="doneeNonValide">{{Medecin.Nom}}</div>
+          <div class="doneeNonValide">{{Medecin.Prenom}}</div>
+          <div class="doneeNonValide">{{Medecin.AdresseMail}}</div>
+          <div class="doneeNonValide">{{Medecin.Telephone}}</div>
+          <div class="donee" (click)="ValiderNouveauMedecin(Medecin)">Valider</div>
+        </div>
       </div>
     </nav>
 

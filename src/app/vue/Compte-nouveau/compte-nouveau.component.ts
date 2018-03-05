@@ -48,23 +48,23 @@ export class CompteNouveauComponent implements OnInit {
 
   rechercheCodePostal()
   {
-      if (this.compte.Adresse.CodePostal != null && this.compte.Adresse.CodePostal.toString().length > 3){
-        this.codepostalService.chercheCP(this.compte.Adresse.CodePostal).subscribe(data => this.ListCities = (data.body as Reponse).cities);
+      if (this.compte.Adresse[0].CodePostal != null && this.compte.Adresse[0].CodePostal.toString().length > 3){
+        this.codepostalService.chercheCP(this.compte.Adresse[0].CodePostal).subscribe(data => this.ListCities = (data.body as Reponse).cities);
       }
   }
 
   rechercheNomVille()
   {
-    if (this.compte.Adresse.Ville.length > 4)
+    if (this.compte.Adresse[0].Ville.length > 4)
     {
-        this.codepostalService.chercheVille(this.compte.Adresse.Ville).subscribe(data => this.ListCities = (data.body as Reponse).cities);
+        this.codepostalService.chercheVille(this.compte.Adresse[0].Ville).subscribe(data => this.ListCities = (data.body as Reponse).cities);
     }
   }
 
   onselect(cities : Cities) : void
   {
-    this.compte.Adresse.CodePostal = cities.code;
-    this.compte.Adresse.Ville = cities.city;
+    this.compte.Adresse[0].CodePostal = cities.code;
+    this.compte.Adresse[0].Ville = cities.city;
     this.ListCities = null;
   }
 

@@ -26,9 +26,10 @@ export class CompteService {
   private comptes = new BehaviorSubject<Compte>(new Compte());
   compte = this.comptes.asObservable();
   public static CleBasic : string = "j6tYtmgst2XIOIeRsPHR";
-  public static WebService = 'http://86.195.103.177:3000/Service1.svc';
+  public static WebService = 'http://91.160.28.49:50000/Service1.svc';
   //public static WebService : String = 'http://192.168.1.11:3000/Service1.svc';
   //static WebService : String = 'http://192.168.1.11:57928/Service1.svc';
+  //static WebService : String = 'http://192.168.1.11:50000/Service1.svc';
   
   
   
@@ -174,6 +175,21 @@ export class CompteService {
     return this.http.post<Compte>(CompteService.WebService + '/Medecin/AjoutPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
+  public ValidationPatient(){
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
+    return this.http.post<Compte>(CompteService.WebService + '/Medecin/ValiderPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+  }
+  public ValidationMedecin(){
+    var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    console.log(this.comptes.value);
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : this.comptes.value.MesMedecin, Token :this.comptes.value.Token });
+    console.log("Body", body);
+    return this.http.post<Compte>(CompteService.WebService + '/Patient/ValiderMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
+  }
+
+  
+
   public SuppressionMedecin()
   {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
@@ -200,13 +216,13 @@ export class CompteService {
     compteRetour.DateNaissance = "1971-12-28";
 
     //console.log("avant new Adress()");
-    compteRetour.Adresse = new Adresse(); 
-    compteRetour.Adresse.Numero = 23;
-    compteRetour.Adresse.NomRue = "Rue du Moulin";
-    compteRetour.Adresse.CodePostal = 78420;
-    //console.log("après new Adress()");
-
-    compteRetour.Adresse.Ville = "CARRRIERES-SUR-SEINE";
+    compteRetour.Adresse = [];
+    compteRetour.Adresse[0] = new Adresse();
+    compteRetour.Adresse[0].Numero = 23;
+    compteRetour.Adresse[0].NomRue = "Rue du Moulin";
+    compteRetour.Adresse[0].CodePostal = 78420;
+    compteRetour.Adresse[0].Ville = "CARRRIERES-SUR-SEINE";
+ 
     compteRetour.Telephone = "0139130601";
     compteRetour.TelephonePortable = "0611481516";
     compteRetour.AdresseMail = "Noctem.Ambre@hotmail.fr";

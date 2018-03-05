@@ -29,12 +29,15 @@ export class Compte {
     MesMigraines:Migraine[];
     MesMedicaments:Medicament[];
     MesFacteurs:Facteur[];
-    Adresse:Adresse;
+    Adresse:Adresse[];
     Telephone:string;
     TelephonePortable:string;
     AdresseMail:string;
     InfoComplementaire:string;
     HoraireOuverture:Horaire[];
+    Officiel:boolean;
+    ConfirmationPatient:boolean;
+    ConfirmationMedecin:boolean;
     Token:string;
     Erreur:string;
     synthese:Synthese;

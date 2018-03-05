@@ -92,6 +92,22 @@ export class PatientmonMedecinComponent implements OnInit {
     });
   }
 
+  ValiderNouveauMedecin(MedecinAValider : Compte) : void{
+    this.ListMedecin = null;
+    this.compte.MesMedecin = [];
+    this.compte.MesMedecin.push(MedecinAValider);
+    console.log('Mes medecin à valider', this.compte);
+    this.compteService.changeCompte(this.compte);
+    this.compteService.ValidationMedecin().subscribe(data => {
+       if (data.body != null)
+       {
+         this.compte = data.body;
+         console.log('retour', data.body);
+         this.compteService.changeCompte(this.compte);
+       }
+   });
+  }
+
   SupprMedecin(compteASupprimer : Compte) : void
   {
      this.ListMedecin = null;
@@ -130,7 +146,9 @@ export class PatientmonMedecinComponent implements OnInit {
   }
   RechercherNouveauMedecin()
   {
-      if (this.Nomrecherche != null && this.Nomrecherche.toString().length > 3 && this.medecinService.Entravail == false){
+    console.log('je tappe', this.Nomrecherche);
+      if (this.Nomrecherche != null && this.Nomrecherche.toString().length > 2 && this.medecinService.Entravail == false){
+        console.log('je cherche', this.Nomrecherche);
         let CompteEnvois : Compte = new Compte();
         CompteEnvois.Nom = this.Nomrecherche;
         CompteEnvois.Token = this.compte.Token;
@@ -138,7 +156,7 @@ export class PatientmonMedecinComponent implements OnInit {
         this.medecinService.ChercheMedecins().subscribe(data => {
           this.ListMedecin = data.body;
           this.medecinService.Entravail = false;
-          console.log('retour', data.body);
+          console.log('je trouve', data.body);
           if (data.body.length > 0) {   
             console.log(data.body);
           }

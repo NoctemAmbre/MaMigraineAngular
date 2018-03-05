@@ -25,12 +25,12 @@
 
     <label>Adresse personnel</label><br />
     <label>numéro de rue</label>
-    <input type="number" name ="Num" [(ngModel)]="compte.Adresse.Numero" placeholder="Numéro">
-    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse.NomRue" placeholder="Nom De rue"><br />
+    <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
+    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue"><br />
 
     <label>Ville</label>
-    <input type="number" name ="CP" [(ngModel)]="compte.Adresse.CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
-    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse.Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+    <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
     
     <ul class = "AdresseCP">
             <li *ngFor="let cities of ListCities"
@@ -45,12 +45,12 @@
     <br />
     <label>Adresse cabinet</label><br />
     <label>numéro de rue</label>
-    <input type="number" name ="Num" [(ngModel)]="compte.Adresse.Numero" placeholder="Numéro">
-    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse.NomRue" placeholder="Nom De rue"><br />
+    <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
+    <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue"><br />
 
     <label>Ville</label>
-    <input type="number" name ="CP" [(ngModel)]="compte.Adresse.CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
-    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse.Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+    <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+    <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
 
     <ul class = "AdresseCP">
             <li *ngFor="let cities of ListCities"
