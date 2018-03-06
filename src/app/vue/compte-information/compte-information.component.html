@@ -1,10 +1,10 @@
 <div id="Information" *ngIf="compte">
-  <div *ngIf="compte.Type">
+  <div *ngIf="compte.Type == 1">
     <form>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Nom</label>
         <div class="col-sm-10">
-            <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
         </div>
         <label class="col-sm-2 col-form-label">Prenom</label>
         <div class="col-sm-10">
@@ -20,21 +20,21 @@
       <div class="form-row">
         <label class="col-sm-2 col-form-label">Numero</label>
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
         </div>
         <label class="col-sm-2 col-form-label">Nom Rue</label>
         <div class="col-sm-6">
-            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
         </div>
       </div>
       <div class="form-row">
         <label class="col-sm-2 col-form-label">Code Postal</label>
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
         </div>
         <label class="col-sm-2 col-form-label">Ville</label>
         <div class="col-sm-6">
-            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
         </div>
       </div>
       <hr>
@@ -42,7 +42,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Téléphone Cabinet</label>
         <div class="col-sm-10">
-            <input class="form-control form-control-sm" type="mail" placeholder={{compte.Telephone}} readonly>
+          <input class="form-control form-control-sm" type="mail" placeholder={{compte.Telephone}} readonly>
         </div>
       </div>
       <hr>
@@ -50,86 +50,88 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">AdresseMail</label>
         <div class="col-sm-10">
-            <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
+          <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
         </div>
       </div>
       <hr>
       <div *ngFor="let Horaire of compte.HoraireOuverture">
-          <label class="col-form-label">{{Horaire.Jour}}</label>
-          <div class="form-row">
-            <label class="col-sm-2 col-form-label">Matin</label>
-            <div class="col-sm-2">
-              <input class="form-control form-control-sm" type="text" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}} disabled>
-            </div>
-            <label class="col-sm-2 col-form-label">Soir</label>
-            <div class="col-sm-2">
-              <input class="form-control form-control-sm" type="text" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}} disabled>
-            </div>
+        <label class="col-form-label">{{Horaire.Jour}}</label>
+        <div class="form-row">
+          <label class="col-sm-2 col-form-label">Matin</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" name="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}}
+              disabled>
           </div>
-          <hr>
-          <!-- <ngb-timepicker [(ngModel)]="time" [size]="small"></ngb-timepicker> -->
+          <label class="col-sm-2 col-form-label">Soir</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" name="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}}
+              disabled>
+          </div>
+        </div>
+        <hr>
+        <!-- <ngb-timepicker [(ngModel)]="time" [size]="small"></ngb-timepicker> -->
       </div>
-    </form> 
+    </form>
   </div>
-  <div *ngIf="!compte.Type">
-      <form>
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nom</label>
-            <div class="col-sm-10">
-                <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Prenom</label>
-            <div class="col-sm-10">
-              <input class="form-control form-control-sm" type="text" placeholder={{compte.Prenom}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Identifiant</label>
-            <div class="col-sm-10">
-              <input class="form-control form-control-sm" type="text" placeholder={{compte.Identifiant}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Date Naissance</label>
-            <div class="col-sm-10">
-              <input class="form-control form-control-sm" type="text" placeholder={{compte.DateNaissance}} readonly>
-            </div>
-          </div>
-          <hr>
-          <label class="col-form-label">Adresse</label>
-          <div class="form-row">
-            <label class="col-sm-2 col-form-label">Numero</label>
-            <div class="col-sm-2">
-                <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Nom Rue</label>
-            <div class="col-sm-6">
-                <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
-            </div>
-          </div>
-          <div class="form-row">
-            <label class="col-sm-2 col-form-label">Code Postal</label>
-            <div class="col-sm-2">
-                <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Ville</label>
-            <div class="col-sm-6">
-                <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
-            </div>
-          </div>
-          <hr>
-    
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Téléphonne</label>
-            <div class="col-sm-10">
-              <input class="form-control form-control-sm" type="text" placeholder={{compte.Telephone}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">Téléphonne portable</label>
-            <div class="col-sm-10">
-              <input class="form-control form-control-sm" type="text" placeholder={{compte.TelephonePortable}} readonly>
-            </div>
-            <label class="col-sm-2 col-form-label">AdresseMail</label>
-            <div class="col-sm-10">
-                <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
-            </div>
-          </div>
-        </form>
+  <div *ngIf="compte.Type == 2">
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Nom</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Prenom</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Prenom}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Identifiant</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Identifiant}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Date Naissance</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.DateNaissance}} readonly>
+        </div>
+      </div>
+      <hr>
+      <label class="col-form-label">Adresse</label>
+      <div class="form-row">
+        <label class="col-sm-2 col-form-label">Numero</label>
+        <div class="col-sm-2">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Nom Rue</label>
+        <div class="col-sm-6">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-2 col-form-label">Code Postal</label>
+        <div class="col-sm-2">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Ville</label>
+        <div class="col-sm-6">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
+        </div>
+      </div>
+      <hr>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Téléphonne</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.Telephone}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">Téléphonne portable</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="text" placeholder={{compte.TelephonePortable}} readonly>
+        </div>
+        <label class="col-sm-2 col-form-label">AdresseMail</label>
+        <div class="col-sm-10">
+          <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
+        </div>
+      </div>
+    </form>
 
     <!-- <div *ngIf="compte.MedecinAttitre"><p>Medecin Attitré : Docteur {{compte.MedecinAttitre.Nom}} {{compte.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
     <div *ngIf="ListMedecin">

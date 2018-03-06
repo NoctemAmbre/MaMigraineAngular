@@ -1,10 +1,16 @@
 
-<form>
+<form *ngIf="compte">
     <label>Type</label>
-    <input type="radio" id="Typehoix1" (change)="ChoixType(true)" [(value)]="compte.Type"  name="Typechoix">
+
+    <form #f="ngForm">
+        <input type="radio" value="1" name="Typechoix1" [(ngModel)]="compte.Type"> Médecin
+        <input type="radio" value="2" name="Typechoix2" [(ngModel)]="compte.Type"> Patient
+    </form>
+
+    <!-- <input type="radio" id="Typehoix1" (change)="ChoixType(1)" [(value)]="compte.Type" name="Typechoix">
     <label for="Typehoix1">Médecin</label>
-    <input type="radio" id="Typehoix2" (change)="ChoixType(false)" [(value)]="!compte.Type" name="Typechoix">
-    <label for="Typehoix2">Patient</label><br />
+    <input type="radio" id="Typehoix2" (change)="ChoixType(2)" [(value)]="compte.Type" name="Typechoix">
+    <label for="Typehoix2">Patient</label><br /> -->
 
     <label>Identifiant</label>
     <input type="text" name ="Identifiant" [(ngModel)]="compte.Identifiant" placeholder="Identifiant"><br />
@@ -23,7 +29,7 @@
     <label>Prenom</label>
     <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom"><br />
 
-    <div *ngIf="compte.Type == false">
+    <div *ngIf="compte.Type == 2">
         <label>Date De naissance</label>
         <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder=""><br />
 
@@ -60,7 +66,7 @@
             </ul>
 
     </div>
-    <div *ngIf="compte.Type == true">
+    <div *ngIf="compte.Type == 1">
         <br />
         <div *ngIf="compte.Adresse">
             <label>Adresse cabinet</label><br />
@@ -97,7 +103,7 @@
         </div>
 
     </div>
-    <div *ngIf="compte.MotDePass == ConfirmationMotDePass && compte.Type != undefined">
+    <div *ngIf="compte.MotDePass == ConfirmationMotDePass && (compte.Type == 1 || compte.Type == 2)">
         <button type="submit" (click)=Creation()>Création Compte</button>
     </div>
 </form>

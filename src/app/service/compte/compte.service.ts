@@ -231,7 +231,7 @@ export class CompteService {
     let compteVide : Compte = new Compte();
     compteRetour.MesMedecin = [];
     compteRetour.MesMedecin.push(compteVide);
-    compteRetour.Type = true;
+    compteRetour.Type = 1;
 
     compteRetour.HoraireOuverture = [];
     compteRetour.HoraireOuverture.push(new Horaire('Lundi', '08:30', '18:30'));

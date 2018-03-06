@@ -14,7 +14,7 @@ export class Compte {
         this.Prenom = "";
     }
     IDWeb:number;
-    Type:boolean;
+    Type:number;
     Identifiant:string;
     MotDePass:string;
     Sexe:boolean;

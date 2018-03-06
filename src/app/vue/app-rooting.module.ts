@@ -15,6 +15,7 @@ import { PatientmonMedecinComponent } from './patient-monmedecin/patient-monmede
 import { PatientMesmigrainesComponent } from './patient-mesmigraines/patient-mesmigraines.component';
 import { CompteNouveauComponent } from './Compte-nouveau/compte-nouveau.component';
 import { PatientFacteursComponent } from './patient-facteurs/patient-facteurs.component';
+import { AdministrateurConsoleComponent } from './administrateur-console/administrateur-console.component';
 
 const routes: Routes = [
         // {
@@ -78,6 +79,10 @@ const routes: Routes = [
         {
           path:'mesmigraines',
           component : PatientMesmigrainesComponent
+        },
+        {
+          path:'consoleAdmin',
+          component : AdministrateurConsoleComponent
         },
         // {
         //   path:'**',

@@ -43,6 +43,7 @@ import { CompteNouveauComponent } from './vue/Compte-nouveau/compte-nouveau.comp
 import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.component';
 import { PatientFacteursComponent } from './vue/patient-facteurs/patient-facteurs.component';
 import { FacteurGestionComponent } from './vue/facteur-gestion/facteur-gestion.component';
+import { AdministrateurConsoleComponent } from './vue/administrateur-console/administrateur-console.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { FacteurGestionComponent } from './vue/facteur-gestion/facteur-gestion.c
     PatientTableauComponent,
     PatientFacteursComponent,
     FacteurGestionComponent,
+    AdministrateurConsoleComponent,
     ],
   imports: [
     HttpModule,

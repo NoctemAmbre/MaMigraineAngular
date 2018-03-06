@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
   mesmigraines : boolean = false;
   mespatients : boolean = false;
   monmedecin : boolean = false;
+  consoleAdmin : boolean = false;
 
   compte : Compte;
   
@@ -45,21 +46,31 @@ export class AppComponent implements OnInit{
         this.mesmigraines   = false;
         this.mespatients    = false;
         this.monmedecin     = false;
+        this.consoleAdmin   = false;
       } 
       else
       {
-        if (this.compte.Type)
+        if (this.compte.Type == 1)
         {
           this.mesmigraines   = false;
           this.mespatients    = true;
           this.monmedecin     = false;
+          this.consoleAdmin   = false;
 
         } 
-        else
+        else if (this.compte.Type == 2)
         {
           this.mesmigraines   = true;
           this.mespatients    = false;
           this.monmedecin     = true;
+          this.consoleAdmin   = false;
+        }
+        else if (this.compte.Type == 0)
+        {
+          this.mesmigraines   = false;
+          this.mespatients    = false;
+          this.monmedecin     = false;
+          this.consoleAdmin   = true;
         }
       } 
     }

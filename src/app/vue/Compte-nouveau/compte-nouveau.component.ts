@@ -42,6 +42,7 @@ export class CompteNouveauComponent implements OnInit {
     console.log('après subscribe');
     this.compteService.changeCompte(this.compte);
     console.log('Nouveau', this.compte);
+    this.compte = this.compteService.LancementMok();
   }
 
  
@@ -68,10 +69,13 @@ export class CompteNouveauComponent implements OnInit {
     this.ListCities = null;
   }
 
-  ChoixType(type:boolean){
+  ChoixType(type:number){
     this.compte.Type = type;
-    if (type)   this.compte = this.compteService.LancementMok();
-    else this.compte.HoraireOuverture = null;
+    console.log(this.compte.Type);
+       
+    
+    //if (type == 1)   this.compte = this.compteService.LancementMok();
+    //else this.compte.HoraireOuverture = null;
   }
 
   ChoixSexe(genre:boolean){
