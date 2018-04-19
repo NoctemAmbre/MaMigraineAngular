@@ -1,110 +1,149 @@
-
 <form *ngIf="compte">
-    <label>Type</label>
+    <!-- <label>Type</label> -->
 
-    <form #f="ngForm">
-        <input type="radio" value="1" name="Typechoix1" [(ngModel)]="compte.Type"> Médecin
-        <input type="radio" value="2" name="Typechoix2" [(ngModel)]="compte.Type"> Patient
-    </form>
+    <div class="wrap-tabs">
+      <form #f="ngForm">
+        <label class="label_tab" for="radio_medecin">
+          Médecin
+          <input id="radio_medecin" type="radio" checked="checked" value="1" name="Typechoix1" [(ngModel)]="compte.Type">
+        </label>
 
-    <!-- <input type="radio" id="Typehoix1" (change)="ChoixType(1)" [(value)]="compte.Type" name="Typechoix">
-    <label for="Typehoix1">Médecin</label>
-    <input type="radio" id="Typehoix2" (change)="ChoixType(2)" [(value)]="compte.Type" name="Typechoix">
-    <label for="Typehoix2">Patient</label><br /> -->
+        <label class="label_tab" for="radio_patient">
+            Patient
+          <input id="radio_patient" type="radio" value="2" name="Typechoix2" [(ngModel)]="compte.Type">
+        </label>
 
-    <label>Identifiant</label>
-    <input type="text" name ="Identifiant" [(ngModel)]="compte.Identifiant" placeholder="Identifiant"><br />
-    
-    <label>Mot de passe</label>
-    <input type="password" name ="password" [(ngModel)]="compte.MotDePass" (keyup)="NiveauMotDepass()" placeholder="Mot De Passe">
-    <label>{{InfoMotDePass}}</label><br />
-    
-    <label>Confirmation mot de passe</label>
-    <input type="password" name ="Confirmpassword" [(ngModel)]="ConfirmationMotDePass" (keyup)="identique()" placeholder="Confirmation mot de passe">
-    <label>{{Identique}}</label><br />
+      </form>
+    </div>
 
-    <label>Nom</label>
-    <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom"><br />
+    <div class="wrap-form_content">
 
-    <label>Prenom</label>
-    <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom"><br />
+      <div class="form-group">
+        <label>Identifiant</label>
+        <input type="text" name ="Identifiant" [(ngModel)]="compte.Identifiant" placeholder="Identifiant">
 
-    <div *ngIf="compte.Type == 2">
+        <label>Mot de passe</label>
+        <input type="password" name ="password" [(ngModel)]="compte.MotDePass" (keyup)="NiveauMotDepass()" placeholder="Mot De Passe">
+        <label>{{InfoMotDePass}}</label>
+
+        <label>Confirmation mot de passe</label>
+        <input type="password" name ="Confirmpassword" [(ngModel)]="ConfirmationMotDePass" (keyup)="identique()" placeholder="Confirmation mot de passe">
+        <label>{{Identique}}</label>
+      </div>
+
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom">
+
+        <label>Prenom</label>
+        <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom">
+      </div>
+
+      <div class="form-group" *ngIf="compte.Type == 2">
+
         <label>Date De naissance</label>
-        <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder=""><br />
+        <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder="">
 
         <label>Téléphone Fixe</label>
-        <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe"><br />
+        <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe">
 
         <label>Téléphone portable</label>
-        <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable"><br />
+        <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable">
 
         <label>Sexe</label>
-        <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
-        <label for="SexeChoix1">Homme</label>
-        <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
-        <label for="SexeChoix2">Femme</label><br />
+        <div class="wrap-radiobox">
+          <label class="label_radio" for="SexeChoix1">
+              Homme
+              <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
+              <span class="checkmark"></span>
+          </label>
+          <label class="label_radio" for="SexeChoix2">
+              Femme
+              <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
+              <span class="checkmark"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="form-group" *ngIf="compte.Type == 2">
 
         <label>Adresse Mail de contacte</label>
-        <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail"><br />
+        <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail">
 
-        <label>Adresse personnel</label><br />
-        <label>numéro de rue</label>
+        <label>Adresse personnel</label>
         <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
-        <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue"><br />
-    
-        <label>Ville</label>
-        <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
-        <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
-        
-        <ul class = "AdresseCP">
-                <li *ngFor="let cities of ListCities"
-                [class.selected]="cities == CitiesSelect"
-                (click)="onselect(cities)">
-                    {{cities.code}} {{cities.city}}
-                </li>
-            </ul>
 
-    </div>
-    <div *ngIf="compte.Type == 1">
-        <br />
-        <div *ngIf="compte.Adresse">
-            <label>Adresse cabinet</label><br />
-            <label>numéro de rue</label>
+        <label>numéro de rue</label>
+        <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue">
+
+        <label>Code postal</label>
+        <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+
+        <label>Ville</label>
+        <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+
+        <div *ngIf="compte.MotDePass == ConfirmationMotDePass && (compte.Type == 1 || compte.Type == 2)">
+          <button type="submit" (click)=Creation()>Création Compte</button>
+        </div>
+
+      </div>
+
+      <div class="form-group" *ngIf="compte.Type == 2">
+
+        <ul class = "AdresseCP">
+          <li *ngFor="let cities of ListCities"
+          [class.selected]="cities == CitiesSelect"
+          (click)="onselect(cities)">
+              {{cities.code}} {{cities.city}}
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="form-group" *ngIf="compte.Type == 1">
+
+          <div class="form-group" *ngIf="compte.Adresse">
+            <label>Adresse cabinet</label>
             <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
-            <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue"><br />
-        </div>
-        <label>Ville</label>
-        <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
-        <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+            <label>numéro de rue</label>
+            <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue">
+          </div>
 
-        <ul class = "AdresseCP">
-                <li *ngFor="let cities of ListCities"
-                [class.selected]="cities == CitiesSelect"
-                (click)="onselect(cities)">
-                    {{cities.code}} {{cities.city}}
-                </li>
-            </ul>
+          <label>Code postal</label>
+          <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
 
-        <br />
+          <label>Ville</label>
+          <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
 
-        <label>Téléphone cabinet</label>
-        <input type="text" name ="TelCabinet" [(ngModel)]="compte.Telephone" placeholder="Téléphone Cabinet"><br />
-
-        <label>Adresse Mail de contacte</label>
-        <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail"><br />
-
-        <label>Info Complémentaire</label>
-        <input type="text" name ="InfoC" [(ngModel)]="compte.InfoComplementaire" placeholder="Infos Complémentaires"><br />
-
-        <label>Horaires d'ouverture</label><br />
-        <div *ngFor="let Horaire of compte.HoraireOuverture">
-            <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
+          <ul class = "AdresseCP">
+            <li *ngFor="let cities of ListCities"
+            [class.selected]="cities == CitiesSelect"
+            (click)="onselect(cities)">
+                {{cities.code}} {{cities.city}}
+            </li>
+          </ul>
         </div>
 
-    </div>
-    <div *ngIf="compte.MotDePass == ConfirmationMotDePass && (compte.Type == 1 || compte.Type == 2)">
-        <button type="submit" (click)=Creation()>Création Compte</button>
-    </div>
-</form>
+        <div class="form-group" *ngIf="compte.Type == 1">
 
+          <label>Téléphone cabinet</label>
+          <input type="text" name ="TelCabinet" [(ngModel)]="compte.Telephone" placeholder="Téléphone Cabinet">
+
+          <label>Adresse Mail de contacte</label>
+          <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail">
+
+          <label>Info Complémentaire</label>
+          <input type="text" name ="InfoC" [(ngModel)]="compte.InfoComplementaire" placeholder="Infos Complémentaires">
+
+          <label>Horaires d'ouverture</label>
+          <div class="wrap-alldaystime" *ngFor="let Horaire of compte.HoraireOuverture">
+              <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder="">
+              <input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
+          </div>
+          <div *ngIf="compte.MotDePass == ConfirmationMotDePass && (compte.Type == 1 || compte.Type == 2)">
+            <button type="submit" (click)=Creation()>Création Compte</button>
+          </div>
+      </div>
+    </div>
+  </form>

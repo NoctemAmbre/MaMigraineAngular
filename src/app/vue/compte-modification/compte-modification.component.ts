@@ -21,6 +21,12 @@ export class CompteModificationComponent implements OnInit {
   compte : Compte;
   ListCities:Cities[];
   CitiesSelect:Cities;
+
+  ConfirmationMotDePass : string;
+  InfoMotDePass:string;
+  Identique:string;
+  // NouveaMotDePass : boolean = false;
+
   constructor(private codepostalService:CodepostalService,
               private compteService:CompteService,
               private router:Router) {
@@ -41,13 +47,15 @@ export class CompteModificationComponent implements OnInit {
 
   rechercheCodePostal()
   {
+    console.log(this.compte.Adresse[0].CodePostal.toString());
       if (this.compte.Adresse[0].CodePostal != null && this.compte.Adresse[0].CodePostal.toString().length > 3){
-        this.codepostalService.chercheCP(this.compte.Adresse[0].CodePostal).subscribe(data => this.ListCities = (data.body as Reponse).cities);
+        this.codepostalService.chercheCP(this.compte.Adresse[0].CodePostal).subscribe(data => {this.ListCities = (data.body as Reponse).cities; console.log(this.ListCities);});
       }
   }
 
   rechercheNomVille()
   {
+    console.log(this.compte.Adresse[0].Ville);
     if (this.compte.Adresse[0].Ville.length > 4)
     {
         this.codepostalService.chercheVille(this.compte.Adresse[0].Ville).subscribe(data => this.ListCities = (data.body as Reponse).cities);
@@ -75,6 +83,50 @@ export class CompteModificationComponent implements OnInit {
       console.log('retour = ', this.compte);
       this.router.navigate(['affichage']);
     });
+  }
+
+  // ChMotDePass(){
+  //   this.NouveaMotDePass = true;
+  // }
+
+  NiveauMotDepass(){
+    let puissance = 0;
+    let information = "";
+    if (this.compte.MotDePass.match(/^(?=.{6,20})/)) { information+="(plus de 5 caractères)";puissance++;}
+    if (this.compte.MotDePass.match(/^(?=.*[a-z])/)) { information+="(minuscule)";puissance++;}
+    if (this.compte.MotDePass.match(/^(?=.*[A-Z])/)) { information+="(majuscule)";puissance++;}
+    if (this.compte.MotDePass.match(/^(?=.*[0-9])/)) { information+="(chiffre)";puissance++;}
+    if (this.compte.MotDePass.match(/^(?=.*[!@#\$%\^&\*])/)) { information+="(spéciaux)";puissance++;}
+
+    switch (puissance) {
+      case 0:
+        this.InfoMotDePass = information + " : " + puissance.toString() + "/5";
+        break;
+        case 1:
+        this.InfoMotDePass = information + " : " +  puissance.toString() + "/5";
+        break;
+        case 2:
+        this.InfoMotDePass = information + " : " +  puissance.toString() + "/5";
+        break;
+        case 3:
+        this.InfoMotDePass = information + " : " +  puissance.toString() + "/5";
+        break;
+        case 4:
+        this.InfoMotDePass = information + " : " +  puissance.toString() + "/5";
+        break;
+        case 5:
+        this.InfoMotDePass = information + " : " +  puissance.toString() + "/5";
+        break;
+      default:
+        break;
+    }
+  }
+  
+  identique() {
+    if (this.compte.MotDePass != undefined)
+    {
+      if (this.compte.MotDePass == this.ConfirmationMotDePass) this.Identique = "Mot de passe identique"; else this.Identique = "";
+    }
   }
 
 }

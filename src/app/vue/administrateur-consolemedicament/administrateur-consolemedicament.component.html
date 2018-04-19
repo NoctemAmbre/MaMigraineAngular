@@ -1,0 +1,36 @@
+<div class="TableMedicament">
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="DenominationMedicament">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Denomination Medicament</mat-header-cell>
+        <mat-cell *matCellDef="let Medicament">{{Medicament.DenominationMedicament}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="FormePharmaceutique">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Forme Pharmaceutique</mat-header-cell>
+        <mat-cell *matCellDef="let Medicament">{{Medicament.FormePharmaceutique}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="VoiesAdministration">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Voies Administration</mat-header-cell>
+        <mat-cell *matCellDef="let Medicament">{{Medicament.VoiesAdministration}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Supprimer">
+        <mat-header-cell *matHeaderCellDef> Supprimer</mat-header-cell>
+        <mat-cell *matCellDef="let compte"><button type="submit" (click)="Supprimer(compte)">Supprimer</button></mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>

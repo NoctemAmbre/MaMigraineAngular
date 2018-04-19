@@ -6,7 +6,45 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartsModule } from 'ng4-charts';
+//import { ChartsModule } from 'ng4-charts';
+import { ChartsModule } from 'ng4-charts/ng4-charts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import 'hammerjs';
+
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+} from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -19,6 +57,7 @@ import { MedicamentService } from './service/medicament/medicament.service';
 import { FacteurService } from './service/facteur/facteur.service';
 import { JsonService } from './service/json/json.service';
 import { SyntheseService } from './service/synthese/synthese.service';
+import { AdministrateurService } from './service/administrateur/administrateur.service';
 
 
 import { AppRoutingModule } from './vue/app-rooting.module';
@@ -44,6 +83,14 @@ import { PatientTableauComponent } from './vue/patient-tableau/patient-tableau.c
 import { PatientFacteursComponent } from './vue/patient-facteurs/patient-facteurs.component';
 import { FacteurGestionComponent } from './vue/facteur-gestion/facteur-gestion.component';
 import { AdministrateurConsoleComponent } from './vue/administrateur-console/administrateur-console.component';
+import { AdministrateurListmedecinComponent } from './vue/administrateur-listmedecin/administrateur-listmedecin.component';
+import { AdministrateurListpatientComponent } from './vue/administrateur-listpatient/administrateur-listpatient.component';
+import { AdministrateurConsolemedicamentComponent } from './vue/administrateur-consolemedicament/administrateur-consolemedicament.component';
+import { AdministrateurConsolefacteurComponent } from './vue/administrateur-consolefacteur/administrateur-consolefacteur.component';
+import { AdministrateurListtypefacteurComponent } from './vue/administrateur-listtypefacteur/administrateur-listtypefacteur.component';
+import { AdministrateurListtypereponseComponent } from './vue/administrateur-listtypereponse/administrateur-listtypereponse.component';
+import { AdministrateurListfacteurComponent } from './vue/administrateur-listfacteur/administrateur-listfacteur.component';
+
 
 
 @NgModule({
@@ -72,6 +119,13 @@ import { AdministrateurConsoleComponent } from './vue/administrateur-console/adm
     PatientFacteursComponent,
     FacteurGestionComponent,
     AdministrateurConsoleComponent,
+    AdministrateurListmedecinComponent,
+    AdministrateurListpatientComponent,
+    AdministrateurConsolemedicamentComponent,
+    AdministrateurConsolefacteurComponent,
+    AdministrateurListtypefacteurComponent,
+    AdministrateurListtypereponseComponent,
+    AdministrateurListfacteurComponent,
     ],
   imports: [
     HttpModule,
@@ -83,74 +137,44 @@ import { AdministrateurConsoleComponent } from './vue/administrateur-console/adm
     //BootstrapModalModule,
     //EasyUIModule,
     AppRoutingModule,
-    // RouterModule.forRoot([ 
-      // {
-      //   path:'',
-      //   redirectTo: 'home',
-      //   pathMatch: 'full'
-      // },
-      // {
-      //   path:'home',
-      //   component : AppComponent
-      // },
-      // {
-      //   path:'accueil',
-      //   component : AccueilComponent
-      // },
-      // {
-      //   path:'nouveau',
-      //   component : CompteNouveauComponent
-      // },
-      // {
-      //   path:'affichage',
-      //   component : CompteInformationComponent
-      // },
-      // {
-      //   path:'modification',
-      //   component : CompteModificationComponent
-      // },
-      // {
-      //   path:'login',
-      //   component : CompteLoginComponent
-      // },
-      // {
-      //   path:'mespatients',
-      //   component : MedecinMespatientsComponent
-      // },
-      // {
-      //   path:'mespatients/ordonnance',
-      //   component : PatientOrdonnanceComponent,
-      //   outlet :'outlerordonnance'
-      // },
-      // {
-      //   path:'mespatients/patientinfo',
-      //   component : PatientInformationComponent,
-      //   outlet :'outlerpatient'
-      // },
-      // {
-      //   path:'prospec',
-      //   component : ProspecComponent
-      // },
-      // {
-      //   path:'infoGeneral',
-      //   component : InfogeneralComponent
-      // },
-      // {
-      //   path:'monmedecin',
-      //   component : PatientmonMedecinComponent
-      // },
-      // {
-      //   path:'mesmigraines',
-      //   component : PatientMesmigrainesComponent
-      // },
-      // {
-      //   path:'**',
-      //   component : ProspecComponent
-      // },
-    // ]),
+    BrowserAnimationsModule,
+
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+
   ],
   //providers: [{provide:HTTP_INTERCEPTORS, useClass:HTTPIntercepteur, multi:true}],
-  providers: [CompteService,PatientService,MedecinService,MedicamentService,FacteurService, SyntheseService],
+  providers: [CompteService,PatientService,MedecinService,MedicamentService,FacteurService, SyntheseService, AdministrateurService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

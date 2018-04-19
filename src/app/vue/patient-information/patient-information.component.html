@@ -13,8 +13,8 @@
   </div>
   <p>Date de naissance : {{patient.DateNaissance}}</p>
   <div *ngIf="patient.Adresse">
-    <p>Adresse : {{patient.Adresse.Numero}} {{patient.Adresse.NomRue}}</p>
-    <p>{{patient.Adresse.CodePostal}} {{patient.Adresse.Ville}}</p>
+    <p>Adresse : {{patient.Adresse[0].Numero}} {{patient.Adresse[0].NomRue}}</p>
+    <p>{{patient.Adresse[0].CodePostal}} {{patient.Adresse[0].Ville}}</p>
   </div>
   <p>Téléphonne : {{patient.Telephone}}</p>
   <p>Téléphonne portable : {{patient.TelephonePortable}}</p>

@@ -40,5 +40,5 @@ export class Compte {
     ConfirmationMedecin:boolean;
     Token:string;
     Erreur:string;
-    synthese:Synthese;
+    synthese:Synthese[];
 }

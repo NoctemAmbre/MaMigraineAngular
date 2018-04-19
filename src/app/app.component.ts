@@ -18,10 +18,12 @@ export class AppComponent implements OnInit{
   title = 'Ma Migraine';
   selection : number = 0;
 
-  mesmigraines : boolean = false;
-  mespatients : boolean = false;
-  monmedecin : boolean = false;
-  consoleAdmin : boolean = false;
+  mesmigraines            : boolean = false;
+  mespatients             : boolean = false;
+  monmedecin              : boolean = false;
+  consoleAdmin            : boolean = false;
+  consoleAdminMedicament  : boolean = false;
+  consoleAdminFacteur     : boolean = false;
 
   compte : Compte;
   
@@ -43,34 +45,41 @@ export class AppComponent implements OnInit{
       if (this.compte.IDWeb == 0)
       {
         console.log('valeur 0');
-        this.mesmigraines   = false;
-        this.mespatients    = false;
-        this.monmedecin     = false;
-        this.consoleAdmin   = false;
+        this.mesmigraines             = false;
+        this.mespatients              = false;
+        this.monmedecin               = false;
+        this.consoleAdmin             = false;
+        this.consoleAdminMedicament   = false;
+        this.consoleAdminFacteur      = false;
       } 
       else
       {
         if (this.compte.Type == 1)
         {
-          this.mesmigraines   = false;
-          this.mespatients    = true;
-          this.monmedecin     = false;
-          this.consoleAdmin   = false;
-
+          this.mesmigraines             = false;
+          this.mespatients              = true;
+          this.monmedecin               = false;
+          this.consoleAdmin             = false;
+          this.consoleAdminMedicament   = false;
+          this.consoleAdminFacteur      = false;
         } 
         else if (this.compte.Type == 2)
         {
-          this.mesmigraines   = true;
-          this.mespatients    = false;
-          this.monmedecin     = true;
-          this.consoleAdmin   = false;
+          this.mesmigraines             = true;
+          this.mespatients              = false;
+          this.monmedecin               = true;
+          this.consoleAdmin             = false;
+          this.consoleAdminMedicament   = false;
+          this.consoleAdminFacteur      = false;
         }
         else if (this.compte.Type == 0)
         {
-          this.mesmigraines   = false;
-          this.mespatients    = false;
-          this.monmedecin     = false;
-          this.consoleAdmin   = true;
+          this.mesmigraines             = false;
+          this.mespatients              = false;
+          this.monmedecin               = false;
+          this.consoleAdmin             = true;
+          this.consoleAdminMedicament   = true;
+          this.consoleAdminFacteur      = true;
         }
       } 
     }

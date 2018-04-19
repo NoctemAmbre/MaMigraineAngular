@@ -1,10 +1,305 @@
+<form *ngIf="compte">
+  
+    <div class="wrap-form_content">
+  
+      <div class="form-group">
+        <label>Identifiant</label>
+        <input type="text" name ="Identifiant" [(ngModel)]="compte.Identifiant" placeholder="Identifiant">
+
+        <div>
+          <app-compte-changemotdepass></app-compte-changemotdepass>
+        </div>
+
+      </div>
+  
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom">
+  
+        <label>Prenom</label>
+        <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom">
+      </div>
+  
+      <div class="form-group" *ngIf="compte.Type == 2">
+  
+        <label>Date De naissance</label>
+        <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder="">
+  
+        <label>Téléphone Fixe</label>
+        <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe">
+  
+        <label>Téléphone portable</label>
+        <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable">
+  
+        <label>Sexe</label>
+        <div class="wrap-radiobox">
+          <label class="label_radio" for="SexeChoix1">
+              Homme
+              <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
+              <span class="checkmark"></span>
+          </label>
+          <label class="label_radio" for="SexeChoix2">
+              Femme
+              <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
+              <span class="checkmark"></span>
+          </label>
+        </div>
+  
+      </div>
+  
+      <div class="form-group" *ngIf="compte.Type == 2">
+  
+        <label>Adresse Mail de contacte</label>
+        <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail">
+  
+        <label>Adresse personnel</label>
+        <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
+  
+        <label>numéro de rue</label>
+        <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue">
+  
+        <label>Code postal</label>
+        <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+  
+        <label>Ville</label>
+        <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/>
+
+        <!-- <ul class = "AdresseCP">
+          <li *ngFor="let cities of ListCities"[class.selected]="cities == CitiesSelect" (click)="onselect(cities)">           
+            {{cities.code}} {{cities.city}}
+          </li>
+        </ul> -->
+        
+      </div> 
+
+      <div class="form-ul" *ngIf="compte.Type == 2">
+          <ul class = "AdresseCP">
+            <li *ngFor="let cities of ListCities"
+            [class.selected]="cities == CitiesSelect"
+            (click)="onselect(cities)">
+                {{cities.code}} {{cities.city}}
+            </li>
+          </ul>
+        </div>
+
+      <div class="form-group" *ngIf="compte.Type == 1">
+  
+          <div class="form-group" *ngIf="compte.Adresse">
+            <label>Adresse cabinet</label>
+            <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
+            <label>numéro de rue</label>
+            <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue">
+          </div>
+  
+          <label>Code postal</label>
+          <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+  
+          <label>Ville</label>
+          <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()" placeholder="Ville"><br/>
+  
+        </div>
+  
+        <div class="form-group" *ngIf="compte.Type == 1">
+  
+          <label>Téléphone cabinet</label>
+          <input type="text" name ="TelCabinet" [(ngModel)]="compte.Telephone" placeholder="Téléphone Cabinet">
+  
+          <label>Adresse Mail de contacte</label>
+          <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail">
+  
+          <label>Info Complémentaire</label>
+          <input type="text" name ="InfoC" [(ngModel)]="compte.InfoComplementaire" placeholder="Infos Complémentaires">
+  
+          <label>Horaires d'ouverture</label>
+          <div class="wrap-alldaystime" *ngFor="let Horaire of compte.HoraireOuverture">
+              <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}}>
+              <input type="time" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}}>
+          </div>
+  
+          <!-- <div *ngFor="let Horaire of compte.HoraireOuverture">
+            <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
+          </div>  -->
+
+          <div>
+            <button type="submit" (click)=Modification()>Modification du compte</button>
+          </div>
+      </div>
+
+      <div class="form-ul" *ngIf="compte.Type == 1">
+        <ul class = "AdresseCP">
+          <li *ngFor="let cities of ListCities"
+          [class.selected]="cities == CitiesSelect"
+          (click)="onselect(cities)">
+              {{cities.code}} {{cities.city}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+  
+  
+  
+  
+  <!-- <div id="Information" *ngIf="compte">
+    <div *ngIf="compte.Type == 1">
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Nom</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Prenom</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Prenom}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Identifiant</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Identifiant}} readonly>
+          </div>
+        </div>
+        <hr>
+        <label class="col-form-label">Adresse</label>
+        <div class="form-row">
+          <label class="col-sm-2 col-form-label">Numero</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Nom Rue</label>
+          <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-2 col-form-label">Code Postal</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Ville</label>
+          <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
+          </div>
+        </div>
+        <hr>
+  
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Téléphone Cabinet</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="mail" placeholder={{compte.Telephone}} readonly>
+          </div>
+        </div>
+        <hr>
+  
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">AdresseMail</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
+          </div>
+        </div>
+        <hr>
+        <div *ngFor="let Horaire of compte.HoraireOuverture">
+          <label class="col-form-label">{{Horaire.Jour}}</label>
+          <div class="form-row">
+            <label class="col-sm-2 col-form-label">Matin</label>
+            <div class="col-sm-2">
+              <input class="form-control form-control-sm" type="text" name="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}}
+                disabled>
+            </div>
+            <label class="col-sm-2 col-form-label">Soir</label>
+            <div class="col-sm-2">
+              <input class="form-control form-control-sm" type="text" name="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}}
+                disabled>
+            </div>
+          </div>
+          <hr>
+  
+        </div>
+      </form>
+    </div>
+    <div *ngIf="compte.Type == 2">
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Nom</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Nom}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Prenom</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Prenom}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Identifiant</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Identifiant}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Date Naissance</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.DateNaissance}} readonly>
+          </div>
+        </div>
+        <hr>
+        <label class="col-form-label">Adresse</label>
+        <div class="form-row">
+          <label class="col-sm-2 col-form-label">Numero</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Numero}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Nom Rue</label>
+          <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].NomRue}} readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="col-sm-2 col-form-label">Code Postal</label>
+          <div class="col-sm-2">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].CodePostal}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Ville</label>
+          <div class="col-sm-6">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Adresse[0].Ville}} readonly>
+          </div>
+        </div>
+        <hr>
+  
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Téléphonne</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.Telephone}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">Téléphonne portable</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="text" placeholder={{compte.TelephonePortable}} readonly>
+          </div>
+          <label class="col-sm-2 col-form-label">AdresseMail</label>
+          <div class="col-sm-10">
+            <input class="form-control form-control-sm" type="mail" placeholder={{compte.AdresseMail}} readonly>
+          </div>
+        </div>
+      </form>
+  
+  
+    </div>
+    <button type="button" class="btn btn-outline-primary" (click)="ModificationCompte()">Modification du compte</button>
+  
+    <div *ngIf="!NouveaMotDePass">
+      <button type="button" class="btn btn-outline-primary" (click)="ChMotDePass()">changement mot de passe</button>
+    </div>
+    <div *ngIf="NouveaMotDePass">
+      <app-compte-changemotdepass></app-compte-changemotdepass>
+    </div>
+  </div>
+
+
+
+
+
+
+
 <label>Nom</label>
 <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom"><br />
 
 <label>Prenom</label>
 <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom"><br />
 
-<div *ngIf="compte.Type == false">
+<div *ngIf="compte.Type == 2">
     <label>Date De naissance</label>
     <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder=""><br />
 
@@ -41,7 +336,7 @@
         </ul>
 
 </div>
-<div *ngIf="compte.Type == true">
+<div *ngIf="compte.Type == 1">
     <br />
     <label>Adresse cabinet</label><br />
     <label>numéro de rue</label>
@@ -76,4 +371,4 @@
         <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
     </div> 
 </div>
-<button type="submit" (click)=Modification()>Modification Compte</button>
+<button type="submit" (click)=Modification()>Modification Compte</button> -->

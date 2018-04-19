@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Medicament } from './medicament';
 import { Facteur } from './facteur';
 import {NgbTimeStruct, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Patient } from './patient';
 
 const DateDebut = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
 const DateFin = {year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
@@ -23,4 +24,5 @@ export class Migraine {
     Intensite   : string;
     MedicamentsPris : Medicament[];
     Facteurs    : Facteur[];
+    // patient     : Patient;
 }

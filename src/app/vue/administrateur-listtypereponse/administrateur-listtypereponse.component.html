@@ -1,0 +1,31 @@
+<div class="TableTypeReponse">
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="Type">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Type</mat-header-cell>
+        <mat-cell *matCellDef="let TypeReponse">{{TypeReponse.Type}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Information">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Information</mat-header-cell>
+        <mat-cell *matCellDef="let TypeReponse">{{TypeReponse.Information}}</mat-cell>
+      </ng-container>
+         
+      <ng-container matColumnDef="Supprimer">
+        <mat-header-cell *matHeaderCellDef> Supprimer</mat-header-cell>
+        <mat-cell *matCellDef="let TypeReponse"><button type="submit" (click)="Supprimer(TypeReponse)">Supprimer</button></mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>

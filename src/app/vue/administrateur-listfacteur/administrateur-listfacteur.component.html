@@ -1,0 +1,43 @@
+<div class="TableFacteur">
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="Nom">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nom</mat-header-cell>
+        <mat-cell *matCellDef="let Facteur">{{Facteur.Nom}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Question">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Question</mat-header-cell>
+        <mat-cell *matCellDef="let Facteur">{{Facteur.Question}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="TypeDeFacteur">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Type De Facteur</mat-header-cell>
+        <mat-cell *matCellDef="let Facteur">{{Facteur.TypeDeFacteur.Type}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="TypeDeReponse">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Type De Reponse</mat-header-cell>
+        <mat-cell *matCellDef="let Facteur">{{Facteur.TypeDeReponse.Type}}</mat-cell>
+      </ng-container>
+
+
+   
+      <ng-container matColumnDef="Supprimer">
+        <mat-header-cell *matHeaderCellDef> Supprimer</mat-header-cell>
+        <mat-cell *matCellDef="let TypeFacteur"><button type="submit" (click)="Supprimer(TypeFacteur)">Supprimer</button></mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>

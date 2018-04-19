@@ -10,7 +10,7 @@ export class Medicament {
     StatutAdministratif:string;
     TypeDeProcedureAutorisation:string;
     EtatCommercialisatoin:string;
-    DateAmm:string;
+    //DateAmm:string;
     Statutbdm:string;
     NumeroAutorisation:string;
     Titulaire:string;

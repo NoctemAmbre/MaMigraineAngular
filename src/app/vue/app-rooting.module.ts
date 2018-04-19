@@ -16,6 +16,8 @@ import { PatientMesmigrainesComponent } from './patient-mesmigraines/patient-mes
 import { CompteNouveauComponent } from './Compte-nouveau/compte-nouveau.component';
 import { PatientFacteursComponent } from './patient-facteurs/patient-facteurs.component';
 import { AdministrateurConsoleComponent } from './administrateur-console/administrateur-console.component';
+import { AdministrateurConsolemedicamentComponent } from './administrateur-consolemedicament/administrateur-consolemedicament.component';
+import { AdministrateurConsolefacteurComponent } from './administrateur-consolefacteur/administrateur-consolefacteur.component';
 
 const routes: Routes = [
         // {
@@ -83,6 +85,14 @@ const routes: Routes = [
         {
           path:'consoleAdmin',
           component : AdministrateurConsoleComponent
+        },
+        {
+          path:'consoleAdminMedicament',
+          component : AdministrateurConsolemedicamentComponent
+        },
+        {
+          path:'consoleAdminFacteur',
+          component : AdministrateurConsolefacteurComponent
         },
         // {
         //   path:'**',

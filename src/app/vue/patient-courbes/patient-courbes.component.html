@@ -94,44 +94,51 @@
 </div> -->
 
 <div class="container">
-  <!-- <div class="col-md-12">
-      <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-                  [datasets]="patient.synthese.lineChartData"
-                  [labels]="patient.synthese.lineChartLabels"
-                  [options]="patient.synthese.lineChartOptions"
-                  [colors]="patient.synthese.lineChartColors"
-                  [legend]="patient.synthese.lineChartLegend"
-                  [chartType]="patient.synthese.lineChartType"
-                  (chartHover)="patient.synthese.chartHovered($event)"
-                  (chartClick)="patient.synthese.chartClicked($event)"></canvas>
-      </div>
-    </div> -->
+  Nombre Mensuel
   <div class="col-md-12">
     <div style="display: block;">
       <canvas baseChart 
-        [datasets]="patient.synthese.lineChartData"
-        [labels]="patient.synthese.lineChartLabels"
-        [options]="patient.synthese.lineChartOptions"
-        [chartType]="patient.synthese.lineChartType"
-        [legend]="patient.synthese.lineChartLegend"
-        (chartHover)="patient.synthese.chartHovered($event)"
-        (chartClick)="patient.synthese.chartClicked($event)">
+        [datasets]="patient.synthese[0].lineChartData"
+        [labels]="patient.synthese[0].lineChartLabels"
+        [options]="patient.synthese[0].lineChartOptions"
+        [chartType]="patient.synthese[0].lineChartType"
+        [colors]="patient.synthese[0].lineChartColors"
+        [legend]="patient.synthese[0].lineChartLegend"
+        (chartHover)="patient.synthese[0].chartHovered($event)"
+        (chartClick)="patient.synthese[0].chartClicked($event)">
       </canvas>
     </div>
-    <!-- <div class="col-md-6">
+  </div>
+  <div class="container">
+    Intensité Moyenne Mensuel
+    <div class="col-md-12">
       <div style="display: block;">
         <canvas baseChart 
-          [data]="patient.synthese.pieChartData"
-          [labels]="patient.synthese.pieChartLabels"
-          [chartType]="patient.synthese.pieChartType"
-          (chartHover)="patient.synthese.chartHovered($event)"
-          (chartClick)="patient.synthese.chartClicked($event)">
+          [datasets]="patient.synthese[1].lineChartData"
+          [labels]="patient.synthese[1].lineChartLabels"
+          [options]="patient.synthese[1].lineChartOptions"
+          [chartType]="patient.synthese[1].lineChartType"
+          [colors]="patient.synthese[1].lineChartColors"
+          [legend]="patient.synthese[1].lineChartLegend"
+          (chartHover)="patient.synthese[1].chartHovered($event)"
+          (chartClick)="patient.synthese[1].chartClicked($event)">
         </canvas>
       </div>
     </div>
-    <div class="col-md-12 text-center" style="margin-top: 10px;height: 50%">
-      <button (click)="patient.synthese.randomizeType()" style="display: inline-block">Toggle</button>
-    </div> -->
-  </div>
+    <div class="container">
+      Durée Moyenne Mensuel
+      <div class="col-md-12">
+        <div style="display: block;">
+          <canvas baseChart 
+            [datasets]="patient.synthese[2].lineChartData"
+            [labels]="patient.synthese[2].lineChartLabels"
+            [options]="patient.synthese[2].lineChartOptions"
+            [chartType]="patient.synthese[2].lineChartType"
+            [colors]="patient.synthese[2].lineChartColors"
+            [legend]="patient.synthese[2].lineChartLegend"
+            (chartHover)="patient.synthese[2].chartHovered($event)"
+            (chartClick)="patient.synthese[2].chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
 </div>

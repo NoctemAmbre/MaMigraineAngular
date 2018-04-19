@@ -61,7 +61,7 @@
         <td><button type="button" class="btn btn-outline-primary" (click)="ModifierMigraine(Migraine)">Modifier</button></td>
       </tr>
   </table> -->
-  <button *ngIf ="!compte.Type" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
+  <button *ngIf ="compte.Type == 2" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
 
   <div *ngIf="AffichageNouvelleMigraine">
     <form>

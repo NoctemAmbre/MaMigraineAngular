@@ -1,3 +1,96 @@
+button[type=submit]
+{
+    float: left;
+    background-color: #3E8EC6;
+    height: 2rem;
+    padding: 0 1rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+}
+input[type=submit]:hover, button:hover
+{
+    background-color: #3E82B1;
+    color: #FCFCFC;
+    box-shadow: none;
+}
+
+.mat-header-row{
+    background-color: #4f6075;
+    border-bottom: 1px solid #4E5E73;
+}
+
+.mat-row{
+    background-color: #425062;
+    border-bottom: 1px solid #4E5E73;
+}
+.mat-row:hover{
+    background-color: #3E82B1;
+    border-bottom: 1px solid #4E5E73;
+}
+
+.mat-cell, .mat-header-cell{
+    color: #FCFCFC;
+    font-size: 10px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+mat-header-cell.mat-sort-header-sorted {
+    color: black;
+}
+
+.mat-paginator {
+    min-height: 30x;
+    background-color: #4f6075;
+}
+
+
+
+
+
+
+div.wrap-tabs
+{
+ display: flex;
+}
+
+label.label_tab
+{
+  display: inline-flex;
+  position: relative;
+  background-color: #425062;
+  min-width: 100px; height: 2rem;
+  margin: 0; padding: 0;
+  margin-right: 3px;
+  border: 1px solid #425062;
+  border-radius: 0.2rem 0.2rem 0 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  transition: all 150ms ease-in;
+}
+
+label.label_tab:hover
+{
+  background-color: #4E5E73;
+}
+
+label.label_tab input[type=radio]
+{
+  position: absolute;
+  opacity: 0;
+  top: 0; left: 0;
+}
+
+
+
 /*div.Warning
 {
     display: flex;
@@ -46,6 +139,8 @@
 {
     background-color: #455466;
 } */
+
+
 
 
 div.popup-globalwrap
@@ -101,18 +196,25 @@ div.popup-wrap > div.popup-content
 {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-around; */
 }
 header
 {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
 }
 div.AffichageListPatient
 {
     position: relative;
     width: 40%; height: 50%;
+    border: 1px solid #555454;
+}
+
+div.AffichageInfoPatient
+{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 60%; height: 50%;
     border: 1px solid #555454;
 }
 
@@ -128,11 +230,11 @@ div.AffichageCourbe
     position: relative;
     width: 100%; height: 100%;
     border: 1px solid #555454;
-}
+} 
 
 
 /* pour le tabs */
-div.tab {
+/* div.tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
@@ -158,7 +260,7 @@ div.tab button.active {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-}
+} */
 
 
 

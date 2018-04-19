@@ -24,7 +24,7 @@ export class CompteInformationComponent implements OnInit {
   //@Input() comptetest: Compte;
   //compte : Compte = <Compte>(JSON.parse(localStorage.getItem('compte')));
   compte : Compte;
-  NouveaMotDePass : boolean = false;
+  
   ListMedecin : Compte[] = null;
 
   time = {hour: 13, minute: 30};
@@ -52,9 +52,7 @@ export class CompteInformationComponent implements OnInit {
     // if (!this.compte.Type) this.router.navigate(['mondocteur']);
     console.log('Information', this.compte);
   }
-  ChMotDePass(){
-    this.NouveaMotDePass = true;
-  }
+
 
   onselect(compte : Compte) : void
   {

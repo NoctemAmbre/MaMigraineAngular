@@ -1,39 +1,7 @@
-
-  <!-- <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Tabs - Default functionality</title>
-    <script src="../../jquery/require.js"></script>
-    <script src="../../bootstrap/bootstrap.js">
-      $( "#tabs" ).tabs();
-    </script>
-  </head>
-
-  <body>
-
-  <div id="tabs">
-    <ul>
-      <li><a href="#tabs-1">Nunc tincidunt</a></li>
-      <li><a href="#tabs-2">Proin dolor</a></li>
-      <li><a href="#tabs-3">Aenean lacinia</a></li>
-    </ul>
-    <div id="tabs-1">
-      <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-    </div>
-    <div id="tabs-2">
-      <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-    </div>
-    <div id="tabs-3">
-      <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-      <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-    </div>
-  </div>
-  </body> -->
-<div id="contenaire">
+<div id="contenaire" *ngIf="compte.Officiel">
   <header>
     <div class="AffichageListPatient">
       <span>
-        <!-- <p>Mes Patients</p> -->
         <div *ngIf="compte.Erreur" class="popup-globalwrap">
           <div class="popup-wrap Warning">
             <div class="popup-title">
@@ -45,76 +13,74 @@
       </span>
 
       <div>
-          <nav id="TableauMesPatient">
-            <div class="lignetitre" >
-              <div class="titrenom">nom</div>
-              <div class="titreprenom">prenom</div>
-              <div class="titremail">adresse Mail</div>
-              <div class="titreportable">Telephone Portable</div>
-              <div class="supprimer">Supprimer</div>
+        <nav id="TableauMesPatient">
+          <div class="lignetitre" >
+            <div class="titrenom">nom</div>
+            <div class="titreprenom">prenom</div>
+            <div class="titremail">adresse Mail</div>
+            <div class="titreportable">Telephone Portable</div>
+            <div class="supprimer">Supprimer</div>
+          </div>
+
+          <div *ngFor="let Patient of compte.MesPatients" style="background :#3e4b5b">
+            <div class="MesPatient" *ngIf="Patient.ConfirmationPatient && Patient.ConfirmationMedecin" [class.selected]="Patient == CompteSelect" (click)="selectAffichage(Patient)" >
+              <div class="donee">{{Patient.Nom}}</div>
+              <div class="donee">{{Patient.Prenom}}</div>
+              <div class="donee">{{Patient.AdresseMail}}</div>
+              <div class="donee">{{Patient.TelephonePortable}}</div>
+              <div class="donee" (click)="SupprPatient(Patient)">Supprimer</div>
             </div>
 
-            <div *ngFor="let Patient of compte.MesPatients" style="background :#3e4b5b">
-              <div class="MesPatient" *ngIf="Patient.ConfirmationPatient && Patient.ConfirmationMedecin" [class.selected]="Patient == CompteSelect" (click)="selectAffichage(Patient)" >
-                <div class="donee">{{Patient.Nom}}</div>
-                <div class="donee">{{Patient.Prenom}}</div>
-                <div class="donee">{{Patient.AdresseMail}}</div>
-                <div class="donee">{{Patient.TelephonePortable}}</div>
-                <div class="donee" (click)="SupprPatient(Patient)">Supprimer</div>
-              </div>
-
-              <div class="MesPatientNonValide" *ngIf="!Patient.ConfirmationPatient && Patient.ConfirmationMedecin">
-                <div class="doneenomValide">{{Patient.Nom}}</div>
-                <div class="doneenomValide">{{Patient.Prenom}}</div>
-                <div class="doneenomValide">{{Patient.AdresseMail}}</div>
-                <div class="doneenomValide">{{Patient.Telephone}}</div>
-                <div class="doneenomValide" (click)="SupprPatient(Patient)">Supprimer</div>
-              </div>
-
-              <div class="MesPatientNonValide" *ngIf="Patient.ConfirmationPatient && !Patient.ConfirmationMedecin">
-                <div class="doneenomValide">{{Patient.Nom}}</div>
-                <div class="doneenomValide">{{Patient.Prenom}}</div>
-                <div class="doneenomValide">{{Patient.AdresseMail}}</div>
-                <div class="doneenomValide">{{Patient.Telephone}}</div>
-                <div class="doneenomValide" (click)="ValiderNouveauPatient(Patient)">Accepter</div>
-              </div>
+            <div class="MesPatientNonValide" *ngIf="!Patient.ConfirmationPatient && Patient.ConfirmationMedecin">
+              <div class="doneenomValide">{{Patient.Nom}}</div>
+              <div class="doneenomValide">{{Patient.Prenom}}</div>
+              <div class="doneenomValide">{{Patient.AdresseMail}}</div>
+              <div class="doneenomValide">{{Patient.Telephone}}</div>
+              <div class="doneenomValide" (click)="SupprPatient(Patient)">Supprimer</div>
             </div>
-          </nav>
 
+            <div class="MesPatientNonValide" *ngIf="Patient.ConfirmationPatient && !Patient.ConfirmationMedecin">
+              <div class="doneenomValide">{{Patient.Nom}}</div>
+              <div class="doneenomValide">{{Patient.Prenom}}</div>
+              <div class="doneenomValide">{{Patient.AdresseMail}}</div>
+              <div class="doneenomValide">{{Patient.Telephone}}</div>
+              <div class="doneenomValide" (click)="ValiderNouveauPatient(Patient)">Accepter</div>
+            </div>
+          </div>
+        </nav>
 
-          <!-- <table class="table table-hover table-dark">
-              <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Identifiant</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
-                      <td>{{Compte.Nom}}</td>
-                      <td>{{Compte.Prenom}}</td>
-                      <td>{{Compte.Identifiant}}</td>
-                      <td><button type="button" class="btn btn-outline-primary" (click)="SupprPatient(Compte)">Supprimer</button></td>
-                  </tr>
-              </tbody>
-          </table> -->
-        <!-- <ul>
-          <li *ngFor="let Compte of compte.MesPatients" [class.selected]="Compte == CompteSelect" (click)="selectAffichage(Compte)">
-            {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
-          </li>
-        </ul> -->
         <input type="text" name ="Nom" [(ngModel)]="Nomrecherche" (keyup)="RechercherNouveauPatient()" placeholder="Nom patient" autocomplete="off">
         <br />
-        <!-- <div *ngIf="ListPatient">
-            <ul>
-              <li *ngFor="let Compte of ListPatient" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
-                  {{Compte.Nom}} {{Compte.Prenom}} {{Compte.Identifiant}}
-              </li>
-            </ul>
-          </div> -->
+
         <div *ngIf="ListPatient">
+          <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="Nom">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Nom</mat-header-cell>
+              <mat-cell *matCellDef="let compte" (click)="selectAffichage(compte)">{{compte.Nom}}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="Prénom">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Prénom</mat-header-cell>
+              <mat-cell *matCellDef="let compte">{{compte.Prenom}}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="AdresseMail">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> AdresseMail</mat-header-cell>
+              <mat-cell *matCellDef="let compte">{{compte.AdresseMail}}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="Supprimer">
+              <mat-header-cell *matHeaderCellDef> Ajouter</mat-header-cell>
+              <mat-cell *matCellDef="let compte"><button type="submit" (click)="onselect(compte)">Supprimer</button></mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+          
+
+
+        
           <table class="table table-hover table-dark">
               <thead>
                 <tr>
@@ -128,69 +94,45 @@
                   <td>{{Compte.Nom}}</td>
                   <td>{{Compte.Prenom}}</td>
                   <td><button type="button" class="btn btn-outline-primary" (click)="onselect(Compte)">Ajouter</button></td>
-                  <!-- <td (click)="onselect(Compte)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
                 </tr>
               </tbody>
-          </table>
+          </table> 
         </div>
       </div>
     </div>
 
-    <ngb-tabset>
-      <ngb-tab title="Information Patient">
-        <ng-template ngbTabContent>
-          <app-patient-information></app-patient-information>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Ordonnance">
-        <ng-template ngbTabContent>
-            <app-patient-ordonnance></app-patient-ordonnance>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Facteurs">
-        <ng-template ngbTabContent>
-            <app-patient-facteurs></app-patient-facteurs>
-        </ng-template>
-      </ngb-tab>
-      <!-- <ngb-tab title="Facteurs Défavorable">
-          <ng-template ngbTabContent>
-              <app-patient-facteurs [Favorable]="false"></app-patient-facteurs>
-          </ng-template>
-        </ngb-tab> -->
-    </ngb-tabset>
+    <form *ngIf="compte">
+      <div class="wrap-tabs">
+          <form #f="ngForm">
+            <label class="label_tab" for="radio_Information">
+              Information Patient
+              <input id="radio_Information" type="radio" checked="checked" value="1" name="Typechoix1" [(ngModel)]="Tabulation">
+            </label>
     
-    <!-- <div *ngIf="patient.IDWeb != 0" class="AffichagePatient">
-      <nav id="mainmenu">
-        <a class="nav-AffichagePatient" (click)="InfoOuordonnance(true)">Information Patient</a>
-        <a class="nav-Ordonnance"       (click)="InfoOuordonnance(false)">Ordonnance</a>            
-      </nav> -->
+            <label class="label_tab" for="radio_Ordonnance">
+              Ordonnance
+              <input id="radio_Ordonnance" type="radio" value="2" name="Typechoix2" [(ngModel)]="Tabulation">
+            </label>
+    
+            <label class="label_tab" for="radio_Facteurs">
+              Facteurs
+              <input id="radio_Facteurs" type="radio" value="3" name="Typechoix3" [(ngModel)]="Tabulation">
+            </label>
+          </form>
+        </div>
 
-
-
-
-
-
-      <!-- <div class="tab">
-          <button class="tablinks" (click)="openInfoPatient(event, 'Information')">Information Patient</button>
-          <button class="tablinks" (click)="openInfoPatient(event, 'Ordonnance')">Ordonnance</button>
-      </div> -->
-
-      <!-- <div id="Information" class="tabcontent">
-          <app-patient-information></app-patient-information>
+      <div class="wrap-form_content">
+        <div class="form-group" *ngIf="Tabulation == 1">
+            <app-patient-information></app-patient-information>
+        </div>
+        <div class="form-group" *ngIf="Tabulation == 2">
+            <app-patient-ordonnance></app-patient-ordonnance>
+        </div>
+        <div class="form-group" *ngIf="Tabulation == 3">
+            <app-patient-facteurs></app-patient-facteurs>
+        </div>
       </div>
-      
-      <div id="Ordonnance" class="tabcontent">
-          <app-patient-ordonnance></app-patient-ordonnance>   
-      </div> -->
-
-      <!-- <script>
-        
-      </script> -->
-
-      
-      <!-- <div *ngIf="Selection"><app-patient-information></app-patient-information></div>
-      <div *ngIf="!Selection"><app-patient-ordonnance></app-patient-ordonnance></div>
-    </div> -->
+    </form>
   </header>
   <body>
     <div *ngIf="patient.IDWeb != 0" class="AffichageCourbe">
@@ -198,4 +140,6 @@
     </div>
   </body>
 </div>
-
+<div id="contenaire" *ngIf="compte.Officiel == false">
+  <label>Vous n'avez pas encore les droits d'utiliser cettre rubrique. Veuillez contacter l'administrateur</label>
+</div>

@@ -1,3 +1,136 @@
+<form *ngIf="compte">
+
+  <div class="wrap-form_content">
+
+    <div class="form-group">
+      <label>Identifiant</label>
+      <input type="text" name ="Identifiant" [(ngModel)]="compte.Identifiant" placeholder="Identifiant" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Nom</label>
+      <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom" readonly>
+
+      <label>Prenom</label>
+      <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom" readonly>
+    </div>
+
+    <div class="form-group" *ngIf="compte.Type == 2">
+
+      <label>Date De naissance</label>
+      <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder="" readonly>
+
+      <label>Téléphone Fixe</label>
+      <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe" readonly>
+
+      <label>Téléphone portable</label>
+      <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable" readonly>
+
+      <label>Sexe</label>
+      <div class="wrap-radiobox">
+        <label class="label_radio" for="SexeChoix1">
+            Homme
+            <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
+            <span class="checkmark"></span>
+        </label>
+        <label class="label_radio" for="SexeChoix2">
+            Femme
+            <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
+            <span class="checkmark"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="form-group" *ngIf="compte.Type == 2">
+
+      <label>Adresse Mail de contacte</label>
+      <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail" readonly>
+
+      <label>Adresse personnel</label>
+      <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro" readonly>
+
+      <label>numéro de rue</label>
+      <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue" readonly>
+
+      <!-- <label>Code postal</label>
+      <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" (keyup)="rechercheCodePostal()" placeholder="Code postal">
+
+      <label>Ville</label>
+      <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" (keyup)="rechercheNomVille()"  placeholder="Ville"><br/> -->
+
+      <label>Code postal</label>
+      <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" placeholder="Code postal" readonly>
+
+      <label>Ville</label>
+      <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville" placeholder="Ville" readonly><br/>
+
+      <div>
+        <button type="submit" (click)=ModificationCompte()>Modification du compte</button>
+      </div>
+
+    </div>
+
+    <div class="form-group" *ngIf="compte.Type == 2">
+
+      <ul class = "AdresseCP">
+        <li *ngFor="let cities of ListCities"
+        [class.selected]="cities == CitiesSelect"
+        (click)="onselect(cities)">
+            {{cities.code}} {{cities.city}}
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="form-group" *ngIf="compte.Type == 1">
+
+        <div class="form-group" *ngIf="compte.Adresse">
+          <label>Adresse cabinet</label>
+          <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro" readonly>
+          <label>numéro de rue</label>
+          <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue" readonly>
+        </div>
+
+        <label>Code postal</label>
+        <input type="number" name ="CP" [(ngModel)]="compte.Adresse[0].CodePostal" placeholder="Code postal" readonly>
+
+        <label>Ville</label>
+        <input type="text" name ="Ville" [(ngModel)]="compte.Adresse[0].Ville"  placeholder="Ville" readonly><br/>
+
+      </div>
+
+      <div class="form-group" *ngIf="compte.Type == 1">
+
+        <label>Téléphone cabinet</label>
+        <input type="text" name ="TelCabinet" [(ngModel)]="compte.Telephone" placeholder="Téléphone Cabinet" readonly>
+
+        <label>Adresse Mail de contacte</label>
+        <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail" readonly>
+
+        <label>Info Complémentaire</label>
+        <input type="text" name ="InfoC" [(ngModel)]="compte.InfoComplementaire" placeholder="Infos Complémentaires" readonly>
+
+        <label>Horaires d'ouverture</label>
+        <div class="wrap-alldaystime" *ngFor="let Horaire of compte.HoraireOuverture">
+            <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}} readonly>
+            <input type="time" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}} readonly>
+        </div>
+
+        <!-- <div *ngFor="let Horaire of compte.HoraireOuverture">
+          <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
+        </div>  -->
+
+        <div>
+          <button type="submit" (click)=ModificationCompte()>Modification du compte</button>
+        </div>
+    </div>
+  </div>
+</form>
+
+
+
+<!-- 
 <div id="Information" *ngIf="compte">
   <div *ngIf="compte.Type == 1">
     <form>
@@ -69,7 +202,7 @@
           </div>
         </div>
         <hr>
-        <!-- <ngb-timepicker [(ngModel)]="time" [size]="small"></ngb-timepicker> -->
+
       </div>
     </form>
   </div>
@@ -133,23 +266,15 @@
       </div>
     </form>
 
-    <!-- <div *ngIf="compte.MedecinAttitre"><p>Medecin Attitré : Docteur {{compte.MedecinAttitre.Nom}} {{compte.MedecinAttitre.Prenom}}</p> <button (click)=ListDesMedecins()>Ajout Médecin</button></div>
-    <div *ngIf="ListMedecin">
-      <ul>
-        <li *ngFor="let Compte of ListMedecin" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
-            Docteur {{Compte.Nom}} {{Compte.Prenom}}
-        </li>
-      </ul>
-    </div> -->
 
   </div>
   <button type="button" class="btn btn-outline-primary" (click)="ModificationCompte()">Modification du compte</button>
-  <!-- <popup> {{compte.Erreur}}</popup> -->
+
   <div *ngIf="!NouveaMotDePass">
-    <!-- <button (click)=ChMotDePass()>changement mot de passe</button> -->
+
     <button type="button" class="btn btn-outline-primary" (click)="ChMotDePass()">changement mot de passe</button>
   </div>
   <div *ngIf="NouveaMotDePass">
     <app-compte-changemotdepass></app-compte-changemotdepass>
   </div>
-</div>
+</div> -->

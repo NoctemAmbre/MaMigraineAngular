@@ -26,14 +26,21 @@ export class CompteService {
   private comptes = new BehaviorSubject<Compte>(new Compte());
   compte = this.comptes.asObservable();
   public static CleBasic : string = "j6tYtmgst2XIOIeRsPHR";
-  public static WebService = 'http://91.160.28.49:50000/Service1.svc';
+  
+  
+  //public static WebService : String = 'http://localhost:57928/Service1.svc';
+  public static WebService = 'http://mamigraine.freeboxos.fr:50000/Service1.svc';
+  
+  
+  //public static WebService = 'http://82.64.39.175:50000/Service1.svc';
+  //public static WebService = 'http://91.160.28.49:50000/Service1.svc';
   //public static WebService : String = 'http://192.168.1.11:3000/Service1.svc';
   //static WebService : String = 'http://192.168.1.11:57928/Service1.svc';
   //static WebService : String = 'http://192.168.1.11:50000/Service1.svc';
   
   
   
-  //public static WebService : String = 'http://localhost:57928/Service1.svc';
+  
 
   constructor(private http:HttpClient) { }
 
@@ -209,23 +216,23 @@ export class CompteService {
   public LancementMok() : Compte
   {
     let compteRetour : Compte = new Compte();
-    compteRetour.Identifiant = "Noctem";
+    compteRetour.Identifiant = "Login";
     compteRetour.MotDePass = "MotDePass";
-    compteRetour.Nom = "HERMIER";
-    compteRetour.Prenom = "Bruno";
-    compteRetour.DateNaissance = "1971-12-28";
+    compteRetour.Nom = "NOM";
+    compteRetour.Prenom = "Prénon";
+    compteRetour.DateNaissance = "1999-12-31";
 
     //console.log("avant new Adress()");
     compteRetour.Adresse = [];
     compteRetour.Adresse[0] = new Adresse();
-    compteRetour.Adresse[0].Numero = 23;
-    compteRetour.Adresse[0].NomRue = "Rue du Moulin";
-    compteRetour.Adresse[0].CodePostal = 78420;
-    compteRetour.Adresse[0].Ville = "CARRRIERES-SUR-SEINE";
+    compteRetour.Adresse[0].Numero = 0;
+    compteRetour.Adresse[0].NomRue = "";
+    compteRetour.Adresse[0].CodePostal = 0;
+    compteRetour.Adresse[0].Ville = "";
  
-    compteRetour.Telephone = "0139130601";
-    compteRetour.TelephonePortable = "0611481516";
-    compteRetour.AdresseMail = "Noctem.Ambre@hotmail.fr";
+    compteRetour.Telephone = "01020304056";
+    compteRetour.TelephonePortable = "0607080910";
+    compteRetour.AdresseMail = "Adresse.Mail@messagerie.fr";
     compteRetour.CreePar = 0;
     compteRetour.InfoComplementaire = "Toutes les infos sont ici";
     let compteVide : Compte = new Compte();
@@ -235,7 +242,7 @@ export class CompteService {
 
     compteRetour.HoraireOuverture = [];
     compteRetour.HoraireOuverture.push(new Horaire('Lundi', '08:30', '18:30'));
-    compteRetour.HoraireOuverture.push(new Horaire('Mardi','08:00', '17:00'));
+    compteRetour.HoraireOuverture.push(new Horaire('Mardi','08:00', '18:00'));
     compteRetour.HoraireOuverture.push(new Horaire('Mercredi', '07:30','21:00'));
     compteRetour.HoraireOuverture.push(new Horaire('Jeudi', '09:00', '18:15'));
     compteRetour.HoraireOuverture.push(new Horaire('Vendredi', '10:30','16:30'));

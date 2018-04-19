@@ -29,19 +29,36 @@ export class PatientCourbesComponent implements OnInit {
     
     if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte;}
     if (this.patient.synthese == null){ 
-      this.patient.synthese = new Synthese();
-      // this.patient.synthese.courbe1 = true;
-      // this.patient.synthese.courbe2 = false;
-      // this.patient.synthese.courbe3 = false;
+      this.patient.synthese = [];
+      this.patient.synthese.push(new Synthese());
+      this.patient.synthese.push(new Synthese());
+      this.patient.synthese.push(new Synthese());
     }
-    this.patient.synthese.ActualisationCourbe(this.patient);
+
+    this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
+    this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
+    this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
+
     this.patientService.changePatient(this.patient);
   }
 
   Actualisation(typegraph : string){
-    this.patient.synthese = new Synthese();
-    this.patient.synthese.lineChartType = typegraph;
-    this.patient.synthese.ActualisationCourbe(this.patient);
+    this.patient.synthese = [];
+    this.patient.synthese.push(new Synthese());
+    this.patient.synthese.push(new Synthese());
+    this.patient.synthese.push(new Synthese());
+
+    this.patient.synthese[0].lineChartType = typegraph;
+    this.patient.synthese[1].lineChartType = typegraph;
+    this.patient.synthese[2].lineChartType = typegraph;
+
+    this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
+    this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
+    this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
+
+    // this.patient.synthese[0].lineChartData[0] = this.patient.synthese[0].NombreMensuel(this.patient);
+    // this.patient.synthese[1].lineChartData[1] = this.patient.synthese[1].intensiteMoyenMensuel(this.patient);
+    // this.patient.synthese[2].lineChartData[2] = this.patient.synthese[2].TempMoyen(this.patient);
     this.patientService.changePatient(this.patient);
   }
 }

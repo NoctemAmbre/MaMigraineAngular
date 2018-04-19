@@ -1,23 +1,16 @@
 <div id="Autentification" *ngIf="compte">
-  <!-- <div>
-    <label>Nouveau Mot de Pass : </label>
-    <input type="password" name = "password" [(ngModel)]="compte.MotDePass" placeholder="Mot de passe">
-  </div>
-  <div>
-    <label>Mot de Passe : </label>
-    <input type="password" name ="password" [(ngModel)]="ConfirmMotDePass" placeholder="confirmation Mot de passe">
-    <button (click)=Envois()>Envois changement</button>
-    <h1>Bienvenu {{identifiant.Password}} {{identifiant.ConfirmPassword}}</h1>
-  </div> -->
-  <label>Nouveau Mot de Pass</label>
-  <input type="password" name ="password" [(ngModel)]="compte.MotDePass" (keyup)="NiveauMotDepass()" placeholder="Mot De Passe">
-  <label>{{InfoMotDePass}}</label><br />
-  
-  <label>Confirmation mot de passe</label>
-  <input type="password" name ="Confirmpassword" [(ngModel)]="ConfirmMotDePass" (keyup)="identique()" placeholder="Confirmation mot de passe">
-  <label>{{InfoMotDePass}}</label><br />
-  <label>{{Identique}}</label><br />
-  <div *ngIf="Identique">
-    <button (click)=Envois()>Envois changement</button>
+
+  <div class="form-group">
+    <label>Nouveau Mot de Pass</label>
+    <input type="password" name ="password" [(ngModel)]="compte.MotDePass" (keyup)="NiveauMotDepass()" placeholder="Mot De Passe">
+    <label>{{InfoMotDePass}}</label><br />
+    
+    <label>Confirmation mot de passe</label>
+    <input type="password" name ="Confirmpassword" [(ngModel)]="ConfirmMotDePass" (keyup)="identique()" placeholder="Confirmation mot de passe">
+    <label>{{InfoMotDePass}}</label><br />
+    <label>{{Identique}}</label><br />
+    <div *ngIf="Identique">
+      <button (click)=Envois()>Envois changement</button>
+    </div>
   </div>
 </div>  
