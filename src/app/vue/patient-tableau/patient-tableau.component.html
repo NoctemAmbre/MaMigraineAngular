@@ -33,8 +33,12 @@
               </div>
             </div>
             <div class="IconesBouton">
-              <img type="button" class="BoutonEdit" (click)="ModifierMigraine(Migraine)"/>
-              <img type="button" class="BoutonDelete" (click)="SupprimerMigraine(Migraine)"/>
+              <button class="btn" (click)="ModifierMigraine(Migraine)">
+                <img class="BoutonEdit"/>
+              </button>
+              <button class="btn" (click)="SupprimerMigraine(Migraine)">
+                <img class="BoutonDelete"/>
+              </button>
             </div>
           </button>
       </div>
@@ -61,44 +65,41 @@
         <td><button type="button" class="btn btn-outline-primary" (click)="ModifierMigraine(Migraine)">Modifier</button></td>
       </tr>
   </table> -->
-  <button *ngIf ="compte.Type == 2" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button>
-
-  <div *ngIf="AffichageNouvelleMigraine">
+  <!-- <button *ngIf ="compte.Type == 2" type="button" class="btn btn-outline-primary" (click)="AjoutMigraine()">Ajouter Migraine</button> -->
+  
+  <button *ngIf ="compte.Type == 2 && !AffichageModificationMigraine && !AffichageNouvelleMigraine " type="button" class="boutonAjoutMigraine" (click)="AjoutMigraine()">Ajouter Migraine</button>
+  <button *ngIf ="compte.Type == 2 && AffichageNouvelleMigraine" type="button" class="boutonAjoutMigraine disabled" (click)="AjoutMigraine()">Ajouter Migraine</button>
+  
+  <div id="wrap-nouvelleMigraine" *ngIf="AffichageNouvelleMigraine">
+    <hr>
     <form>
         <div class="form-row">
-          <label class="col-sm-3 col-form-label">Date Debut</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj" (click)="d.toggle()" 
-                    name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
-              <!-- <button class="input-group-addon" (click)="d.toggle()" type="button">
-                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button> -->
+            <label class="col-sm-3 col-form-label">Date Debut</label>
+            <!-- <input class="form-control" type="date" name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut"> -->
+            <input class="form-control" (click)="d.toggle()" type="date" name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
           </div>
-          <label class="col-sm-3 col-form-label">Date Fin</label>
           <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj" (click)="f.toggle()"
-                    name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
-              <!-- <button class="input-group-addon" (click)="f.toggle()" type="button">
-                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button> -->
+            <label class="col-sm-3 col-form-label">Date Fin</label>
+            <!-- <input class="form-control" type="date" name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin"> -->
+            <input class="form-control" (click)="f.toggle()" type="date" name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
           </div>
         </div>
         
         <div class="form-row">
-          
-          <label class="col-sm-3 col-form-label">Heure Début</label>
-          <div class="col-sm-3">
+          <div class="input-group col-sm-3">
+            <label class="col-sm-3 col-form-label">Heure Début</label>
             <input class="form-control form-control-sm" (input)="changeTimeDebut($event.target.value)" type="time">
           </div>        
-          <label class="col-sm-3 col-form-label">Heure Fin</label>
-          <div class="col-sm-3">
+          <div class="input-group col-sm-3">
+            <label class="col-sm-3 col-form-label">Heure Fin</label>
             <input class="form-control form-control-sm" (input)="changeTimeFin($event.target.value)" type="time">
           </div>
         </div>
        
         <hr>
         
-        <div class="form-row">
+        <div class="form-row stars">
           <label class="col-sm-3 col-form-label">Intensité</label>
           <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
             <ng-template let-fill="fill" let-index="index">
@@ -107,11 +108,15 @@
           </ngb-rating>
         </div>
         
-        <p>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
+ 
+            <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament"> -->
+          <button type="submit" class="bontoncollapsMedicament" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">Médicaments</button>
+
+          <!--           
+          <a class="bontoncollapsMedicament" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
               Médicaments
-          </a>
-        </p>
+          </a> -->
+
         <div class="collapse" id="collapseMedicament">
           <div class="card card-body">
             <div class="form-row">
@@ -127,11 +132,14 @@
           </div>
         </div>
 
-        <p>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament">
+        
+
+        <button type="submit" class="bontoncollapsFacteur" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseFacteur">Facteurs</button>
+    
+          <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament">
               Facteurs
-          </a>
-        </p>
+          </a> -->
+   
         <div class="collapse" id="collapseFacteur">
             <div class="card card-body">
               <div class="form-row">
@@ -148,7 +156,7 @@
                     <div *ngIf="facteur.TypeDeReponse.ID == 2">
                       <input type="radio" id="ChoixOui" (change)="ChoixBinaire(facteur, 1)" name={{facteur.Question}}>
                       <label for="ChoixOui">Oui</label>
-                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}} checked>
+                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}}>
                       <label for="ChoixNon">Non</label><br />
                     </div>
                   </div>
@@ -156,66 +164,88 @@
               </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
-        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
+        <!-- <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
+        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button> -->
+        <div class="btn_group">
+          <button type="submit" class="boutonValidationMigraine" (click)="ValidationMigraine()">Ajouter</button>
+          <button type="submit" class="boutonAnnulationMigraine" (click)="Annule()">Annuler</button>
+        </div>
     </form>    
 </div>
 
-<div *ngIf="AffichageModificationMigraine">
-    <form>
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Date Debut</label>
-          <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj" (click)="d.toggle()" type="button"
-                    name="dpDebut" [(ngModel)]="dateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
-              <!-- <button class="input-group-addon" (click)="d.toggle()" type="button">
-                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button> -->
-          </div>
-          <label class="col-sm-3 col-form-label">Date Fin</label>
-          <div class="input-group col-sm-3">
-              <input class="form-control" placeholder="aaaa-mm-jj" (click)="f.toggle()" type="button"
-                    name="dpFin" [(ngModel)]="dateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
-              <!-- <button class="input-group-addon" (click)="f.toggle()" type="button">
-                    <img src="/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-              </button> -->
-          </div>
-        </div>
+<div id="wrap-MigraineModification" *ngIf="AffichageModificationMigraine">
+  <form>
+    <div class="form-row">
+      <!-- <label class="col-sm-3 col-form-label">Date Debut</label>
+      <div class="input-group col-sm-3">
+          <input class="form-control" placeholder="aaaa-mm-jj" (click)="d.toggle()" type="button"
+                name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
+      </div>
+
+      <label class="col-sm-3 col-form-label">Date Fin</label>
+      <div class="input-group col-sm-3">
+          <input class="form-control" placeholder="aaaa-mm-jj" (click)="f.toggle()" type="button"
+                name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
+      </div> -->
+      <div class="input-group col-sm-3">
+        <label class="col-sm-3 col-form-label">Date Debut</label>
+        <input class="form-control" (click)="d.toggle()" type="date" name="dpDebut" [(ngModel)]="NouvelleMigraine.DateDebut" [navigation]="select" ngbDatepicker #d="ngbDatepicker">
+      </div>
+      <div class="input-group col-sm-3">
+        <label class="col-sm-3 col-form-label">Date Fin</label>
+        <input class="form-control" (click)="f.toggle()" type="date" name="dpFin" [(ngModel)]="NouvelleMigraine.DateFin" [navigation]="select" ngbDatepicker #f="ngbDatepicker">
+      </div>
+    </div>
+ 
         
-        <div class="form-row">
-          
-          <label class="col-sm-3 col-form-label">Heure Début</label>
-          <div class="col-sm-3">
-            <input class="form-control form-control-sm" (input)="changeTimeDebut($event.target.value)" type="time">
-          </div>        
-          <label class="col-sm-3 col-form-label">Heure Fin</label>
-          <div class="col-sm-3">
-            <input class="form-control form-control-sm" (input)="changeTimeFin($event.target.value)" type="time">
-          </div>
-        </div>
-        <hr>
+    <div class="form-row">
+      <!-- <label class="col-sm-3 col-form-label">Heure Début</label>
+      <div class="col-sm-3">
+          <input type="time" name="horaireDebut" [value]="timedebut" (input)="NouvelleMigraine.HeureDebut = $event.target.value">
+      </div>        
+      <label class="col-sm-3 col-form-label">Heure Fin</label>
+      <div class="col-sm-3">
+        <input class="form-control form-control-sm" [value]="timefin" (input)="changeTimeFin($event.target.value)" type="time">
+      </div> -->
+
+      <div class="input-group col-sm-3">
+        <label class="col-sm-3 col-form-label">Heure Début</label>
+        <input class="form-control form-control-sm" [value]="timedebut" (input)="changeTimeDebut($event.target.value)" type="time">
+      </div>        
+      <div class="input-group col-sm-3">
+        <label class="col-sm-3 col-form-label">Heure Fin</label>
+        <input class="form-control form-control-sm" [value]="timefin" (input)="changeTimeFin($event.target.value)" type="time">
+      </div>
+
+      <!-- <input type="time" name="HoraireMatin" [value]="NouvelleMigraine.Horaire.Matin" (input)="Horaire.Matin = $event.target.value">
+          <input type="time" name="HoraireSoir" [value]="Horaire.Soir" (input)="Horaire.Soir = $event.target.value"> -->
+    </div>
+    <!-- <hr> -->
         
-        <div class="form-row">
-          <label class="col-sm-3 col-form-label">Intensité</label>
-          <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
-            <ng-template let-fill="fill" let-index="index">
-              <span class="star" [class.filled]="fill === 100">&#9733;</span>
-            </ng-template>
-          </ngb-rating>
-        </div>
+    <div class="form-row">
+      <label class="col-sm-3 col-form-label">Intensité</label>
+      <ngb-rating [(rate)]="NouvelleMigraine.Intensite" max="5">
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [class.filled]="fill === 100">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+    </div>
+
         
-        <p>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
+        <!-- <p> -->
+          <button type="submit" class="bontoncollapsMedicament" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">Médicaments</button>
+          <!-- <br> -->
+          <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedicament" aria-expanded="false" aria-controls="collapseMedicament">
               Médicaments
-          </a>
-        </p>
+          </a> -->
+        <!-- </p> -->
         <div class="collapse" id="collapseMedicament">
           <div class="card card-body">
             <div class="form-row">
                 <div class="col-sm-8">
                   <div class="form-check" *ngFor="let medicament of patient.MesMedicaments; let j=index">
                       <label class="form-check-label">
-                          <input [(ngModel)]="medicament.Selection" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch">
+                          <input [(ngModel)] = "medicament.Selection" type="checkbox" name="onoffswitch" class="form-check-input" id="myonoffswitch">
                           {{medicament.DenominationMedicament}}
                       </label>
                     </div>
@@ -224,11 +254,14 @@
           </div>
         </div>
 
-        <p>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament">
+        <!-- <p> -->
+          <button type="submit" class="bontoncollapsFacteur" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseFacteur">Facteurs</button>
+          <!-- <br> -->
+          <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament"> -->
+          <!-- <a class="boutonFacteur" data-toggle="collapse" href="#collapseFacteur" aria-expanded="false" aria-controls="collapseMedicament">
               Facteurs
-          </a>
-        </p>
+          </a> -->
+        <!-- </p> -->
         <div class="collapse" id="collapseFacteur">
             <div class="card card-body">
               <div class="form-row">
@@ -243,18 +276,24 @@
                         </ngb-rating>
                     </div>
                     <div *ngIf="facteur.TypeDeReponse.ID == 2">
-                      <input type="radio" id="ChoixOui" (change)="ChoixBinaire(facteur, 1)" name={{facteur.Question}}>
+                      <input type="radio" id="ChoixOui" (change)="ChoixBinaire(facteur, 1)" name={{facteur.Question}} [checked]="facteur.Reponse == 1" >
                       <label for="ChoixOui">Oui</label>
-                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}} checked>
-                      <label for="ChoixNon">Non</label><br />
+                      <input type="radio" id="ChoixNon" (change)="ChoixBinaire(facteur, 0)" name={{facteur.Question}} [checked]="facteur.Reponse == 0">
+                      <label for="ChoixNon">Non</label><br />                      
                     </div>
                   </div>
                 </div>
               </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
-        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button>
+        <!-- <button type="submit" class="btn btn-outline-primary" (click)="ValidationMigraine()">Ajouter</button>
+        <button type="submit" class="btn btn-outline-primary" (click)="Annule()">Annuler</button> -->
+        <!-- <button type="submit" class="boutonValidationMigraine" (click)="ValidationMigraine()">Modifier</button>
+        <button type="submit" class="boutonAnnulationMigraine" (click)="Annule()">Annuler</button> -->
+        <div class="btn_group">
+          <button type="submit" class="boutonValidationMigraine" (click)="ValidationMigraine()">Modifier</button>
+          <button type="submit" class="boutonAnnulationMigraine" (click)="Annule()">Annuler</button>
+        </div>
     </form>    
 </div>
 

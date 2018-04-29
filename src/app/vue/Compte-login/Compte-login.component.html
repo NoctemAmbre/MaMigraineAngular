@@ -1,8 +1,8 @@
 
 <div id="Autentification" *ngIf="!Congratulation">
   <div class="row">
-    <input type="text" [(ngModel)]="compte.Identifiant" placeholder="Identifiant">
-    <input type="password" name ="password" [(ngModel)]="compte.MotDePass" placeholder="Mot de passe">
+    <input type="text" [(ngModel)]="compte.Identifiant" (click)="EffaceErreur()" placeholder="Identifiant">
+    <input type="password" name ="password" [(ngModel)]="compte.MotDePass" (click)="EffaceErreur()" placeholder="Mot de passe">
     <button type="submit" (click)=connexion()>Connexion</button><br />
   </div>
   <a class="link_forgotpassw">Mot de passe oublié ? </a>
@@ -15,7 +15,7 @@
 </div>
 
 <div id="Congratulation" *ngIf="Congratulation">
-  <h6>Bienvenu {{compte.Prenom}} {{compte.Nom}}</h6>
+  <h6>Bienvenue {{compte.Prenom}} {{compte.Nom}}</h6>
   <a class="link_viewaccount" (click)="VoirCompte()">Mon compte</a>
   <button type="button" id="deconnexion" (click)="Deconnexion()">Déconnexion</button>
 </div>

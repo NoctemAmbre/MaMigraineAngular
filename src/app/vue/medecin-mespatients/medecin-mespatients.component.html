@@ -1,6 +1,6 @@
 <div id="contenaire" *ngIf="compte.Officiel">
   <header>
-    <div class="AffichageListPatient">
+    <div id="wrap-list_patient" class="AffichageListPatient">
       <span>
         <div *ngIf="compte.Erreur" class="popup-globalwrap">
           <div class="popup-wrap Warning">
@@ -18,33 +18,37 @@
             <div class="titrenom">nom</div>
             <div class="titreprenom">prenom</div>
             <div class="titremail">adresse Mail</div>
-            <div class="titreportable">Telephone Portable</div>
-            <div class="supprimer">Supprimer</div>
+            <div class="titretel">Telephone Portable</div>
+            <div class="titrevalid">Valider</div>
+            <div class="titresuppr">Supprimer</div>
           </div>
 
           <div *ngFor="let Patient of compte.MesPatients" style="background :#3e4b5b">
             <div class="MesPatient" *ngIf="Patient.ConfirmationPatient && Patient.ConfirmationMedecin" [class.selected]="Patient == CompteSelect" (click)="selectAffichage(Patient)" >
-              <div class="donee">{{Patient.Nom}}</div>
-              <div class="donee">{{Patient.Prenom}}</div>
-              <div class="donee">{{Patient.AdresseMail}}</div>
-              <div class="donee">{{Patient.TelephonePortable}}</div>
-              <div class="donee" (click)="SupprPatient(Patient)">Supprimer</div>
+              <div class="doneenom">{{Patient.Nom}}</div>
+              <div class="doneeprenom">{{Patient.Prenom}}</div>
+              <div class="doneemail">{{Patient.AdresseMail}}</div>
+              <div class="doneetel">{{Patient.TelephonePortable}}</div>
+              <div class="doneevalid"></div>
+              <div class="doneesuppr"><button type="submit" (click)="SupprPatient(Patient)">Supprimer</button></div>
             </div>
 
             <div class="MesPatientNonValide" *ngIf="!Patient.ConfirmationPatient && Patient.ConfirmationMedecin">
-              <div class="doneenomValide">{{Patient.Nom}}</div>
-              <div class="doneenomValide">{{Patient.Prenom}}</div>
-              <div class="doneenomValide">{{Patient.AdresseMail}}</div>
-              <div class="doneenomValide">{{Patient.Telephone}}</div>
-              <div class="doneenomValide" (click)="SupprPatient(Patient)">Supprimer</div>
+              <div class="doneeNonValidenom">{{Patient.Nom}}</div>
+              <div class="doneeNonValideprenom">{{Patient.Prenom}}</div>
+              <div class="doneeNonValidemail">{{Patient.AdresseMail}}</div>
+              <div class="doneeNonValidetel">{{Patient.Telephone}}</div>
+              <div class="doneeNonvalidvalid"></div>
+              <div class="doneeNonValidesuppr"><button type="submit" (click)="SupprPatient(Patient)">Supprimer</button></div>
             </div>
 
             <div class="MesPatientNonValide" *ngIf="Patient.ConfirmationPatient && !Patient.ConfirmationMedecin">
-              <div class="doneenomValide">{{Patient.Nom}}</div>
-              <div class="doneenomValide">{{Patient.Prenom}}</div>
-              <div class="doneenomValide">{{Patient.AdresseMail}}</div>
-              <div class="doneenomValide">{{Patient.Telephone}}</div>
-              <div class="doneenomValide" (click)="ValiderNouveauPatient(Patient)">Accepter</div>
+              <div class="doneeNonValidenom">{{Patient.Nom}}</div>
+              <div class="doneeNonValideprenom">{{Patient.Prenom}}</div>
+              <div class="doneeNonValidemail">{{Patient.AdresseMail}}</div>
+              <div class="doneeNonValidetel">{{Patient.Telephone}}</div>
+              <div class="doneeNonvalidvalid"><button type="submit" (click)="ValiderNouveauPatient(Patient)">Valider</button></div>
+              <div class="doneeNonValidesuppr"><button type="submit" (click)="SupprPatient(Patient)">Supprimer</button></div>
             </div>
           </div>
         </nav>
@@ -69,59 +73,39 @@
               <mat-cell *matCellDef="let compte">{{compte.AdresseMail}}</mat-cell>
             </ng-container>
         
-            <ng-container matColumnDef="Supprimer">
+            <ng-container matColumnDef="Ajouter">
               <mat-header-cell *matHeaderCellDef> Ajouter</mat-header-cell>
-              <mat-cell *matCellDef="let compte"><button type="submit" (click)="onselect(compte)">Supprimer</button></mat-cell>
+              <mat-cell *matCellDef="let compte"><button type="submit" (click)="onselect(compte)">Ajouter</button></mat-cell>
             </ng-container>
         
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
           </mat-table>
-          
-
-
-        
-          <table class="table table-hover table-dark">
-              <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Ajouter</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let Compte of ListPatient" [class.selected]="Compte == CompteSelect" (click)="onselect(Compte)">
-                  <td>{{Compte.Nom}}</td>
-                  <td>{{Compte.Prenom}}</td>
-                  <td><button type="button" class="btn btn-outline-primary" (click)="onselect(Compte)">Ajouter</button></td>
-                </tr>
-              </tbody>
-          </table> 
         </div>
       </div>
     </div>
 
-    <form *ngIf="compte">
+    <form id="form_compte" *ngIf="compte">
       <div class="wrap-tabs">
-          <form #f="ngForm">
-            <label class="label_tab" for="radio_Information">
-              Information Patient
-              <input id="radio_Information" type="radio" checked="checked" value="1" name="Typechoix1" [(ngModel)]="Tabulation">
-            </label>
-    
-            <label class="label_tab" for="radio_Ordonnance">
-              Ordonnance
-              <input id="radio_Ordonnance" type="radio" value="2" name="Typechoix2" [(ngModel)]="Tabulation">
-            </label>
-    
-            <label class="label_tab" for="radio_Facteurs">
-              Facteurs
-              <input id="radio_Facteurs" type="radio" value="3" name="Typechoix3" [(ngModel)]="Tabulation">
-            </label>
-          </form>
-        </div>
+        <form #f="ngForm">
+          <label class="label_tab" for="radio_Information">
+            Information Patient
+            <input id="radio_Information" type="radio" checked="checked" value="1" name="Typechoix1" [(ngModel)]="Tabulation">
+          </label>
+  
+          <label class="label_tab" for="radio_Ordonnance">
+            Ordonnance
+            <input id="radio_Ordonnance" type="radio" value="2" name="Typechoix2" [(ngModel)]="Tabulation">
+          </label>
+  
+          <label class="label_tab" for="radio_Facteurs">
+            Facteurs
+            <input id="radio_Facteurs" type="radio" value="3" name="Typechoix3" [(ngModel)]="Tabulation">
+          </label>
+        </form>
+      </div>
 
-      <div class="wrap-form_content">
+      <div class="wrap-form_content" *ngIf="patient && patient.IDWeb > 0">
         <div class="form-group" *ngIf="Tabulation == 1">
             <app-patient-information></app-patient-information>
         </div>
@@ -133,7 +117,9 @@
         </div>
       </div>
     </form>
+
   </header>
+
   <body>
     <div *ngIf="patient.IDWeb != 0" class="AffichageCourbe">
         <app-patient-mesmigraines></app-patient-mesmigraines>

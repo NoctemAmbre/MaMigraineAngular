@@ -2,8 +2,8 @@ button[type=submit]
 {
     float: left;
     background-color: #3E8EC6;
-    height: 2rem;
-    padding: 0 1rem;
+    height: 1.5rem;
+    padding: 0 0.5rem;
     border: none;
     color: #FCFCFC;
     font-weight: 300;
@@ -13,9 +13,24 @@ button[type=submit]
 }
 input[type=submit]:hover, button:hover
 {
-    background-color: #3E82B1;
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
     color: #FCFCFC;
     box-shadow: none;
+}
+
+input[type=text], input[type=password], input[type=number], input[type=date], input[type=time]
+{
+    background-color: #425062;
+    height: 2rem;
+    padding: 0 .5rem;
+    border: 1px solid #4e5e73;
+
+    color: #B8BFC7;
+    font-size: .9rem;
+
+    box-shadow: inset 0 0 0.25rem rgba(0,0,0,.15);
+    transition: all .15s ease-in;
 }
 
 .mat-header-row{
@@ -28,7 +43,8 @@ input[type=submit]:hover, button:hover
     border-bottom: 1px solid #4E5E73;
 }
 .mat-row:hover{
-    background-color: #3E82B1;
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
     border-bottom: 1px solid #4E5E73;
 }
 
@@ -201,11 +217,15 @@ header
 {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
 }
 div.AffichageListPatient
 {
     position: relative;
-    width: 40%; height: 50%;
+    /*width: 50%; 
+    height: 50%;*/
     border: 1px solid #555454;
 }
 
@@ -214,7 +234,7 @@ div.AffichageInfoPatient
     display: flex;
     flex-direction: row;
     position: relative;
-    width: 60%; height: 50%;
+    width: 50%; height: 50%;
     border: 1px solid #555454;
 }
 
@@ -279,11 +299,34 @@ div.tab button.active {
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
-    /* border: 1px solid #555454; */
+    background-color: #4E5E73;
     border-bottom: 1px solid #4E5E73;
+    margin-left: auto; padding: 5px 0;
     
+}
+
+div.titrenom, div.titreprenom, div.titremail, div.titretel, div.titresuppr
+{
+    height: 100%;
+    /* background-color: #313d4C; */
+    background-color: #4f6075;
+    color : white;
+    border: 2px;
+    align-items: center;
+}
+div.titrenom, div.titreprenom
+{
+    width: 15%;
+}
+div.titretel, div.titresuppr
+{
+    width: 15%;
+}
+div.titremail
+{
+    width: 40%;
 }
 
 
@@ -291,10 +334,11 @@ div.tab button.active {
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
+    background-color: #425062;
     border-bottom: 1px solid #4E5E73;
-    margin-left: auto; 
+    margin-left: auto; padding: 5px 0;
     /* padding: 5px 0; */
     /* border: 1px solid #555454; */
 }
@@ -303,39 +347,195 @@ div.tab button.active {
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
     /* border-bottom: 1px solid #4E5E73; */
     border: 1px solid rgb(138, 0, 0);
-    /* background-color: rgb(255, 183, 183); */
+    background-color: #425062;
     margin-left: auto; padding: 5px 0;
     /* border: 1px solid #555454; */
 }
 
-#TableauMesPatient > div.MesPatient :active
+#TableauMesPatient > div > div.MesPatientNonValide:active
 {
-    background-color: #3e4b5b;
+    background-color: #425062;
 }
-#TableauMesPatient > div.MesPatient :hover
+#TableauMesPatient > div > div.MesPatientNonValide:hover
+{
+    /* background-color: #3e4b5b; */
+    background-color: red;
+}
+#TableauMesPatient > div > div.MesPatient:active
+{
+    background-color: #425062;
+}
+#TableauMesPatient > div > div.MesPatient:hover
 {
     background-color: #3e4b5b;
 }
 
-div.donee
+div.doneenom, div.doneeprenom, div.doneemail, div.doneetel, div.doneesuppr
 {
     height: 100%;
-    width: 25%;
-    background-color: #313d4C;
+    /* background-color: #313d4C; */
+    /*background-color: #425062;*/
     color : white;
     border: 2px;
     align-items: center;
 }
 
-div.doneenomValide
+div.doneenom, div.doneeprenom
+{
+    width: 15%;
+}
+
+div.doneetel, div.doneesuppr
+{
+    width: 15%;
+}
+div.doneemail
+{
+    width: 40%;
+}
+
+
+div.doneeNonValidenom, div.doneeNonValideprenom, div.doneeNonValidemail, div.doneeNonValidetel, div.doneeNonValidesuppr
 {
     height: 100%;
-    width: 25%;
     color : gray;
     border: 2px;
     align-items: center;
 }
+div.doneeNonValidenom, div.doneeNonValideprenom
+{
+    width: 15%;
+}
+div.doneeNonValidetel, div.doneeNonValidesuppr
+{
+    width: 15%;
+}
+div.doneeNonValidemail
+{
+    width: 40%;
+}
+
+
+/* .mat-cell:not(:last-child), .mat-header-cell:not(:last-child)
+{
+    flex: 1;
+} */
+
+/* Pour changer la taille des columns ciblée */
+.mat-cell:nth-child(1)
+{
+    flex: 1;
+}
+.mat-cell:nth-child(2)
+{
+    flex: 1;
+}
+.mat-cell:nth-child(3)
+{
+    flex: 4;
+}
+.mat-cell:nth-child(4)
+{
+    flex: 1;
+}
+.mat-header-cell:nth-child(1){
+    flex: 1;
+}
+.mat-header-cell:nth-child(2){
+    flex: 1;
+}.mat-header-cell:nth-child(3){
+    flex: 4;
+}
+.mat-header-cell:nth-child(4){
+    flex: 1;
+}
+
+.mat-cell:last-child, .mat-header-cell:last-child
+{
+    display: flex;
+    width: 100px;
+    flex: 0 1 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+#wrap-list_patient
+{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#form_compte
+{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* 
+@media (max-width: 576px)
+{
+    #wrap-list_patient
+    {
+        border: blue 1px solid;
+    }
+
+    #form_compte
+    {
+        border: blue 1px solid;
+    }
+}
+
+@media (min-width: 576px)
+{
+    #wrap-list_patient
+    {
+        border: yellow 1px solid;
+    }
+
+    #form_compte
+    {
+        border: yellow 1px solid;
+    }
+}
+@media (min-width: 768px)
+{
+    #wrap-list_patient
+    {
+        border: red 1px solid;
+    }
+
+    #form_compte
+    {
+        border: red 1px solid;
+    }
+}
+
+@media (min-width: 992px)
+{
+    #wrap-list_patient
+    {
+        border: green 1px solid;
+    }
+
+    #form_compte
+    {
+        border: green 1px solid;
+    }
+}
+
+@media (min-width: 1200px)
+{
+    #wrap-list_patient
+    {
+        border: magenta 1px solid;
+    }
+
+    #form_compte
+    {
+        border: magenta 1px solid;
+    }
+}*/

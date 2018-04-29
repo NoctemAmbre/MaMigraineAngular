@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { Router, RouterModule } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+
 import { MedicamentService } from './../../service/medicament/medicament.service';
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
@@ -27,19 +32,36 @@ export class MedicamentGestionComponent implements OnInit {
   ListMedicaments : Medicament[] = [];
   MedicamentAffichage : Medicament;
   MedicamentSelectionne : Medicament;
-  
+  dataSource = new MatTableDataSource<Medicament>(this.ListMedicaments);
 
-  constructor(private medicamentService : MedicamentService,private compteService : CompteService, private patientService : PatientService) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  displayedColumns = ['Denomination', 'Ajouter'];
+
+  constructor(
+    private medicamentService : MedicamentService,
+    private compteService : CompteService,
+    private patientService : PatientService,
+    private router:Router) { }
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
     this.patientService.patient.subscribe(res => this.patient = res);
-
+    if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
     console.log('Le patient (medicaments-gestion) : ', this.patient);
     //this.medicamentService.Entravail = false;
   }
 
-  
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
   Information(medicament : Medicament) : void
   {
     this.MedicamentAffichage = medicament;
@@ -75,6 +97,7 @@ export class MedicamentGestionComponent implements OnInit {
     this.patientService.AjoutMedicamentAPatient().subscribe(data => {
       console.log(data.body);
       this.patient = data.body;
+      this.patient.TableMedicament = new MatTableDataSource<Medicament>(this.patient.MesMedicaments);
       this.patientService.changePatient(this.patient);
     });
   }
@@ -100,7 +123,9 @@ export class MedicamentGestionComponent implements OnInit {
         this.medicamentService.Entravail = false;
         console.log(data.body);
         this.ListMedicaments = (data.body as Medicament[]);
-        //this.medicamentService.Entravail = false;
+
+        this.dataSource = new MatTableDataSource<Medicament>(this.ListMedicaments);
+        this.dataSource.paginator = this.paginator;
       });
     }
     else if (this.ListMedicaments.length > 0) this.ListMedicaments = [];

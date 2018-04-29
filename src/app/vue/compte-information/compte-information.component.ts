@@ -87,4 +87,8 @@ export class CompteInformationComponent implements OnInit {
       }
     });
   }
+
+  ChoixSexe(genre:boolean){
+    this.compte.Sexe = genre;
+  }
 }

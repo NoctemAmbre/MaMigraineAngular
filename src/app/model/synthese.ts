@@ -50,14 +50,19 @@ export class Synthese {
     public Valeurs: Valeur[] = [];
 
     public ActualisationCourbe(patient : Compte, nb : number){
+        console.log('Etape 1.1');
         this.LectureValeurAbscisse(patient);
+        console.log('Etape 1.2');
         this.LectureOrdonnee(patient, nb);  
+        console.log('Etape 1.3');
     }
 
     public LectureValeurAbscisse(patient : Compte) {
-
+        console.log('Je regarde parmis ces migraines le moi ', patient.MesMigraines)
+        console.log('Je regarde mon patient ', patient)
         let ValeurAbscisse: Array<any> = [];
         patient.MesMigraines.forEach(elementMigraine => {
+            console.log('elementMigraine', elementMigraine);
             let index: number = ValeurAbscisse.findIndex(elt => elt == elementMigraine.Moi)
             if (index == -1) {
                 ValeurAbscisse.push(elementMigraine.Moi);

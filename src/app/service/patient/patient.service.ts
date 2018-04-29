@@ -34,6 +34,7 @@ export class PatientService {
   //public facteur:Facteur;
   //public medicament : Medicament;
   public Entravail: boolean = false;
+  public TypeGraph : string = 'line';
 
   private patients = new BehaviorSubject<Compte>(new Compte());
   patient = this.patients.asObservable();
@@ -50,6 +51,23 @@ export class PatientService {
   // changeSynthese(synthese){
   //   this.syntheses.next(synthese);
   // }
+
+  Actualisation(patient : Compte) : Compte{
+
+    patient.synthese = [];
+    patient.synthese.push(new Synthese());
+    patient.synthese.push(new Synthese());
+    patient.synthese.push(new Synthese());
+
+    patient.synthese[0].lineChartType = this.TypeGraph;
+    patient.synthese[1].lineChartType = this.TypeGraph;
+    patient.synthese[2].lineChartType = this.TypeGraph;
+
+    patient.synthese[0].ActualisationCourbe(patient, 0);
+    patient.synthese[1].ActualisationCourbe(patient, 1);
+    patient.synthese[2].ActualisationCourbe(patient, 2);
+    return patient;
+  }
 
   CherchePatients(){ 
     //var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Token', localStorage.getItem('Token'));  

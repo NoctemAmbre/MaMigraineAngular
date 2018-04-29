@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http'
+import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 
 import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
@@ -11,6 +12,8 @@ import { CompteInformationComponent } from './../../vue/compte-information/compt
 //import { CompteGestionComponent }from './../../vue/compte-gestion/compte-gestion.component';
 import { EtatCompte } from './../../model/EtatCompte';
 import { AppComponent } from './../../app.component';
+import { Facteur } from '../../model/facteur';
+import { Medicament } from '../../model/medicament';
 
 @Component({
   selector: 'app-migraine-login',
@@ -37,6 +40,10 @@ export class CompteLoginComponent implements OnInit{
     console.log('login', this.compte);
   }
 
+  EffaceErreur(){
+    this.compte.Erreur = null;
+  }
+
 connexion(){
     let compteEnvois : Compte = new Compte();
     compteEnvois.Identifiant = this.compte.Identifiant;
@@ -52,6 +59,10 @@ connexion(){
       this.compte = data.body;
       console.log('retour', data.body);
       if (data.body.Erreur == null) {  
+        if (this.compte.Type == 2){
+          this.compte.TableFacteur = new MatTableDataSource<Facteur>(this.compte.MesFacteurs);
+          this.compte.TableMedicament = new MatTableDataSource<Medicament>(this.compte.MesMedicaments);
+        }
         localStorage.setItem('Token', data.body.Token);
         this.Congratulation = true;
         //localStorage.setItem('compte', JSON.stringify(data.body));

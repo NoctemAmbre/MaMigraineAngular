@@ -36,19 +36,26 @@
         <input type="text" name ="Nom" [(ngModel)]="compte.Nom" placeholder="Nom">
 
         <label>Prenom</label>
-        <input type="text" name ="Prenom" [(ngModel)]="compte.Prenom" placeholder="Prenom">
+        <input type="text" name ="Prénom" [(ngModel)]="compte.Prenom" placeholder="Prénom">
       </div>
 
       <div class="form-group" *ngIf="compte.Type == 2">
 
-        <label>Date De naissance</label>
+        <label>Date de naissance</label>
         <input type="date" name ="Naissance" [(ngModel)]="compte.DateNaissance" placeholder="">
 
         <label>Téléphone Fixe</label>
         <input type="text" name ="Telephone" [(ngModel)]="compte.Telephone" placeholder="Téléphone Fixe">
 
         <label>Téléphone portable</label>
-        <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" placeholder="Téléphone Portable">
+        <input type="text" name ="TelephoneP" [(ngModel)]="compte.TelephonePortable" (keyup)="VerificationTel()" placeholder="Téléphone Portable">
+
+        <!-- <input [formControl]="username" pattern="^[a-z0-9_-]{8,15}$">   -->
+        <!-- <input name="TelephoneP" [ngModel]="compte.TelephonePortable" [pattern]="TelephonePortable" #uname="ngModel"> -->
+<!-- 
+        <div *ngIf="TelForm.errors?.pattern">
+            mauvais numéro
+         </div> -->
 
         <label>Sexe</label>
         <div class="wrap-radiobox">
@@ -68,13 +75,13 @@
 
       <div class="form-group" *ngIf="compte.Type == 2">
 
-        <label>Adresse Mail de contacte</label>
+        <label>Adresse Mail de contact</label>
         <input type="text" name ="AdresseMail" [(ngModel)]="compte.AdresseMail" placeholder="Adresse Mail">
 
-        <label>Adresse personnel</label>
+        <label>numéro de rue</label>
         <input type="number" name ="Num" [(ngModel)]="compte.Adresse[0].Numero" placeholder="Numéro">
 
-        <label>numéro de rue</label>
+        <label>Nom De rue</label>
         <input type="text" name ="Rue" [(ngModel)]="compte.Adresse[0].NomRue" placeholder="Nom De rue">
 
         <label>Code postal</label>

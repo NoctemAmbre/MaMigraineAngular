@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 import { Adresse } from './adresse';
 import { Horaire } from './horaire';
 import { Migraine } from './migraine';
@@ -41,4 +42,6 @@ export class Compte {
     Token:string;
     Erreur:string;
     synthese:Synthese[];
+    TableFacteur:MatTableDataSource<Facteur>;
+    TableMedicament:MatTableDataSource<Medicament>;
 }

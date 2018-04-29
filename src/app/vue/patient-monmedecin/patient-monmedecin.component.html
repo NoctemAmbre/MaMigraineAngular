@@ -13,34 +13,37 @@
     </span>
     <nav id="TableauMesMedecin">
       <div class="lignetitre" >
-        <div class="titre">nom</div>
-        <div class="titre">prenom</div>
-        <div class="titre">adresse Mail</div>
-        <div class="titre">Telephone</div>
-        <div class="titre">Suppression</div>
+        <div class="titrenom">nom</div>
+        <div class="titreprenom">prenom</div>
+        <div class="titremail">adresse Mail</div>
+        <div class="titretel">Telephone</div>
+        <div class="titresuppr">Suppression</div>
       </div>
 
-      <div *ngFor="let Medecin of compte.MesMedecin" [class.selected]="Medecin == CompteSelect" style="background :#3e4b5b">
+      <div *ngFor="let Medecin of patient.MesMedecin" [class.selected]="Medecin == CompteSelect" style="background :#3e4b5b">
         <div class="MesMedecin" *ngIf="Medecin.ConfirmationPatient && Medecin.ConfirmationMedecin">
-          <div class="donee">{{Medecin.Nom}}</div>
-          <div class="donee">{{Medecin.Prenom}}</div>
-          <div class="donee">{{Medecin.AdresseMail}}</div>
-          <div class="donee">{{Medecin.Telephone}}</div>
-          <div class="donee" (click)="SupprMedecin(Medecin)">Supprimer</div>
+          <div class="doneenom">{{Medecin.Nom}}</div>
+          <div class="doneeprenom">{{Medecin.Prenom}}</div>
+          <div class="doneemail">{{Medecin.AdresseMail}}</div>
+          <div class="doneetel">{{Medecin.Telephone}}</div>
+          <div class="doneesuppr"><button type="submit" (click)="SupprMedecin(Medecin)">Supprimer</button></div>
+
+          
         </div>
         <div class="MesMedecinNonValide" *ngIf="Medecin.ConfirmationPatient && !Medecin.ConfirmationMedecin">
-          <div class="doneeNonValide">{{Medecin.Nom}}</div>
-          <div class="doneeNonValide">{{Medecin.Prenom}}</div>
-          <div class="doneeNonValide">{{Medecin.AdresseMail}}</div>
-          <div class="doneeNonValide">{{Medecin.Telephone}}</div>
-          <div class="donee" (click)="SupprMedecin(Medecin)">Supprimer</div>
+          <div class="doneeNonValidenom">{{Medecin.Nom}}</div>
+          <div class="doneeNonValideprenom">{{Medecin.Prenom}}</div>
+          <div class="doneeNonValidemail">{{Medecin.AdresseMail}}</div>
+          <div class="doneeNonValidetel">{{Medecin.Telephone}}</div>
+          <div class="doneesuppr"><button type="submit" (click)="SupprMedecin(Medecin)">Supprimer</button></div>
         </div>
         <div class="MesMedecinNonValide" *ngIf="!Medecin.ConfirmationPatient && Medecin.ConfirmationMedecin">
-          <div class="doneeNonValide">{{Medecin.Nom}}</div>
-          <div class="doneeNonValide">{{Medecin.Prenom}}</div>
-          <div class="doneeNonValide">{{Medecin.AdresseMail}}</div>
-          <div class="doneeNonValide">{{Medecin.Telephone}}</div>
-          <div class="donee" (click)="ValiderNouveauMedecin(Medecin)">Valider</div>
+          <div class="doneeNonValidenom">{{Medecin.Nom}}</div>
+          <div class="doneeNonValideprenom">{{Medecin.Prenom}}</div>
+          <div class="doneeNonValidemail">{{Medecin.AdresseMail}}</div>
+          <div class="doneeNonValidetel">{{Medecin.Telephone}}</div>
+          <div class="doneesuppr"><button type="submit" (click)="ValiderNouveauMedecin(Medecin)">Valider</button></div>
+          
         </div>
       </div>
     </nav>
@@ -80,7 +83,7 @@
           </ul>
         </div> -->
 
-        <div *ngIf="ListMedecin">
+        <!-- <div *ngIf="ListMedecin">
           <table class="table table-hover table-dark">
               <thead>
                 <tr>
@@ -94,10 +97,33 @@
                   <td>{{Compte.Nom}}</td>
                   <td>{{Compte.Prenom}}</td>
                   <td><button type="button" class="btn btn-outline-primary" (click)="AjoutMedecin(Compte)">Ajouter</button></td>
-                  <!-- <td (click)="onselect(Compte)"><a href="" class="badge badge-secondary">Ajouter</a></td> -->
                 </tr>
               </tbody>
           </table>
+        </div> -->
+
+        <div *ngIf="ListMedecin">
+          <div class="TableMedecin">
+              <mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="Nom">
+                    <mat-header-cell *matHeaderCellDef> Nom</mat-header-cell>
+                  <mat-cell *matCellDef="let Medecin">{{Medecin.Nom}}</mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="Prénom">
+                  <mat-header-cell *matHeaderCellDef> Prénom</mat-header-cell>
+                  <mat-cell *matCellDef="let Medecin">{{Medecin.Prenom}}</mat-cell>
+                </ng-container>
+                    
+                <ng-container matColumnDef="Ajouter">
+                  <mat-header-cell *matHeaderCellDef> Ajouter</mat-header-cell>
+                  <mat-cell *matCellDef="let Medecin"><button type="submit" (click)="AjoutMedecin(Medecin)">Ajouter</button></mat-cell>
+                </ng-container>
+              
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+              </mat-table>
+            </div>
         </div>
     </div>
   </div>

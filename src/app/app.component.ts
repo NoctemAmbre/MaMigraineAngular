@@ -19,6 +19,8 @@ export class AppComponent implements OnInit{
   selection : number = 0;
 
   mesmigraines            : boolean = false;
+  mesmedicaments          : boolean = false;
+  mesfacteurs             : boolean = false;
   mespatients             : boolean = false;
   monmedecin              : boolean = false;
   consoleAdmin            : boolean = false;
@@ -46,6 +48,8 @@ export class AppComponent implements OnInit{
       {
         console.log('valeur 0');
         this.mesmigraines             = false;
+        this.mesmedicaments           = false;
+        this.mesfacteurs              = false;
         this.mespatients              = false;
         this.monmedecin               = false;
         this.consoleAdmin             = false;
@@ -57,6 +61,8 @@ export class AppComponent implements OnInit{
         if (this.compte.Type == 1)
         {
           this.mesmigraines             = false;
+          this.mesmedicaments           = false;
+          this.mesfacteurs              = false;
           this.mespatients              = true;
           this.monmedecin               = false;
           this.consoleAdmin             = false;
@@ -66,6 +72,8 @@ export class AppComponent implements OnInit{
         else if (this.compte.Type == 2)
         {
           this.mesmigraines             = true;
+          this.mesmedicaments           = true;
+          this.mesfacteurs              = true;
           this.mespatients              = false;
           this.monmedecin               = true;
           this.consoleAdmin             = false;
@@ -75,6 +83,8 @@ export class AppComponent implements OnInit{
         else if (this.compte.Type == 0)
         {
           this.mesmigraines             = false;
+          this.mesmedicaments           = false;
+          this.mesfacteurs              = false;
           this.mespatients              = false;
           this.monmedecin               = false;
           this.consoleAdmin             = true;

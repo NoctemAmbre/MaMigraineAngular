@@ -57,6 +57,14 @@ const routes: Routes = [
           component : MedecinMespatientsComponent
         },
         {
+          path:'mesfacteurs',
+          component : PatientFacteursComponent
+        },
+        {
+          path:'mesmedicaments',
+          component : PatientOrdonnanceComponent
+        },
+        {
           path:'mespatients/ordonnance',
           component : PatientOrdonnanceComponent,
           outlet :'outlerordonnance'

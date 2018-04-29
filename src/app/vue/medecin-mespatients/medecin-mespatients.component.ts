@@ -14,6 +14,8 @@ declare var $ :any;
 
 import { Compte } from './../../model/compte';
 import { Synthese } from '../../model/synthese';
+import { Facteur } from '../../model/facteur';
+import { Medicament } from '../../model/medicament';
 
 @Component({
   selector: 'app-medecin-mespatients',
@@ -25,7 +27,7 @@ export class MedecinMespatientsComponent implements OnInit {
   compte : Compte;
   patient : Compte;
   Nomrecherche : string;
-  ListPatient : Compte[] = [];
+  ListPatient : Compte[] = null;
   dataSource = new MatTableDataSource<Compte>();
   Selection : boolean = false;
   Tabulation : number = 0;
@@ -44,7 +46,7 @@ export class MedecinMespatientsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  displayedColumns = ['Nom', 'Prénom', 'AdresseMail', 'Supprimer'];
+  displayedColumns = ['Nom', 'Prénom', 'AdresseMail', 'Ajouter'];
   //displayedColumns = ['Nom', 'Prénom'];
 
   ngOnInit() {
@@ -87,17 +89,29 @@ export class MedecinMespatientsComponent implements OnInit {
 
   onselect(compteAjouter : Compte) : void
   {
-     this.ListPatient = null;
-     this.compte.MesPatients = [];
-     this.compte.MesPatients.push(compteAjouter);
-     console.log('Mes patient à ajouter', this.compte);
-     this.compteService.changeCompte(this.compte);
-     this.compteService.AttributionPatient().subscribe(data => {
+    let CompteEnvois = new Compte();
+    CompteEnvois.IDWeb = compteAjouter.IDWeb;
+    CompteEnvois.Identifiant = compteAjouter.Identifiant;
+    this.compteService.changeCompte(this.compte);
+    this.compteService.Patient = CompteEnvois;
+
+    if (this.compte.MesPatients.find(elt => elt.IDWeb == compteAjouter.IDWeb)){
+       console.log('ce Patient est déjà membre de votre liste');
+       this.Nomrecherche = "";
+       this.ListPatient = null;
+      }
+    else {
+      console.log('Mes patient à ajouter', this.compte);
+      this.compteService.changeCompte(this.compte);
+      this.compteService.AttributionPatient().subscribe(data => {
         this.compte = data.body;
         this.patientService.Entravail = false;
         console.log('retour', data.body);
         this.compteService.changeCompte(this.compte);
-    });
+        this.Nomrecherche = "";
+        this.ListPatient = null;
+      });
+    }
   }
 
   ValiderNouveauPatient(Patient : Compte){
@@ -116,11 +130,12 @@ export class MedecinMespatientsComponent implements OnInit {
 
   SupprPatient(compteASupprimer : Compte) : void
   {
-      console.log('suppression du patient ' + compteASupprimer);
-     this.ListPatient = null;
-     this.compte.MesPatients = [];
-     this.compte.MesPatients.push(compteASupprimer);
-     console.log('patient à supprimer', this.compte.MesPatients[0]);
+    let CompteEnvois = new Compte();
+    CompteEnvois.IDWeb = compteASupprimer.IDWeb;
+    CompteEnvois.Identifiant = compteASupprimer.Identifiant;
+     this.compteService.changeCompte(this.compte);
+     this.compteService.Patient = CompteEnvois;
+
      this.compteService.changeCompte(this.compte);
      this.compteService.SuppressionPatient().subscribe(data => {
         this.compte = data.body;
@@ -135,6 +150,7 @@ export class MedecinMespatientsComponent implements OnInit {
   {
     //this.patient = compteAAfficher;
     this.patientService.compte = PatientAAfficher;
+    
     // let CompteAEnvoyer : Compte = new Compte();
     // CompteAEnvoyer.IDWeb = this.compte.IDWeb;
     // CompteAEnvoyer.Token = this.compte.Token;
@@ -157,7 +173,8 @@ export class MedecinMespatientsComponent implements OnInit {
         }
 
         this.patient = data.body;
-
+        this.patient.TableFacteur = new MatTableDataSource<Facteur>(this.patient.MesFacteurs);
+        this.patient.TableMedicament = new MatTableDataSource<Medicament>(this.patient.MesMedicaments);
         //mise a jours de la courbe
         this.patient.synthese = [];
         this.patient.synthese.push(new Synthese());
@@ -189,7 +206,8 @@ export class MedecinMespatientsComponent implements OnInit {
         CompteEnvois.Token = this.compte.Token;
         this.patientService.compte = CompteEnvois;
         this.patientService.CherchePatients().subscribe(data => {
-          this.ListPatient = data.body;
+          if (data.body.length > 0) this.ListPatient = data.body;
+          else this.ListPatient = null;
           this.dataSource = new MatTableDataSource<Compte>(this.ListPatient);
           this.patientService.Entravail = false;
           console.log('retour', data.body);
@@ -197,7 +215,7 @@ export class MedecinMespatientsComponent implements OnInit {
             console.log(data.body);
           }
       });
-    }
+    }else this.ListPatient = null;
   }
 
 }

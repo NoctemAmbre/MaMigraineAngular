@@ -14,9 +14,11 @@
         <a class="nav-accueil" [routerLink]="['accueil']">Accueil</a>
         <a class="nav-dinformation" [routerLink]="['infoGeneral']">Information</a>
         
-        <a *ngIf="mesmigraines" class="nav-mesmigraines" [routerLink]="['mesmigraines']">Mes Migraines</a>
-        <a *ngIf="monmedecin" class="nav-monmedecin" [routerLink]="['monmedecin']">Mes Médecins</a>
-        <a *ngIf="mespatients" class="nav-mespatients" [routerLink]="['mespatients']">Mes Patients</a>
+        <a *ngIf="mesmigraines" class="nav-mesmigraines" [routerLink]="['mesmigraines']">Mes migraines</a>
+        <a *ngIf="mesmedicaments" class="nav-mesmedicaments" [routerLink]="['mesmedicaments']">Mes médicaments</a>
+        <a *ngIf="mesfacteurs" class="nav-mesfacteurs" [routerLink]="['mesfacteurs']">Mes facteurs</a>
+        <a *ngIf="monmedecin" class="nav-monmedecin" [routerLink]="['monmedecin']">Mes médecins</a>
+        <a *ngIf="mespatients" class="nav-mespatients" [routerLink]="['mespatients']">Mes patients</a>
         <a *ngIf="consoleAdmin" class="nav-consoleAdmin" [routerLink]="['consoleAdmin']">Console utilisateur</a>
         <a *ngIf="consoleAdminMedicament" class="nav-consoleAdminMedicament" [routerLink]="['consoleAdminMedicament']">Console Médicament</a>
         <a *ngIf="consoleAdminFacteur" class="nav-consoleAdminFacteur" [routerLink]="['consoleAdminFacteur']">Console Facteur</a>

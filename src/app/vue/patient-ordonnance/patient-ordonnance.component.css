@@ -1,0 +1,149 @@
+button[type=submit]
+{
+    float: left;
+    background-color: #3E8EC6;
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+}
+input[type=submit]:hover, button:hover
+{
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
+    color: #FCFCFC;
+    box-shadow: none;
+}
+/* 
+#TableauOrdonance
+{
+    display: flex;
+    flex-direction: column;
+    
+    flex-wrap: nowrap;
+    background-color: #3e4b5b;
+    width: 100%; height: 80%;
+}
+
+#TableauOrdonance > div.lignetitre
+{
+    display: flex;
+    flex-direction: row;
+    height: 35px;
+    width: 100%;
+    background-color: #4E5E73;
+    border-bottom: 1px solid #4E5E73;
+    margin-left: auto; padding: 5px 0;
+    
+}
+
+div.titrenom, div.titresuppr
+{
+    height: 100%;
+    background-color: #4f6075;
+    color : white;
+    border: 2px;
+    align-items: center;
+}
+div.titrenom
+{
+    width: 75%;
+}
+div.titresuppr
+{
+    width: 15%;
+}
+
+
+div.doneenom, div.doneesuppr
+{
+    height: 100%;
+    background-color: #425062;
+    color : white;
+    border: 2px;
+    align-items: center;
+}
+
+div.doneenom
+{
+    width: 75%;
+}
+
+div.doneesuppr
+{
+    width: 15%;
+}
+
+
+#TableauOrdonance > div > div.MesMedicament
+{
+    display: flex;
+    flex-direction: row;
+    height: 35px;
+    width: 100%;
+    background-color: #425062;
+    border-bottom: 1px solid #4E5E73;
+    margin-left: auto; padding: 5px 0;
+}
+
+#TableauOrdonance > div > div.MesMedicament:active
+{
+    background-color: #425062;
+}
+#TableauOrdonance > div > div.MesMedicament:hover
+{
+    background-color: #3e4b5b;
+} */
+
+
+
+
+.mat-header-row{
+    background-color: #4f6075;
+    border-bottom: 1px solid #4E5E73;
+}
+
+.mat-row{
+    background-color: #425062;
+    border-bottom: 1px solid #4E5E73;
+}
+.mat-row:hover{
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
+    border-bottom: 1px solid #4E5E73;
+}
+
+.mat-cell{
+    font-size: 14px;
+}
+
+.mat-cell:not(:last-child), .mat-header-cell:not(:last-child)
+{
+    flex: 1;
+}
+
+.mat-header-cell:nth-child(1)
+{
+    flex: 5;
+}
+.mat-cell:nth-child(1)
+{
+    flex: 5;
+}
+
+.mat-cell, .mat-header-cell{
+    color: #FCFCFC;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+mat-header-cell.mat-sort-header-sorted {
+    color: black;
+}

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { HttpErrorResponse} from '@angular/common/http'
+import { Router, RouterModule } from '@angular/router';
 import { PatientService } from './../../service/patient/patient.service';
 import { CompteService } from './../../service/compte/compte.service';
 
@@ -19,11 +21,22 @@ export class PatientOrdonnanceComponent implements OnInit {
   compte : Compte;
   patient : Compte;
   medicamentEnvois : Medicament = new Medicament();
-  constructor(private patientService : PatientService, private compteService : CompteService) { }
+  constructor(
+    private patientService : PatientService,
+    private compteService : CompteService,
+    private router:Router ) { }
+
+  displayedColumns = ['Denomination', 'Supprimer'];
 
   ngOnInit() {
     this.compteService.compte.subscribe(res => this.compte = res);
+    if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
     this.patientService.patient.subscribe(res => this.patient = res);
+    if (this.compte.Type == 2){ //si cette page est lancé directement par un patient 
+      this.patient = this.compte;
+    }
+    console.log('le compte', this.compte);
+    console.log('le patient', this.patient);
     //console.log('Le patient (ordonnance) : ', this.patient);
   }
 
@@ -55,6 +68,7 @@ export class PatientOrdonnanceComponent implements OnInit {
     this.patientService.SupprimerMedicamentAPatient().subscribe(data => {
       console.log(data.body);
       this.patient = data.body;
+      this.patient.TableMedicament = new MatTableDataSource<Medicament>(this.patient.MesMedicaments);
       this.patientService.changePatient(this.patient);
     });
   }

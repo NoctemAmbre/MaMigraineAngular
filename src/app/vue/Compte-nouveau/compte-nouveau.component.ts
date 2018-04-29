@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+// import { FormControl } from '@angular/forms';
 
 import { MedecinService } from './../../service/medecin/medecin.service';
 import { PatientService } from './../../service/patient/patient.service';
@@ -29,6 +30,8 @@ export class CompteNouveauComponent implements OnInit {
   CitiesSelect:Cities;
   InfoMotDePass:string;
   Identique:string;
+  //TelForm = new FormControl();
+  //TelephonePortable = "^[a-z0-9_-]{8,15}$"; 
  
   constructor(private codepostalService:CodepostalService,
               private router:Router,          
@@ -43,6 +46,7 @@ export class CompteNouveauComponent implements OnInit {
     this.compteService.changeCompte(this.compte);
     console.log('Nouveau', this.compte);
     this.compte = this.compteService.LancementMok();
+    //this.formControl = new FormControl();
   }
 
  
@@ -80,6 +84,15 @@ export class CompteNouveauComponent implements OnInit {
 
   ChoixSexe(genre:boolean){
     this.compte.Sexe = genre;
+  }
+
+  VerificationTel(){
+     
+    if (this.compte.TelephonePortable.match(/^(?=.*[0]+[1-9]{9,9})/)) { console.log("10 caractère")}
+    if (this.compte.TelephonePortable.match(/^(?=.*[!@#\$%\^&\*])/)) { console.log("spéciaux")}
+    //if (this.compte.TelephonePortable.match(/^(?=.*[0])/)) { console.log("commence par 0")}
+    //console.log("C'est pas bon");
+    //(0|\\+33|0033)[1-9][0-9]{8}
   }
 
   NiveauMotDepass(){

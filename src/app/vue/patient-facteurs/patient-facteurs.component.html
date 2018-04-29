@@ -1,5 +1,5 @@
 
-<table class="table table-hover table-dark">
+<!-- <table class="table table-hover table-dark">
     <thead>
         <tr>
             <th scope="col">Nom</th>
@@ -27,10 +27,70 @@
             <td>{{facteur.TypeDeFacteur.Type}}</td>
             <td>{{facteur.TypeDeReponse.Information}}</td>
             <td>{{facteur.TypeDeReponse.Type}}</td>
-            <!-- <td (click)="Supprimer(Medicament)"><a class="badge badge-secondary">Ajouter</a></td> -->
             <td><button type="button" class="btn btn-outline-primary" (click)="Supprimer(facteur)">Supprimer</button></td>
           </tr>
       </tbody>
-</table>
+</table> -->
+
+<nav id="TableauFacteur">
+    <!-- <div class="lignetitre" >
+        <div class="titrenom">Nom</div>
+        <div class="titrequestion">Question</div>
+        <div class="titresuppr">Supprimer</div>
+    </div>
+
+    <ng-template #popContent>
+        <b>ID : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.ID}}</span><br/>
+        <b>Nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Nom}}</span><br/>
+        <b>Question : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Question}}</span><br/>
+        <b>Type de facteur : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Type}}</span><br/>
+        <b>Information complétaire : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Information}}</span><br/>
+        <b>Type de réponse : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeReponse.Type}}</span><br/>
+    </ng-template>
+
+    <div *ngFor="let facteur of patient.MesFacteurs" style="background :#3e4b5b" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" (mouseenter)="Information(facteur)">
+        <div class="MesFacteur">
+            <div class="doneenom">{{facteur.Nom}}</div>
+            <div class="doneequestion">{{facteur.Question}}</div>
+            <div class="doneesuppr"><button type="submit" (click)="Supprimer(facteur)">Supprimer</button></div>
+        </div>
+    </div> -->
+
+
+
+    <!-- <div class="TableFacteur"> -->
+        <ng-template #popContent>
+            <b>ID : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.ID}}</span><br/>
+            <b>Nom : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Nom}}</span><br/>
+            <b>Question : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.Question}}</span><br/>
+            <b>Type de facteur : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Type}}</span><br/>
+            <b>Information complétaire : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeFacteur.Information}}</span><br/>
+            <b>Type de réponse : </b><span style="color:rgb(150, 150, 150);">{{FacteurSelect.TypeDeReponse.Type}}</span><br/>
+        </ng-template>
+        <mat-table [dataSource]="patient.TableFacteur" matSort>
+            <ng-container matColumnDef="Nom">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nom</mat-header-cell>
+                <mat-cell *matCellDef="let Facteur">{{Facteur.Nom}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Question">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Question</mat-header-cell>
+                <mat-cell *matCellDef="let Facteur">{{Facteur.Question}}</mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="Supprimer">
+                <mat-header-cell *matHeaderCellDef> Supprimer</mat-header-cell>
+                <mat-cell *matCellDef="let Facteur"><button type="submit" (click)="Supprimer(Facteur)">Supprimer</button></mat-cell>
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns" [ngbPopover]="popContent" [class.selected]="row == FacteurSelect" triggers="mouseenter:mouseleave" (mouseenter)="Information(row)"></mat-row>
+        </mat-table>
+    <!-- </div> -->
+
+
+
+</nav>
+
 <app-facteur-gestion></app-facteur-gestion>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 import { CompteService } from './../../service/compte/compte.service'
 import { PatientService } from './../../service/patient/patient.service'
@@ -19,46 +20,54 @@ export class PatientCourbesComponent implements OnInit {
   patient : Compte;
   compte : Compte;
   
-  constructor(private compteService:CompteService, private patientService:PatientService, private syntheseService : SyntheseService) { }
+  constructor(
+    private compteService:CompteService,
+    private patientService:PatientService,
+    private syntheseService : SyntheseService,
+    private router:Router) {}
 
   ngOnInit() {
-    
+    console.log('le compte pose problème', this.compte);
     this.compteService.compte.subscribe(res => this.compte = res);
-    this.patientService.patient.subscribe(res => this.patient = res);
+    if (this.compte.IDWeb > 0){
     
-    
-    if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte;}
-    if (this.patient.synthese == null){ 
-      this.patient.synthese = [];
-      this.patient.synthese.push(new Synthese());
-      this.patient.synthese.push(new Synthese());
-      this.patient.synthese.push(new Synthese());
-    }
+      this.patientService.patient.subscribe(res => this.patient = res);
+      
+      
+      if (this.compte.IDWeb == this.patient.IDWeb) {this.patient = this.compte;}
+      if (this.patient.synthese == null){ 
+        this.patient.synthese = [];
+        this.patient.synthese.push(new Synthese());
+        this.patient.synthese.push(new Synthese());
+        this.patient.synthese.push(new Synthese());
+      }
 
-    this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
-    this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
-    this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
+      console.log('Etape 1');
+      this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
+      console.log('Etape 2');
+      this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
+      console.log('Etape 3');
+      this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
+      console.log('Etape 4');
 
-    this.patientService.changePatient(this.patient);
+      this.patientService.changePatient(this.patient);
+    } 
   }
 
   Actualisation(typegraph : string){
-    this.patient.synthese = [];
-    this.patient.synthese.push(new Synthese());
-    this.patient.synthese.push(new Synthese());
-    this.patient.synthese.push(new Synthese());
+    this.patientService.TypeGraph = typegraph;
+    this.patient = this.patientService.Actualisation(this.patient);
+    // this.patient.synthese = [];
+    // this.patient.synthese.push(new Synthese());
+    // this.patient.synthese.push(new Synthese());
+    // this.patient.synthese.push(new Synthese());
 
-    this.patient.synthese[0].lineChartType = typegraph;
-    this.patient.synthese[1].lineChartType = typegraph;
-    this.patient.synthese[2].lineChartType = typegraph;
+    // this.patient.synthese[0].lineChartType = typegraph;
+    // this.patient.synthese[1].lineChartType = typegraph;
+    // this.patient.synthese[2].lineChartType = typegraph;
 
-    this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
-    this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
-    this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
-
-    // this.patient.synthese[0].lineChartData[0] = this.patient.synthese[0].NombreMensuel(this.patient);
-    // this.patient.synthese[1].lineChartData[1] = this.patient.synthese[1].intensiteMoyenMensuel(this.patient);
-    // this.patient.synthese[2].lineChartData[2] = this.patient.synthese[2].TempMoyen(this.patient);
-    this.patientService.changePatient(this.patient);
+    // this.patient.synthese[0].ActualisationCourbe(this.patient, 0);
+    // this.patient.synthese[1].ActualisationCourbe(this.patient, 1);
+    // this.patient.synthese[2].ActualisationCourbe(this.patient, 2);
   }
 }

@@ -29,13 +29,37 @@ input[type=submit]:hover, button:hover
     border-bottom: 1px solid #4E5E73;
 }
 .mat-row:hover{
-    background-color: #3E82B1;
+    background-color: #3e4b5b;
     border-bottom: 1px solid #4E5E73;
 }
 
 .mat-cell{
     font-size: 14px;
 }
+
+.mat-cell:not(:last-child), .mat-header-cell:not(:last-child)
+{
+    flex: 1;
+}
+
+.mat-cell:nth-child(1)
+{
+    flex: 1;  
+}
+.mat-cell:nth-child(2)
+{
+    flex: 5;  
+}
+
+.mat-header-cell:nth-child(1)
+{
+    flex: 1;
+}
+.mat-header-cell:nth-child(2)
+{
+    flex: 5;
+}
+
 .mat-header-cel{
     font-size: 20px;
 }

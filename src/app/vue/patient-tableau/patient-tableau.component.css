@@ -46,29 +46,38 @@ div.IconesBouton{
     flex-direction: column;
     /* margin-left: 20%; */
 }
-img.BoutonEdit{
-    border: 1px solid #313d4C;
-    height:22px;
-    width:22px;
-    /* background-image: url('/assets/Delete.png');
-    border-radius: 5px;
-    background-size: cover; */
 
+button.btn
+{
+    box-sizing: border-box;
+    position: relative; overflow: hidden;
+    background-color: transparent;
+    /*min-width:22px; max-width:22px;
+    min-height:22px; max-height:22px;*/
+    width:22px; height:22px;
+    padding: 0;
+    border: 1px solid #313d4C;
+    cursor: pointer;
+    flex: 1 0 auto;
+}
+
+button.btn img
+{
+    position: absolute;
+    top: 0; left: 0;
+    width: 22px; height: 22px;
+}
+button.btn img.BoutonEdit
+{
     background: url('/assets/Edit.png');
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 22px 22px;
 }
-img.BoutonDelete{
-    border: 1px solid #313d4C;
-    height:22px;
-    width:22px;
-    /* background-image: url('/assets/Delete.png');
-    border-radius: 5px;
-    background-size: cover; */
-
+button.btn img.BoutonDelete
+{
     background: url('/assets/Delete.png');
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 22px 22px;
 }
 
 button.historiqueComplet :hover{
@@ -96,3 +105,220 @@ div.Intensite {
     font-size: 1.1rem;
     color: white;
 } */
+
+
+
+
+
+
+button[type=submit]
+{
+    float: left;
+    background-color: #3E8EC6;
+    height: 2rem;
+    padding: 0 0.6rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+}
+/* p.a.boutonFacteur{
+    float: left;
+    background-color: #3E8EC6;
+    height: 2rem;
+    padding: 0 0.6rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+} */
+
+.boutonAjoutMigraine, boutonValidationMigraine, boutonAnnulationMigraine, bontoncollapsMedicament, bontoncollapsFacteur{
+    float: left;
+    background-color: #3E8EC6;
+    height: 2rem;
+    padding: 0 0.6rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+}
+
+input[type=submit]:hover, button:hover
+{
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
+    color: #FCFCFC;
+    box-shadow: none;
+}
+
+input[type=text], input[type=password], input[type=number], input[type=date], input[type=time], input[type=date]
+{
+    background-color: #425062;
+    height: 2rem;
+    padding: 0 .5rem;
+    border: 1px solid #4e5e73;
+
+    color: #B8BFC7;
+    font-size: .9rem;
+
+    box-shadow: inset 0 0 0.25rem rgba(0,0,0,.15);
+    transition: all .15s ease-in;
+}
+
+.boutonAjoutMigraine
+{
+    float: none;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.boutonAjoutMigraine.disabled
+{
+    background-color: #3e4b5b;
+    color: #313d4C;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+div#wrap-nouvelleMigraine hr:nth-child(1)
+{
+    margin: 1rem 0 0.25rem;
+}
+
+div#wrap-nouvelleMigraine .form-row
+{
+    display: flex;
+    padding: 0.25rem 0;
+    align-items: center;
+}
+
+div#wrap-nouvelleMigraine .input-group
+{
+    position: relative; overflow: hidden;
+    display: flex;
+    min-width: 50%; width: 50%; max-width: 50%;
+    flex-direction: column;
+    align-items: center
+}
+
+div#wrap-nouvelleMigraine .input-group > label
+{
+    min-width: 100%;
+    margin: 0 1rem;
+    text-align: center;
+}
+
+div#wrap-nouvelleMigraine .input-group > input
+{
+    min-width: 150px;
+    border-radius: 5px;
+}
+
+div#wrap-nouvelleMigraine button
+{
+    float: none;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+div#wrap-nouvelleMigraine .form-row.stars
+{
+    min-height: 2.5rem; height: 2.5rem; max-height: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+div#wrap-nouvelleMigraine .card-body
+{
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+
+div#wrap-nouvelleMigraine .btn_group
+{
+    display: flex;
+    justify-content: center;
+}
+
+
+div#wrap-nouvelleMigraine .btn_group *:first-child
+{
+    margin-right: 0.25rem;
+}
+
+
+
+
+div#wrap-MigraineModification hr:nth-child(1)
+{
+    margin: 1rem 0 0.25rem;
+}
+
+div#wrap-MigraineModification .form-row
+{
+    display: flex;
+    padding: 0.25rem 0;
+    align-items: center;
+}
+
+div#wrap-MigraineModification .input-group
+{
+    position: relative; overflow: hidden;
+    display: flex;
+    min-width: 50%; width: 50%; max-width: 50%;
+    flex-direction: column;
+    align-items: center
+}
+
+div#wrap-MigraineModification .input-group > label
+{
+    min-width: 100%;
+    margin: 0 1rem;
+    text-align: center;
+}
+
+div#wrap-MigraineModification .input-group > input
+{
+    min-width: 150px;
+    border-radius: 5px;
+}
+
+div#wrap-MigraineModification button
+{
+    float: none;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+div#wrap-MigraineModification .form-row.stars
+{
+    min-height: 2.5rem; height: 2.5rem; max-height: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+div#wrap-MigraineModification .card-body
+{
+    background-color: transparent;
+    margin-bottom: 1rem;
+}
+
+div#wrap-MigraineModification .btn_group
+{
+    display: flex;
+    justify-content: center;
+}
+
+
+div#wrap-MigraineModification .btn_group *:first-child
+{
+    margin-right: 0.25rem;
+}

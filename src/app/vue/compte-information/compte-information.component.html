@@ -30,12 +30,12 @@
       <div class="wrap-radiobox">
         <label class="label_radio" for="SexeChoix1">
             Homme
-            <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender">
+            <input type="radio" id="SexeChoix1" [(value)]="compte.Sexe" (change)="ChoixSexe(true)" name="gender" [checked]="compte.Sexe" disabled>
             <span class="checkmark"></span>
         </label>
         <label class="label_radio" for="SexeChoix2">
             Femme
-            <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender">
+            <input type="radio" id="SexeChoix2" [(value)]="!compte.Sexe" (change)="ChoixSexe(false)" name="gender" [checked]="!compte.Sexe" disabled>
             <span class="checkmark"></span>
         </label>
       </div>
@@ -113,13 +113,16 @@
 
         <label>Horaires d'ouverture</label>
         <div class="wrap-alldaystime" *ngFor="let Horaire of compte.HoraireOuverture">
-            <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder={{Horaire.Matin}} readonly>
-            <input type="time" name ="HoraireSoir" [(ngModel)]="Horaire.Soir" placeholder={{Horaire.Soir}} readonly>
+            <label>{{Horaire.Jour}}</label>
+            <input type="time" name="HoraireMatin" value={{Horaire.Matin}} readonly>
+            <input type="time" name="HoraireSoir" value={{Horaire.Soir}} readonly>
         </div>
 
-        <!-- <div *ngFor="let Horaire of compte.HoraireOuverture">
-          <label>{{Horaire.Jour}}</label><input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder=""><input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="">
-        </div>  -->
+        <!--<div *ngFor="let Horaire of compte.HoraireOuverture">
+          <label>{{Horaire.Jour}}</label>
+          <input type="time" name ="HoraireMatin" [(ngModel)]="Horaire.Matin" placeholder="" value="08:00">
+          <input type="time" name ="HoraireLundiMatin" [(ngModel)]="Horaire.Soir" placeholder="" value="18:00">
+        </div>-->
 
         <div>
           <button type="submit" (click)=ModificationCompte()>Modification du compte</button>

@@ -1,3 +1,120 @@
+button[type=submit]
+{
+    float: left;
+    background-color: #3E8EC6;
+    height: 1.5rem;
+    padding: 0 0.8rem;
+    border: none;
+    color: #FCFCFC;
+    font-weight: 300;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.15s ease-in;
+}
+
+input[type=text]
+{
+    background-color: #425062;
+    height: 2rem;
+    padding: 0 .5rem;
+    border: 1px solid #4e5e73;
+
+    color: #B8BFC7;
+    font-size: .9rem;
+
+    box-shadow: inset 0 0 0.25rem rgba(0,0,0,.15);
+    transition: all .15s ease-in;
+}
+
+input[type=submit]:hover, button:hover
+{
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
+    color: #FCFCFC;
+    box-shadow: none;
+}
+
+.mat-header-row{
+    background-color: #4f6075;
+    border-bottom: 1px solid #4E5E73;
+}
+
+.mat-row{
+    background-color: #425062;
+    border-bottom: 1px solid #4E5E73;
+}
+.mat-row:hover{
+    /* background-color: #3E82B1; */
+    background-color: #3e4b5b;
+    border-bottom: 1px solid #4E5E73;
+}
+
+
+.mat-cell{
+    font-size: 14px;
+}
+
+/* .mat-cell:not(:last-child), .mat-header-cell:not(:last-child)
+{
+    flex: 1;
+} */
+
+/* Pour changer la taille des columns ciblée */
+.mat-cell:nth-child(1)
+{
+    flex: 1;
+}
+.mat-cell:nth-child(2)
+{
+    flex: 3;
+}
+.mat-header-cell:nth-child(1){
+    flex: 1;
+}
+.mat-header-cell:nth-child(2){
+    flex: 3;
+}
+
+
+.mat-cell:last-child, .mat-header-cell:last-child
+{
+    display: flex;
+    width: 100px;
+    flex: 0 1 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-header-cell{
+    font-size: 20px;
+}
+
+.mat-cell, .mat-header-cell{
+    color: #FCFCFC;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+mat-header-cell.mat-sort-header-sorted {
+    color: black;
+}
+
+.mat-paginator {
+    min-height: 30x;
+    background-color: #4f6075;
+}
+.TableMedecin{
+    border: 1px solid #4E5E73;
+}
+
+
+
+
+
+
 div.popup-globalwrap
 {
     display: flex;
@@ -91,28 +208,85 @@ div.AffichageListMedecin
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
     /* border: 1px solid #555454; */
+    background-color: #4E5E73;
     border-bottom: 1px solid #4E5E73;
-    
+    margin-left: auto; padding: 5px 0;
 }
 
-div.titre
+div.titrenom, div.titreprenom, div.titremail, div.titretel, div.titresuppr
 {
     height: 100%;
-    width: 25%;
-    background-color: #313d4C;
+    /* background-color: #313d4C; */
+    background-color: #4f6075;
     color : white;
     border: 2px;
     align-items: center;
 }
+div.titrenom, div.titreprenom
+{
+    width: 15%;
+}
+div.titretel, div.titresuppr
+{
+    width: 10%;
+}
+div.titremail
+{
+    width: 50%;
+}
+
+div.doneenom, div.doneeprenom, div.doneemail, div.doneetel, div.doneesuppr
+{
+    height: 100%;
+    color : white;
+    border: 2px;
+    align-items: center;
+}
+
+div.doneenom, div.doneeprenom
+{
+    width: 15%;
+}
+
+div.doneetel, div.doneesuppr
+{
+    width: 10%;
+}
+div.doneemail
+{
+    width: 50%;
+}
+
+div.doneeNonValidenom, div.doneeNonValideprenom, div.doneeNonValidemail, div.doneeNonValidetel, div.doneeNonValidesuppr
+{
+    height: 100%;
+    color : gray;
+    border: 2px;
+    align-items: center;
+}
+div.doneeNonValidenom, div.doneeNonValideprenom
+{
+    width: 15%;
+}
+div.doneeNonValidetel, div.doneeNonValidesuppr
+{
+    width: 10%;
+}
+div.doneeNonValidemail
+{
+    width: 50%;
+}
+
 #TableauMesMedecin > div > div.MesMedecin
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
+    background-color: #425062;
     border-bottom: 1px solid #4E5E73;
     margin-left: auto; padding: 5px 0;
     /* border: 1px solid #555454; */
@@ -122,47 +296,31 @@ div.titre
 {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     width: 100%;
-    /* border-bottom: 1px solid #4E5E73; */
+    background-color: #425062;
     border: 1px solid rgb(138, 0, 0);
-    /* background-color: rgb(255, 183, 183); */
     margin-left: auto; padding: 5px 0;
-    /* border: 1px solid #555454; */
 }
-/* #TableauMesMedecin > div > div.MesMedecinNonValide :active
+#TableauMesMedecin > div > div.MesMedecinNonValide:active
+{
+    /* background-color: #3e4b5b; */
+    background-color: #425062;
+}
+#TableauMesMedecin > div > div.MesMedecinNonValide:hover
 {
     background-color: #3e4b5b;
-}
-#TableauMesMedecin > div > div.MesMedecinNonValide :hover
-{
-    background-color: #3e4b5b;
-} */
-
-#TableauMesMedecin > div > div.MesMedecin :active
-{
-    background-color: #3e4b5b;
-}
-#TableauMesMedecin > div > div.MesMedecin :hover
-{
-    background-color: #3e4b5b;
-}
-div.donee
-{
-    height: 100%;
-    width: 25%;
-    /* background-color: green; */
-    
-    color : white;
-    border: 2px;
-    align-items: center;
 }
 
-div.doneeNonValide
+#TableauMesMedecin > div > div.MesMedecin:active
 {
-    height: 100%;
-    width: 25%;
-    color : gray;
-    border: 2px;
-    align-items: center;
+    /* background-color: #3e4b5b; */
+    background-color: #425062;
 }
+#TableauMesMedecin > div > div.MesMedecin:hover
+{
+    background-color: #3e4b5b;
+}
+
+
+

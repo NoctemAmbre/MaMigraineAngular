@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import { callLifecycleHooksChildrenFirst } from '@angular/core/src/view/provider';
 
 @Injectable()
 export class CompteService {
@@ -25,6 +26,8 @@ export class CompteService {
   //public compte : Compte;
   private comptes = new BehaviorSubject<Compte>(new Compte());
   compte = this.comptes.asObservable();
+  Medecin : Compte;
+  Patient : Compte;
   public static CleBasic : string = "j6tYtmgst2XIOIeRsPHR";
   
   
@@ -165,8 +168,10 @@ export class CompteService {
   {
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     
-    //on transmet l'identifiant , l'id et l'id du medecin attitré
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : this.comptes.value.MesMedecin, Token :this.comptes.value.Token });
+    let ListMedecin : Compte[] = [];
+    console.log('le médecin que j\'ajoute', this.Medecin);
+    ListMedecin.push(this.Medecin);
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : ListMedecin});
      
     console.log('ce qui est envoyé',body);
     
@@ -176,8 +181,11 @@ export class CompteService {
 
   public AttributionPatient()
   {
+    let ListPatient : Compte[] = [];
+    ListPatient.push(this.Patient);
+
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : ListPatient });
     //console.log('ce qui est envoyé pour ajoute un patient au medecin',body);
     return this.http.post<Compte>(CompteService.WebService + '/Medecin/AjoutPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
@@ -188,9 +196,12 @@ export class CompteService {
     return this.http.post<Compte>(CompteService.WebService + '/Medecin/ValiderPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
   public ValidationMedecin(){
+    let ListMedecin : Compte[] = [];
+    ListMedecin.push(this.Medecin);
+
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     console.log(this.comptes.value);
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : this.comptes.value.MesMedecin, Token :this.comptes.value.Token });
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : ListMedecin});
     console.log("Body", body);
     return this.http.post<Compte>(CompteService.WebService + '/Patient/ValiderMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
@@ -199,16 +210,22 @@ export class CompteService {
 
   public SuppressionMedecin()
   {
+    let ListMedecin : Compte[] = [];
+    ListMedecin.push(this.Medecin);
+
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : this.comptes.value.MesMedecin, Token :this.comptes.value.Token });
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesMedecin : ListMedecin});
     console.log('ce qui est envoyé pour la suppression dun medecin d\'un patient',body);
     return this.http.post<Compte>(CompteService.WebService + '/Compte/SupprMedecin?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
 
   public SuppressionPatient()
   {
+    let ListPatient : Compte[] = [];
+    ListPatient.push(this.Patient);
+
     var headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : this.comptes.value.MesPatients, Token :this.comptes.value.Token });
+    var body = JSON.stringify({Identifiant : this.comptes.value.Identifiant, IDWeb : this.comptes.value.IDWeb, MesPatients : ListPatient});
     console.log('ce qui est envoyé pour la suppression dun patient du medecin',body);
     return this.http.post<Compte>(CompteService.WebService + '/Medecin/SupprPatient?Value=' + btoa(body) + "&Token=" + localStorage.getItem('Token'), '', {headers : headers, observe : 'response'});
   }
@@ -216,10 +233,10 @@ export class CompteService {
   public LancementMok() : Compte
   {
     let compteRetour : Compte = new Compte();
-    compteRetour.Identifiant = "Login";
+    compteRetour.Identifiant = "Identifiant";
     compteRetour.MotDePass = "MotDePass";
-    compteRetour.Nom = "NOM";
-    compteRetour.Prenom = "Prénon";
+    compteRetour.Nom = "Nom";
+    compteRetour.Prenom = "Prénom";
     compteRetour.DateNaissance = "1999-12-31";
 
     //console.log("avant new Adress()");
@@ -230,7 +247,7 @@ export class CompteService {
     compteRetour.Adresse[0].CodePostal = 0;
     compteRetour.Adresse[0].Ville = "";
  
-    compteRetour.Telephone = "01020304056";
+    compteRetour.Telephone = "0102030405";
     compteRetour.TelephonePortable = "0607080910";
     compteRetour.AdresseMail = "Adresse.Mail@messagerie.fr";
     compteRetour.CreePar = 0;

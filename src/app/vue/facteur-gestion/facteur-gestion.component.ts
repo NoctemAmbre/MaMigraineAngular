@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { Router, RouterModule } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
 import { Facteur, TypeReponse, TypeFacteur } from '../../model/facteur';
-//import { CompteService } from './../../service/compte/compte.service';
+import { CompteService } from './../../service/compte/compte.service';
 import { PatientService } from './../../service/patient/patient.service';
 import { FacteurService } from './../../service/facteur/facteur.service';
-import { Compte } from '../../model/compte';
 
+import { Compte } from '../../model/compte';
 
 @Component({
   selector: 'app-facteur-gestion',
@@ -13,9 +17,12 @@ import { Compte } from '../../model/compte';
 })
 export class FacteurGestionComponent implements OnInit {
 
-  patient : Compte;
-  //compte : Compte;
+  compte : Compte;
   ListFacteur : Facteur[] = [];
+  dataSource = new MatTableDataSource<Facteur>(this.ListFacteur);
+
+  patient : Compte;
+
   FacteurRecherche : string;
   FacteurAffichage : Facteur;
   FacteurSelectionne : Facteur;
@@ -24,13 +31,40 @@ export class FacteurGestionComponent implements OnInit {
   AffichageModificationFacteur : boolean = false;
   texttypeFacteur : string = "Type de facteur";
   texttypeReponse : string = "Type de réponse";
-  constructor(private facteurService : FacteurService, private patientService : PatientService) { }
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+  displayedColumns = ['Nom', 'Question', 'Modifier', 'Supprimer', 'Ajouter'];
+
+  
+
+  constructor(
+    private compteService  : CompteService,
+    private facteurService : FacteurService,
+    private patientService : PatientService,
+    private router:Router) { }
 
   ngOnInit() {
-    this.patientService.patient.subscribe(res => this.patient = res);
     //this.compteService.compte.subscribe(res => this.compte = res);
+    this.compteService.compte.subscribe(res => this.compte = res);
+    this.patientService.patient.subscribe(res => this.patient = res);
+    //if (this.compte.IDWeb == 0) this.router.navigate(['prospec']);
+    if (this.compte.Type == 2) this.displayedColumns = ['Nom', 'Question', 'Ajouter'];
+    else this.displayedColumns = ['Nom', 'Question', 'Modifier', 'Supprimer', 'Ajouter'];
+    
     this.facteurService.GetListTypeFacteur().subscribe(data => this.facteurService.ListeTypeFacteur = data.body);
     this.facteurService.GetListTypeReponse().subscribe(data => this.facteurService.ListeTypeReponse = data.body);
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   Supprimer(facteurAsupprimer : Facteur)
@@ -44,9 +78,11 @@ export class FacteurGestionComponent implements OnInit {
   }
   Modifier(facteurAModifier : Facteur)
   {
-
-
+    //console.log('le facteur a modifié est : ', facteurAModifier)
     this.NouveauFacteur = facteurAModifier;
+    this.texttypeFacteur = this.NouveauFacteur.TypeDeFacteur.Type;
+    this.texttypeReponse = this.NouveauFacteur.TypeDeReponse.Type;
+    
     if (this.AffichageModificationFacteur == true)  this.AffichageModificationFacteur = false;
     else this.AffichageModificationFacteur = true;
   }
@@ -63,10 +99,11 @@ export class FacteurGestionComponent implements OnInit {
 
     patientEnvois.MesFacteurs.push(FacteurEnvois);
 
-    this.patientService.compte = patientEnvois;
+    if(patientEnvois)this.patientService.compte = patientEnvois;
 
     this.patientService.AjouterFacteurAuPatient().subscribe(data => {      
       this.patient = (data.body as Compte);
+      this.patient.TableFacteur = new MatTableDataSource<Facteur>(this.patient.MesFacteurs);
       this.patientService.changePatient(this.patient);
     });
   }
@@ -85,6 +122,11 @@ export class FacteurGestionComponent implements OnInit {
       this.facteurService.GetFacteur().subscribe(data => {
         this.facteurService.Entravail = false;        
         this.ListFacteur = (data.body as Facteur[]);
+        console.log('résultat pour recherche de :', this.FacteurRecherche);
+        console.log(this.ListFacteur);
+        this.dataSource = new MatTableDataSource<Facteur>(this.ListFacteur);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       });
     }
     else { //on vide la liste dans le cas ou il y a moins de 4 caractère frappé dans le champs de recherche
@@ -92,13 +134,21 @@ export class FacteurGestionComponent implements OnInit {
     }
   }
   rechercheToutFacteur() {
-    if (this.ListFacteur.length > 0) this.ListFacteur = [];
+    
+    if (this.ListFacteur.length > 0) {
+      
+      this.ListFacteur = [];
+      console.log("les facteurs vide : ", this.ListFacteur); 
+    }
     else 
     {
       this.facteurService.GetToutFacteur().subscribe(data => {
         this.facteurService.Entravail = false;
         console.log("tout les facteurs : ", data.body); 
         this.ListFacteur = (data.body as Facteur[]);
+        this.dataSource = new MatTableDataSource<Facteur>(this.ListFacteur);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       });
     }
   }

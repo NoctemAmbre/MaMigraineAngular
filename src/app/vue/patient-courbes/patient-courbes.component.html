@@ -7,7 +7,7 @@
   </div>
 </div> -->
 
-<ul class="navbar-nav">
+<ul class="navbar-nav" *ngIf="patient && patient.IDWeb > 0">
   <!-- <li class="nav-item dropdown">
     <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Synthèse
@@ -27,7 +27,10 @@
       </button>
     </div>
   </li> -->
-  <li class="nav-item dropdown">
+
+
+
+  <!-- <li class="nav-item dropdown">
     <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Médicament
     </div>
@@ -35,9 +38,47 @@
       <div *ngFor="let Medicament of patient.MesMedicaments;let j=index">
         <button class="dropdown-item" type="button" (click)="ChoisiMedicament(Medicament)">{{Medicament.DenominationMedicament}}</button>
       </div>
-    </div>
-  </li>
-  <li class="nav-item dropdown">
+    </div> -->
+
+    <li class="nav-item dropdown" >
+      <button type="button">Médicament</button>
+      <div ngbDropdown role="group" aria-label="Button group with nested dropdown">
+        <button ngbDropdownToggle></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <div *ngFor="let Medicament of patient.MesMedicaments;let j=index">
+            <button class="dropdown-item" type="button" (click)="ChoisiMedicament(Medicament)">{{Medicament.DenominationMedicament}}</button>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <button type="button">Facteur</button>
+      <div ngbDropdown role="group" aria-label="Button group with nested dropdown">
+        <button ngbDropdownToggle></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <div *ngFor="let Facteur of patient.MesFacteurs;let j=index">
+            <button class="dropdown-item" type="button" (click)="ChoisiFacteur(Facteur)">{{Facteur.Nom}}</button>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <button type="button">Graphique</button>
+      <div ngbDropdown role="group" aria-label="Button group with nested dropdown">
+        <button ngbDropdownToggle></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button class="dropdown-item" type="button" (click)="Actualisation('line')">ligne</button>
+            <button class="dropdown-item" type="button" (click)="Actualisation('bar')">bar</button>
+            <button class="dropdown-item" type="button" (click)="Actualisation('radar')">radar</button>
+        </div>
+      </div>
+    </li>
+
+
+  <!-- </li> -->
+  <!-- <li class="nav-item dropdown">
     <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Facteur
     </div>
@@ -46,8 +87,8 @@
         <button class="dropdown-item" type="button" (click)="ChoisiFacteur(Facteur)">{{Facteur.Nom}}</button>
       </div>
     </div>
-  </li>
-  <li class="nav-item dropdown">
+  </li> -->
+  <!-- <li class="nav-item dropdown">
     <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Graph
     </div>
@@ -56,7 +97,7 @@
       <button class="dropdown-item" type="button" (click)="Actualisation('bar')">bar</button>
       <button class="dropdown-item" type="button" (click)="Actualisation('radar')">radar</button>
     </div>
-  </li>
+  </li> -->
 </ul>
 
 
@@ -93,7 +134,8 @@
   </div>
 </div> -->
 
-<div class="container">
+<div class="container" *ngIf="patient && patient.synthese != null">
+<!-- <div class="container" *ngIf="patient"> -->
   Nombre Mensuel
   <div class="col-md-12">
     <div style="display: block;">
